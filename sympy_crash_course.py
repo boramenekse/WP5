@@ -135,4 +135,14 @@ print(smp.linsolve(matrix, (x, y, z))) # Output: {(-y - 1, y, 2)} -> x = -y-1, y
 # In order to get the solutions:
 results = smp.linsolve(matrix, (x, y, z)) # returns a sympy set
 print(list(results)) # Convert results sympy set to a list Output: [(-y - 1, y, 2)] 
-print(type(list(results)[0])) # getting the first thing in the list, and since it is a tuple, get the first thing in that tuple
+print(list(results)[0]) # getting the first thing in the list, and since it is a tuple, get the first thing in that tuple
+
+# Step functions
+# Because of a convention in electronics and signal processing, when you put the value that makes the function equal to zero, heaviside returns 1/2. However, you can change it by adding an argument as I did. 
+step1 = smp.Heaviside(x-2) # at 2 -> gives 1/2
+step2 = smp.Heaviside(x-2, 0) # at 2 -> gives 0
+print(step2.subs(x, 3)) # Output: 1
+print(step2.subs(x, 1)) # Output: 0
+print(step2.subs(x, 2)) # Output: 0
+step3 = smp.Heaviside(x-2, 1)
+print(step3.subs(x, 2)) # Output: 1
