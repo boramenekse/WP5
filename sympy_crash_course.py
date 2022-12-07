@@ -115,7 +115,7 @@ m_fun = smp.lambdify([vx, vy], m) # smp.lambdify([list of parameters], expressio
 
 # Polynomial division
 f = s6*x**5 + s5*x**4 + s4*x**3 + s3*x**2 + s2*x+ s1
-g = t3*x**3 + t2*x**2 + t1*x + t
+g = t3*x**3 + t2*x**2 + t1*x + t # t + x**3/250 + 3*x**2/1000 + x/500
 print(smp.div(f, g, domain='QQ')) # Returns a tuple in the form: (quotient, remainder) Output: (250*s4 + 250*s5*x - 375*s5/2 + 250*s6*x**2 - 375*s6*x/2 + 125*s6/8, s1 + s2*x + s3*x**2 - 250*s4*t - 3*s4*x**2/4 - s4*x/2 - 250*s5*t*x + 375*s5*t/2 + s5*x**2/16 + 3*s5*x/8 - 250*s6*t*x**2 + 375*s6*t*x/2 - 125*s6*t/8 + 21*s6*x**2/64 - s6*x/32) 
 
 # Solving equations
