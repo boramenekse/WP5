@@ -26,6 +26,8 @@ Str_N = 0 #the number of stringers has to be 2, 6, 10, 14, 18, 22, etc...
 k = 4   #clamping conditions
 L = 1   #spacing between the ribs
 
+#jump in the moment diagram 11.69m
+#loading case 16 and loading case 12
 
 #spanwise location
 y = 0
