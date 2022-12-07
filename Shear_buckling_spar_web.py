@@ -3,12 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 #also check compressive failure for this component
 
-t_fs_root_1 = 0.05
-t_rs_root_1 = 0.05
-t_fs_root_2 = 0.05
-t_rs_root_2 = 0.05
-t_fs_root_3 = 0.05
-t_rs_root_3 = 0.05
+t_fs_root_1 = 0.045
+t_rs_root_1 = 0.045
+t_fs_root_2 = 0.121
+t_rs_root_2 = 0.121
+t_fs_root_3 = 0.1
+t_rs_root_3 = 0.1
 
 ### SETTING SOME CONSTANTS VOR THE FORMULAE
 
@@ -17,7 +17,7 @@ c_tip = 3.25
 wingspan = 66.78
 
 pi = math.pi            # get pi from the math repository
-E = 69 * (10 ** 6)      # define the young's modulus, in Pa
+E = 69 * (10 ** 9)      # define the young's modulus, in Pa
 v = 0.33                # define the poissons ratio, no unit
 k_s = 9.6               # define the k_s constant, found in figure 16 from the reader, no unit
 
@@ -108,7 +108,7 @@ def get_shear_functions(y_list):
 
 LC_8_shear, LC_12_shear, LC_16_shear = get_shear_functions(y_list)
 
-#check
+#check the calculations
 #plt.plot(y_list, LC_8_shear)
 #plt.plot(y_list, LC_12_shear)
 #plt.plot(y_list, LC_16_shear)
@@ -136,13 +136,25 @@ for i in range(len(y_list)):
     tau_average_16_2 = LC_16_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_2(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_2(y))
     tau_average_16_3 = LC_16_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_3(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_3(y))
 
-    average_shear_stress_8_1_list.append(tau_average_8_1)
-    average_shear_stress_8_2_list.append(tau_average_8_2)
-    average_shear_stress_8_3_list.append(tau_average_8_3)
-    average_shear_stress_12_1_list.append(tau_average_12_1)
-    average_shear_stress_12_2_list.append(tau_average_12_2)
-    average_shear_stress_12_3_list.append(tau_average_12_3)
-    average_shear_stress_16_1_list.append(tau_average_16_1)
-    average_shear_stress_16_2_list.append(tau_average_16_2)
-    average_shear_stress_16_3_list.append(tau_average_16_3)
+    average_shear_stress_8_1_list.append(abs(tau_average_8_1))
+    average_shear_stress_8_2_list.append(abs(tau_average_8_2))
+    average_shear_stress_8_3_list.append(abs(tau_average_8_3))
+    average_shear_stress_12_1_list.append(abs(tau_average_12_1))
+    average_shear_stress_12_2_list.append(abs(tau_average_12_2))
+    average_shear_stress_12_3_list.append(abs(tau_average_12_3))
+    average_shear_stress_16_1_list.append(abs(tau_average_16_1))
+    average_shear_stress_16_2_list.append(abs(tau_average_16_2))
+    average_shear_stress_16_3_list.append(abs(tau_average_16_3))
 
+#check the calculations
+#plt.plot(y_list, average_shear_stress_8_1_list)
+#plt.plot(y_list, average_shear_stress_8_2_list)
+#plt.plot(y_list, average_shear_stress_8_3_list)
+#plt.plot(y_list, average_shear_stress_12_1_list)
+#plt.plot(y_list, average_shear_stress_12_2_list)
+#plt.plot(y_list, average_shear_stress_12_3_list)
+#plt.plot(y_list, average_shear_stress_16_1_list)
+#plt.plot(y_list, average_shear_stress_16_2_list)
+#plt.plot(y_list, average_shear_stress_16_3_list)
+#plt.legend(["av,tao_8_1", "av,tao_8_2", "av,tao_8_3", "av,tao_12_1", "av,tao_12_2", "av,tao_12_3", "av,tao_16_1", "av,tao_16_2", "av,tao_16_3"])
+#plt.show()
