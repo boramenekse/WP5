@@ -13,9 +13,19 @@ Chord_root = 11.59426354 #[m]
 e_mod = 69*10**9 #[pa]
 g_mod = 26*10**9 #[pa]
 
-#stringers
-Str_A = 0.001 #[m^2]
+#L stringer parameters
+
+Str_h_len = 0
+Str_v_len = 0
+Str_h_th = 0
+Str_v_th = 0
+
+#Str_A = 0.001 #[m^2]
+Str_A = Str_h_len*Str_h_th + Str_v_len*Str_v_th
 Str_N = 0 #the number of stringers has to be 2, 6, 10, 14, 18, 22, etc...
+
+
+
 
 #spanwise location
 y = 0
