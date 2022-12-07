@@ -81,7 +81,7 @@ for y in y_list:
     critical_shear_stress_rear_spar_list_3.append(get_critical_shear_stress(pi, get_rear_spar_lenth(y), k_s, get_thickness_rear_spar_3(y), E, v))
 
 #check the calculations
-plt.plot(y_list, critical_shear_stress_forward_spar_list_1)
-plt.plot(y_list, critical_shear_stress_rear_spar_list_1)
-plt.legend(["forward", "rear"])
-plt.show()
+#plt.plot(y_list, critical_shear_stress_forward_spar_list_1)
+#plt.plot(y_list, critical_shear_stress_rear_spar_list_1)
+#plt.legend(["forward", "rear"])
+#plt.show()
