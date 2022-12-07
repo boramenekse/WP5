@@ -65,6 +65,7 @@ print(m.args[0].args) # output: (-7/520, Vy)
 print(m.args[1].args) # output: (17/520, Vx)
 print('Eta is: {}'.format(m.args[0].args[0]))
 print('Xi is: {}'.format(m.args[1].args[0]))
+print('Xi is: {1} and Eta is:{0}'.format(m.args[0].args[0], m.args[1].args[0])) #more than 1 bracked inside the string
 # Or I could just use sympy_expression.coeff(the variable to get the coefficient for)
 print(m.coeff(vy)) # Output: -7/520
 print(m.coeff(vx)) # Output: 17/520
