@@ -15,10 +15,10 @@ g_mod = 26*10**9 #[pa]
 
 #L stringer parameters
 
-Str_h_len = 0
-Str_v_len = 0
-Str_h_th = 0
-Str_v_th = 0
+Str_h_len = 1
+Str_v_len = 1
+Str_h_th = 0.1
+Str_v_th = 0.1
 
 #Str_A = 0.001 #[m^2]
 Str_A = Str_h_len*Str_h_th + Str_v_len*Str_v_th
