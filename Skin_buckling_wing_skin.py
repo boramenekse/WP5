@@ -24,17 +24,18 @@ taper = smp.symbols('\u03BB', real=True, positive=True)
 
 emod = var.e_mod
 gmod = var.g_mod
-b_2 = 0.5*var.Span
-cr = var.Chord_root
+b_2 = 0.5*smp.nsimplify(round(var.Span, 7))
+cr = smp.nsimplify(round(var.Chord_root, 7))
 g_e_relation = smp.Eq(gmod, smp.Rational(1, 2)*(emod/(1+v))) 
 v = smp.solve(g_e_relation, v)[0]
-taper = var.Taper_ratio
-ttopr = var.Sheet_top_th_root
-tbotr = var.Sheet_bottom_th_root
+print(v)
+taper = smp.nsimplify(round(var.Taper_ratio, 7))
+ttopr = smp.nsimplify(round(var.Sheet_top_th_root, 7))
+tbotr = smp.nsimplify(round(var.Sheet_bottom_th_root, 7))
 ttopfun = ttopr*(1 + (var.Taper_ratio-1)*(y/b_2))
 ttopfun = tbotr*(1 + (var.Taper_ratio-1)*(y/b_2))
-theta_top = var.Sheet_top_angle
-theta_bot = var.Sheet_bottom_angle
+theta_top = smp.nsimplify(round(var.Sheet_top_angle, 7))
+theta_bot = smp.nsimplify(round(var.Sheet_bottom_angle, 7))
 
 def sigma(kc, t, b):
   expr = smp.Rational(1, 12) * ((smp.pi**2 * kc * emod)/(1 - v**2)) * (t/b)**2
