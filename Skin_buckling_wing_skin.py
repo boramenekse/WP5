@@ -28,7 +28,6 @@ b_2 = 0.5*smp.nsimplify(round(var.Span, 7))
 cr = smp.nsimplify(round(var.Chord_root, 7))
 g_e_relation = smp.Eq(gmod, smp.Rational(1, 2)*(emod/(1+v))) 
 v = smp.solve(g_e_relation, v)[0]
-print(v)
 taper = smp.nsimplify(round(var.Taper_ratio, 7))
 ttopr = smp.nsimplify(round(var.Sheet_top_th_root, 7))
 tbotr = smp.nsimplify(round(var.Sheet_bottom_th_root, 7))
