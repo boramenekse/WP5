@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import Copy_Variables_for_crossection as var
 from Moment_of_inertia_z_span import return_parameters
-
+from Moment_of_inertia_x_span import print_fit
 
 #Moment Distribution
 #loading case 16 and loading case 12
@@ -36,8 +36,13 @@ M2_12 = [-0.19569866608662626, 6.680180498386035, 347.65040326524246, -3851.0392
 M1_16 = [0.40016072099856226, -9.397942238957981, -1047.384217723905, 6708.870613191617, 1582191.8673072485, -33488163.089606084] 
 M2_16 = [0.40016072098555516, -9.397942238637903, -1047.3842177269048, 6708.870613212022, 1967575.6173070923, -39113307.35963459] 
 
-par_list = return_parameters()
-izz_fun = smp.nsimplify(round(par_list[0], 6))*x**3+smp.nsimplify(round(par_list[1], 6))*x**2+smp.nsimplify(round(par_list[2], 6))*x+smp.nsimplify(round(par_list[3], 6))
+# Izz
+par_list_z = return_parameters()
+izz_fun = smp.nsimplify(round(par_list_z[0], 6))*x**3+smp.nsimplify(round(par_list_z[1], 6))*x**2+smp.nsimplify(round(par_list_z[2], 6))*x+smp.nsimplify(round(par_list_z[3], 6))
+
+# Ixx
+par_list_x = print_fit()
+ixx_fun = smp.nsimplify(round(par_list_x[0], 6))*x**3+smp.nsimplify(round(par_list_x[1], 6))*x**2+smp.nsimplify(round(par_list_x[2], 6))*x+smp.nsimplify(round(par_list_x[3], 6))
 
 #Normal force diagram (until 11.69)
 #force is -500000 N (compression)
