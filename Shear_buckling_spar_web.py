@@ -20,7 +20,7 @@ pi = math.pi            # get pi from the math repository
 E = 69 * (10 ** 9)      # define the young's modulus, in Pa
 v = 0.33                # define the poissons ratio, no unit
 k_s = 9.6               # define the k_s constant, found in figure 16 from the reader, no unit
-k_v = 1.1
+k_v = 1.3
 
 
 def get_chord(y):
@@ -254,3 +254,87 @@ plt.plot(y_list, shear_stress_torque_LC_16_3_rear)
 plt.show()
 
 
+shear_stress_LC_8_1_forward = []
+shear_stress_LC_8_1_rear = []
+shear_stress_LC_8_2_forward = []
+shear_stress_LC_8_2_rear = []
+shear_stress_LC_8_3_forward = []
+shear_stress_LC_8_3_rear = []
+shear_stress_LC_12_1_forward = []
+shear_stress_LC_12_1_rear = []
+shear_stress_LC_12_2_forward = []
+shear_stress_LC_12_2_rear = []
+shear_stress_LC_12_3_forward = []
+shear_stress_LC_12_3_rear = []
+shear_stress_LC_16_1_forward = []
+shear_stress_LC_16_1_rear = []
+shear_stress_LC_16_2_forward = []
+shear_stress_LC_16_2_rear = []
+shear_stress_LC_16_3_forward = []
+shear_stress_LC_16_3_rear = []
+for i in range(len(y_list)):
+    shear_stress_LC_8_1_forward.append(average_shear_stress_8_1_list[i] - shear_stress_torque_LC_8_1_forward[i])
+    shear_stress_LC_8_1_rear.append(average_shear_stress_8_1_list[i] + shear_stress_torque_LC_8_1_rear[i])
+    shear_stress_LC_8_2_forward.append(average_shear_stress_8_2_list[i] - shear_stress_torque_LC_8_2_forward[i])
+    shear_stress_LC_8_2_rear.append(average_shear_stress_8_2_list[i] + shear_stress_torque_LC_8_2_rear[i])
+    shear_stress_LC_8_3_forward.append(average_shear_stress_8_3_list[i] - shear_stress_torque_LC_8_3_forward[i])
+    shear_stress_LC_8_3_rear.append(average_shear_stress_8_3_list[i] + shear_stress_torque_LC_8_3_rear[i])
+    shear_stress_LC_12_1_forward.append(average_shear_stress_12_1_list[i] - shear_stress_torque_LC_12_1_forward[i])
+    shear_stress_LC_12_1_rear.append(average_shear_stress_12_1_list[i] + shear_stress_torque_LC_12_1_rear[i])
+    shear_stress_LC_12_2_forward.append(average_shear_stress_12_2_list[i] - shear_stress_torque_LC_12_2_forward[i])
+    shear_stress_LC_12_2_rear.append(average_shear_stress_12_2_list[i] + shear_stress_torque_LC_12_2_rear[i])
+    shear_stress_LC_12_3_forward.append(average_shear_stress_12_3_list[i] - shear_stress_torque_LC_12_3_forward[i])
+    shear_stress_LC_12_3_rear.append(average_shear_stress_12_3_list[i] + shear_stress_torque_LC_12_3_rear[i])
+    shear_stress_LC_16_1_forward.append(average_shear_stress_16_1_list[i] - shear_stress_torque_LC_16_1_forward[i])
+    shear_stress_LC_16_1_rear.append(average_shear_stress_16_1_list[i] + shear_stress_torque_LC_16_1_rear[i])
+    shear_stress_LC_16_2_forward.append(average_shear_stress_16_2_list[i] - shear_stress_torque_LC_16_2_forward[i])
+    shear_stress_LC_16_2_rear.append(average_shear_stress_16_2_list[i] + shear_stress_torque_LC_16_2_rear[i])
+    shear_stress_LC_16_3_forward.append(average_shear_stress_16_3_list[i] - shear_stress_torque_LC_16_3_forward[i])
+    shear_stress_LC_16_3_rear.append(average_shear_stress_16_3_list[i] + shear_stress_torque_LC_16_3_rear[i])
+
+#PLOTTING OF THE DIFFERENT PHILOSOPHYS AND FORWARD OR REAR
+
+#Desing philosophy 1
+#Front
+plt.plot(y_list, critical_shear_stress_forward_spar_list_1)
+plt.plot(y_list, shear_stress_LC_8_1_forward)
+plt.plot(y_list, shear_stress_LC_12_1_forward)
+plt.plot(y_list, shear_stress_LC_16_1_forward)
+plt.show()
+
+#Rear
+plt.plot(y_list, critical_shear_stress_rear_spar_list_1)
+plt.plot(y_list, shear_stress_LC_8_1_rear)
+plt.plot(y_list, shear_stress_LC_12_1_rear)
+plt.plot(y_list, shear_stress_LC_16_1_rear)
+plt.show()
+
+#Desing philosophy 2
+#Front
+plt.plot(y_list, critical_shear_stress_forward_spar_list_2)
+plt.plot(y_list, shear_stress_LC_8_2_forward)
+plt.plot(y_list, shear_stress_LC_12_2_forward)
+plt.plot(y_list, shear_stress_LC_16_2_forward)
+plt.show()
+
+#Rear
+plt.plot(y_list, critical_shear_stress_rear_spar_list_2)
+plt.plot(y_list, shear_stress_LC_8_2_rear)
+plt.plot(y_list, shear_stress_LC_12_2_rear)
+plt.plot(y_list, shear_stress_LC_16_2_rear)
+plt.show()
+
+#Desing philosophy 3
+#Front
+plt.plot(y_list, critical_shear_stress_forward_spar_list_3)
+plt.plot(y_list, shear_stress_LC_8_3_forward)
+plt.plot(y_list, shear_stress_LC_12_3_forward)
+plt.plot(y_list, shear_stress_LC_16_3_forward)
+plt.show()
+
+#Rear
+plt.plot(y_list, critical_shear_stress_rear_spar_list_3)
+plt.plot(y_list, shear_stress_LC_8_3_rear)
+plt.plot(y_list, shear_stress_LC_12_3_rear)
+plt.plot(y_list, shear_stress_LC_16_3_rear)
+plt.show()

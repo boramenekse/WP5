@@ -16,6 +16,7 @@ d = smp.symbols('d', real=True, positive=True)
 t = smp.symbols('t', real=True)
 x = smp.symbols('x', real=True)
 y = smp.symbols('y', real=True)
+z = smp.symbols('z', real=True)
 r = smp.symbols('r', real=True, positive=True)
 alpha = smp.symbols('\u03B1', real=True)
 beta = smp.symbols('\u03B2', real=True)
@@ -52,18 +53,18 @@ mx_fun_16 = md_fun1_16-md_fun1_16*heaviside+md_fun2_16*heaviside
 Ny_fun = -500000 + 500000*heaviside
 mz_fun = -6008660+514000*x-(-6008660+514000*x)*heaviside
 
-span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
-plt.figure()
-plt.plot(span, -smp.lambdify([x], mx_fun_12)(span[0:]))
-plt.plot(span, -smp.lambdify([x], mx_fun_16)(span[0:]))
-plt.plot(span, smp.lambdify([x], Ny_fun)(span[0:]))
-plt.plot(span, smp.lambdify([x], mz_fun)(span[0:]))
-plt.show()
+#span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
+#plt.figure()
+#plt.plot(span, -smp.lambdify([x], mx_fun_12)(span[0:]))
+#plt.plot(span, -smp.lambdify([x], mx_fun_16)(span[0:]))
+#plt.plot(span, smp.lambdify([x], Ny_fun)(span[0:]))
+#plt.plot(span, smp.lambdify([x], mz_fun)(span[0:]))
+#plt.show()
 
-ixx_1 = []
-ixx_2 = []
-ixx_3 = []
+Ixx = 0
+Izz = 0
 
-def sigma_z(mx, my, ixx, iyy, ixy, x, y):
-  exp = ((mx*iyy-my*ixy)*y+(my*ixx-mx*ixy)*x)/(ixx*iyy-ixy**2)
+
+def sigma_z(mx, my, ixx, iyy, ixy, x, z):
+  exp = ((mx*iyy-my*ixy)*z+(my*ixx-mx*ixy)*x)/(ixx*iyy-ixy**2)
   return exp
