@@ -20,7 +20,7 @@ pi = math.pi            # get pi from the math repository
 E = 69 * (10 ** 9)      # define the young's modulus, in Pa
 v = 0.33                # define the poissons ratio, no unit
 k_s = 9.6               # define the k_s constant, found in figure 16 from the reader, no unit
-k_v = 5
+k_v = 1.1
 
 
 def get_chord(y):
@@ -85,8 +85,8 @@ for y in y_list:
     critical_shear_stress_rear_spar_list_3.append(get_critical_shear_stress(pi, get_rear_spar_lenth(y), k_s, get_thickness_rear_spar_3(y), E, v))
 
 #check the calculations
-plt.plot(y_list, critical_shear_stress_forward_spar_list_1)
-plt.plot(y_list, critical_shear_stress_rear_spar_list_1)
+#plt.plot(y_list, critical_shear_stress_forward_spar_list_1)
+#plt.plot(y_list, critical_shear_stress_rear_spar_list_1)
 #plt.legend(["forward", "rear"])
 #plt.show()
 
@@ -158,14 +158,99 @@ for i in range(len(y_list)):
     maximum_shear_stress_16_3_list = [i * k_v for i in average_shear_stress_16_3_list]
 
 #check the calculations
-plt.plot(y_list, maximum_shear_stress_8_1_list)
-plt.plot(y_list, maximum_shear_stress_8_2_list)
-plt.plot(y_list, maximum_shear_stress_8_3_list)
-plt.plot(y_list, maximum_shear_stress_12_1_list)
-plt.plot(y_list, maximum_shear_stress_12_2_list)
-plt.plot(y_list, maximum_shear_stress_12_3_list)
-plt.plot(y_list, maximum_shear_stress_16_1_list)
-plt.plot(y_list, maximum_shear_stress_16_2_list)
-plt.plot(y_list, maximum_shear_stress_16_3_list)
-plt.legend(["av,tao_8_1", "av,tao_8_2", "av,tao_8_3", "av,tao_12_1", "av,tao_12_2", "av,tao_12_3", "av,tao_16_1", "av,tao_16_2", "av,tao_16_3"])
+#plt.plot(y_list, maximum_shear_stress_8_1_list)
+#plt.plot(y_list, maximum_shear_stress_8_2_list)
+#plt.plot(y_list, maximum_shear_stress_8_3_list)
+#plt.plot(y_list, maximum_shear_stress_12_1_list)
+#plt.plot(y_list, maximum_shear_stress_12_2_list)
+#plt.plot(y_list, maximum_shear_stress_12_3_list)
+#plt.plot(y_list, maximum_shear_stress_16_1_list)
+#plt.plot(y_list, maximum_shear_stress_16_2_list)
+#plt.plot(y_list, maximum_shear_stress_16_3_list)
+#plt.legend(["av,tao_8_1", "av,tao_8_2", "av,tao_8_3", "av,tao_12_1", "av,tao_12_2", "av,tao_12_3", "av,tao_16_1", "av,tao_16_2", "av,tao_16_3"])
+#plt.show()
+
+
+###CONTRIBUTION OF TORQUE
+
+def get_LC_8_torque(y):
+    if y < 11.69:
+        return -4.936650618346473 * y**4 + 335.5436542921075 * y**3 + 8009.420697124085 * y**2 + -1010097.9604714005 * y + 15577734.006808802
+    else:
+        return -4.936650618384433 * y**4 + 335.5436542929485 * y**3 + 8009.420697118811 * y**2 + -1010097.9604714005 * y + 18442679.692323517
+
+def get_LC_12_torque(y):
+    if y < 11.69:
+        return 1.109847947180169 * y**4 + -162.7034547538029 * y**3 + 12610.129687494236 * y**2 + -481202.06432541495 * y + 9929226.911220081
+    else:
+        return 1.109847947180169 * y**4 + -162.7034547538029 * y**3 + 12610.129687491217 * y**2 + -481202.0643254161 * y + 6685718.310560216
+
+def get_LC_16_torque(y):
+    if y < 11.69:
+        return -4.0265674601192325 * y**4 + 336.1076467822765 * y**3 + -1734.6018412792378 * y**2 + -458768.07825406635 * y + 6880148.502473444
+    else:
+        return -4.0265674601192325 * y**4 + 336.1076467822765 * y**3 + -1734.6018412792378 * y**2 + -458768.0782540611 * y + 9745094.187988076
+
+def get_inclosed_area(y):
+    return (get_forward_spar_lenth(y) + get_rear_spar_lenth(y)) * 0.55 * get_chord(y)
+
+shear_stress_torque_LC_8_1_forward = []
+shear_stress_torque_LC_8_1_rear = []
+shear_stress_torque_LC_8_2_forward = []
+shear_stress_torque_LC_8_2_rear = []
+shear_stress_torque_LC_8_3_forward = []
+shear_stress_torque_LC_8_3_rear = []
+shear_stress_torque_LC_12_1_forward = []
+shear_stress_torque_LC_12_1_rear = []
+shear_stress_torque_LC_12_2_forward = []
+shear_stress_torque_LC_12_2_rear = []
+shear_stress_torque_LC_12_3_forward = []
+shear_stress_torque_LC_12_3_rear = []
+shear_stress_torque_LC_16_1_forward = []
+shear_stress_torque_LC_16_1_rear = []
+shear_stress_torque_LC_16_2_forward = []
+shear_stress_torque_LC_16_2_rear = []
+shear_stress_torque_LC_16_3_forward = []
+shear_stress_torque_LC_16_3_rear = []
+
+for y in y_list:
+    shear_stress_torque_LC_8_1_forward.append(get_LC_8_torque(y) * get_thickness_forward_spar_1(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_8_1_rear.append(get_LC_8_torque(y) * get_thickness_rear_spar_1(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_8_2_forward.append(get_LC_8_torque(y) * get_thickness_forward_spar_2(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_8_2_rear.append(get_LC_8_torque(y) * get_thickness_rear_spar_2(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_8_3_forward.append(get_LC_8_torque(y) * get_thickness_forward_spar_3(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_8_3_rear.append(get_LC_8_torque(y) * get_thickness_rear_spar_3(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_12_1_forward.append(get_LC_12_torque(y) * get_thickness_forward_spar_1(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_12_1_rear.append(get_LC_12_torque(y) * get_thickness_rear_spar_1(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_12_2_forward.append(get_LC_12_torque(y) * get_thickness_forward_spar_2(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_12_2_rear.append(get_LC_12_torque(y) * get_thickness_rear_spar_2(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_12_3_forward.append(get_LC_12_torque(y) * get_thickness_forward_spar_3(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_12_3_rear.append(get_LC_12_torque(y) * get_thickness_rear_spar_3(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_16_1_forward.append(get_LC_16_torque(y) * get_thickness_forward_spar_1(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_16_1_rear.append(get_LC_16_torque(y) * get_thickness_rear_spar_1(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_16_2_forward.append(get_LC_16_torque(y) * get_thickness_forward_spar_2(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_16_2_rear.append(get_LC_16_torque(y) * get_thickness_rear_spar_2(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_16_3_forward.append(get_LC_16_torque(y) * get_thickness_forward_spar_3(y) / (2 * get_inclosed_area(y)))
+    shear_stress_torque_LC_16_3_rear.append(get_LC_16_torque(y) * get_thickness_rear_spar_3(y) / (2 * get_inclosed_area(y)))
+
+plt.plot(y_list, shear_stress_torque_LC_8_1_forward)
+plt.plot(y_list, shear_stress_torque_LC_8_1_rear)
+plt.plot(y_list, shear_stress_torque_LC_8_2_forward)
+plt.plot(y_list, shear_stress_torque_LC_8_2_rear)
+plt.plot(y_list, shear_stress_torque_LC_8_3_forward)
+plt.plot(y_list, shear_stress_torque_LC_8_3_rear)
+plt.plot(y_list, shear_stress_torque_LC_12_1_forward)
+plt.plot(y_list, shear_stress_torque_LC_12_1_rear)
+plt.plot(y_list, shear_stress_torque_LC_12_2_forward)
+plt.plot(y_list, shear_stress_torque_LC_12_2_rear)
+plt.plot(y_list, shear_stress_torque_LC_12_3_forward)
+plt.plot(y_list, shear_stress_torque_LC_12_3_rear)
+plt.plot(y_list, shear_stress_torque_LC_16_1_forward)
+plt.plot(y_list, shear_stress_torque_LC_16_1_rear)
+plt.plot(y_list, shear_stress_torque_LC_16_2_forward)
+plt.plot(y_list, shear_stress_torque_LC_16_2_rear)
+plt.plot(y_list, shear_stress_torque_LC_16_3_forward)
+plt.plot(y_list, shear_stress_torque_LC_16_3_rear)
 plt.show()
+
+
