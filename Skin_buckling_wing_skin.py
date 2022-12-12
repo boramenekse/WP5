@@ -51,6 +51,7 @@ def b(y, theta):
   b_y = c_local*smp.Rational(11, 20)/smp.cos(theta)
   return b_y.simplify()
 
+# KS for C with SS loaded edges 
 a_b = np.linspace(0, 5, 1000, endpoint=True)
 ab = smp.symbols('a_b', real=True, positive=True)
 m = smp.symbols('m', real=True, positive=True)
