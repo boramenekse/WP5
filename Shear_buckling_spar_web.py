@@ -292,32 +292,49 @@ for i in range(len(y_list)):
     shear_stress_LC_16_3_forward.append(average_shear_stress_16_3_list[i] - shear_stress_torque_LC_16_3_forward[i])
     shear_stress_LC_16_3_rear.append(average_shear_stress_16_3_list[i] + shear_stress_torque_LC_16_3_rear[i])
 
+#PLOTTING OF THE DIFFERENT PHILOSOPHYS AND FORWARD OR REAR
+
+#Desing philosophy 1
+#Front
 plt.plot(y_list, critical_shear_stress_forward_spar_list_1)
-plt.plot(y_list, critical_shear_stress_rear_spar_list_1)
 plt.plot(y_list, shear_stress_LC_8_1_forward)
-plt.plot(y_list, shear_stress_LC_8_1_rear)
 plt.plot(y_list, shear_stress_LC_12_1_forward)
-plt.plot(y_list, shear_stress_LC_12_1_rear)
 plt.plot(y_list, shear_stress_LC_16_1_forward)
+plt.show()
+
+#Rear
+plt.plot(y_list, critical_shear_stress_rear_spar_list_1)
+plt.plot(y_list, shear_stress_LC_8_1_rear)
+plt.plot(y_list, shear_stress_LC_12_1_rear)
 plt.plot(y_list, shear_stress_LC_16_1_rear)
 plt.show()
 
+#Desing philosophy 2
+#Front
 plt.plot(y_list, critical_shear_stress_forward_spar_list_2)
-plt.plot(y_list, critical_shear_stress_rear_spar_list_2)
 plt.plot(y_list, shear_stress_LC_8_2_forward)
-plt.plot(y_list, shear_stress_LC_8_2_rear)
 plt.plot(y_list, shear_stress_LC_12_2_forward)
-plt.plot(y_list, shear_stress_LC_12_2_rear)
 plt.plot(y_list, shear_stress_LC_16_2_forward)
+plt.show()
+
+#Rear
+plt.plot(y_list, critical_shear_stress_rear_spar_list_2)
+plt.plot(y_list, shear_stress_LC_8_2_rear)
+plt.plot(y_list, shear_stress_LC_12_2_rear)
 plt.plot(y_list, shear_stress_LC_16_2_rear)
 plt.show()
 
+#Desing philosophy 3
+#Front
 plt.plot(y_list, critical_shear_stress_forward_spar_list_3)
-plt.plot(y_list, critical_shear_stress_rear_spar_list_3)
 plt.plot(y_list, shear_stress_LC_8_3_forward)
-plt.plot(y_list, shear_stress_LC_8_3_rear)
 plt.plot(y_list, shear_stress_LC_12_3_forward)
-plt.plot(y_list, shear_stress_LC_12_3_rear)
 plt.plot(y_list, shear_stress_LC_16_3_forward)
+plt.show()
+
+#Rear
+plt.plot(y_list, critical_shear_stress_rear_spar_list_3)
+plt.plot(y_list, shear_stress_LC_8_3_rear)
+plt.plot(y_list, shear_stress_LC_12_3_rear)
 plt.plot(y_list, shear_stress_LC_16_3_rear)
 plt.show()
