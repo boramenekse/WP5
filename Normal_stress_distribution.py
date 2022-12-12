@@ -26,8 +26,8 @@ theta = smp.symbols('\u03B8', real=True)
 eta = smp.symbols('\u03B7', real=True)
 xi = smp.symbols('\u03BE', real=True)
 ixx = smp.symbols('Ixx', real=True)
-iyy = smp.symbols('Ixy', real=True)
-ixy = smp.symbols('Iyy', real=True)
+iyy = smp.symbols('Iyy', real=True)
+ixy = smp.symbols('Ixy', real=True)
 mx = smp.symbols('Mx', real=True)
 my = smp.symbols('My', real=True)
 
@@ -70,6 +70,8 @@ Ixx = 0
 Izz = 0
 
 
-def sigma_z(mx, my, ixx, iyy, ixy, x, z):
-  exp = ((mx*iyy-my*ixy)*z+(my*ixx-mx*ixy)*x)/(ixx*iyy-ixy**2)
+def sigma_z(mx, mz, ixx, iyy, ixy=0, x, z):
+  exp = ((mx*z)/ixx+(mz*x)/iyy)
   return exp
+
+stress = sigma_z(mx_fun_12, mz_fun, ixx, iyy, x, z)
