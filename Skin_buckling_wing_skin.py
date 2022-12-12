@@ -34,7 +34,7 @@ taper = smp.nsimplify(round(var.Taper_ratio, 7))
 ttopr = smp.nsimplify(round(var.Sheet_top_th_root, 7))
 tbotr = smp.nsimplify(round(var.Sheet_bottom_th_root, 7))
 ttopfun = ttopr*(1 + (taper-1)*(y/b_2))
-ttopfun = tbotr*(1 + (taper-1)*(y/b_2))
+tbotfun = tbotr*(1 + (taper-1)*(y/b_2))
 theta_top = smp.nsimplify(round(var.Sheet_top_angle, 7))
 theta_bot = smp.nsimplify(round(var.Sheet_bottom_angle, 7))
 
