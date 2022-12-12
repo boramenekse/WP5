@@ -20,7 +20,7 @@ top_t_list = [0.063, 0.056, 0.057]
 bottom_t_list = [0.063, 0.056, 0.057]
 
 #Creating the function which calculates the moment of inertia at a certain spanwise location:
-def Moi_x_wingbox(p, no_str, fr_t_root, re_t_root, top_sheet_t_root, bottom_sheet_t_root):
+def Moi_x_wingbox(p):
     #input parameters
 
     #Taper ratio and span

@@ -37,7 +37,7 @@ M1_16 = [0.40016072099856226, -9.397942238957981, -1047.384217723905, 6708.87061
 M2_16 = [0.40016072098555516, -9.397942238637903, -1047.3842177269048, 6708.870613212022, 1967575.6173070923, -39113307.35963459] 
 
 par_list = return_parameters()
-ixx_fun = smp.nsimplify(round(par_list[0], 6))*x**3+smp.nsimplify(round(par_list[1], 6))*x**2+smp.nsimplify(round(par_list[2], 6))*x+smp.nsimplify(round(par_list[3], 6))
+izz_fun = smp.nsimplify(round(par_list[0], 6))*x**3+smp.nsimplify(round(par_list[1], 6))*x**2+smp.nsimplify(round(par_list[2], 6))*x+smp.nsimplify(round(par_list[3], 6))
 
 #Normal force diagram (until 11.69)
 #force is -500000 N (compression)
