@@ -310,8 +310,10 @@ ax2.plot(y_list, shear_stress_LC_16_1_forward, '-', label='Tau_LC16')
 ax1.legend(loc = 'upper right')
 plt.xlabel('Span [m]')
 fig.supylabel('Shear stress [Pa]')
-ax1.set_ylim(1 * 10**9, 1.2 * 10**9)  # outliers only
-ax2.set_ylim(-0.1 * 10**9, 0.1 * 10**9)  # most of the data
+minimum = min(min(shear_stress_LC_8_1_forward), min(shear_stress_LC_12_1_forward), min(shear_stress_LC_16_1_forward))
+maximum = max(max(shear_stress_LC_8_1_forward), max(shear_stress_LC_12_1_forward), max(shear_stress_LC_16_1_forward))
+ax1.set_ylim(critical_shear_stress_forward_spar_list_1[0] - 0.5 * (maximum - minimum + max(abs(minimum), abs(maximum))), critical_shear_stress_forward_spar_list_1[0] + 0.5 * (maximum - minimum + max(abs(minimum), abs(maximum))))  # outliers only
+ax2.set_ylim(minimum - 0.5 * max(abs(minimum), abs(maximum)), maximum + 0.5 * max(abs(minimum), abs(maximum)))
 ax1.spines.bottom.set_visible(False)
 ax2.spines.top.set_visible(False)
 ax1.xaxis.tick_top()
