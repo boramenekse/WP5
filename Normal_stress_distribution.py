@@ -57,6 +57,10 @@ plt.plot(span, smp.lambdify([x], Ny_fun)(span[0:]))
 plt.plot(span, smp.lambdify([x], mz_fun)(span[0:]))
 plt.show()
 
+ixx_1 = []
+ixx_2 = []
+ixx_3 = []
+
 def sigma_z(mx, my, ixx, iyy, ixy, x, y):
   exp = ((mx*iyy-my*ixy)*y+(my*ixx-mx*ixy)*x)/(ixx*iyy-ixy**2)
   return exp
