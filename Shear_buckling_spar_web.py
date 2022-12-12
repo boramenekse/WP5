@@ -233,6 +233,24 @@ for y in y_list:
     shear_stress_torque_LC_16_3_forward.append(get_LC_16_torque(y) * get_thickness_forward_spar_3(y) / (2 * get_inclosed_area(y)))
     shear_stress_torque_LC_16_3_rear.append(get_LC_16_torque(y) * get_thickness_rear_spar_3(y) / (2 * get_inclosed_area(y)))
 
-
+plt.plot(y_list, shear_stress_torque_LC_8_1_forward)
+plt.plot(y_list, shear_stress_torque_LC_8_1_rear)
+plt.plot(y_list, shear_stress_torque_LC_8_2_forward)
+plt.plot(y_list, shear_stress_torque_LC_8_2_rear)
+plt.plot(y_list, shear_stress_torque_LC_8_3_forward)
+plt.plot(y_list, shear_stress_torque_LC_8_3_rear)
+plt.plot(y_list, shear_stress_torque_LC_12_1_forward)
+plt.plot(y_list, shear_stress_torque_LC_12_1_rear)
+plt.plot(y_list, shear_stress_torque_LC_12_2_forward)
+plt.plot(y_list, shear_stress_torque_LC_12_2_rear)
+plt.plot(y_list, shear_stress_torque_LC_12_3_forward)
+plt.plot(y_list, shear_stress_torque_LC_12_3_rear)
+plt.plot(y_list, shear_stress_torque_LC_16_1_forward)
+plt.plot(y_list, shear_stress_torque_LC_16_1_rear)
+plt.plot(y_list, shear_stress_torque_LC_16_2_forward)
+plt.plot(y_list, shear_stress_torque_LC_16_2_rear)
+plt.plot(y_list, shear_stress_torque_LC_16_3_forward)
+plt.plot(y_list, shear_stress_torque_LC_16_3_rear)
+plt.show()
 
 
