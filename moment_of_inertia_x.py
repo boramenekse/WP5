@@ -231,3 +231,7 @@ def Moi_x_wingbox(p, no_str, fr_t_root, re_t_root, top_sheet_t_root, bottom_shee
     #print("Area moment of inertia of the wingbox about the x-axis is:", Ix_Wingbox, "[m^4]")
 
     return Ix_Wingbox
+
+for i in range(0, len(Span_y_z)):
+    Moi_x_wingbox_y = Moi_z_wingbox(Span_y_z[i], no_list[index], fr_t_list[index], re_t_list[index], top_t_list[index], bottom_t_list[index])
+    moment_of_inertia_z_span_1.append(Moi_x_wingbox_y)
