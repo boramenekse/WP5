@@ -33,7 +33,7 @@ def Moi_x_wingbox(p):
 
     #stringers
     Str_A = Var.Str_A
-    Str_N = no_str #the number of stringers has to be 2, 6, 10, 14, 18, 22, etc...
+    Str_N = Var.Str_N #the number of stringers has to be 2, 6, 10, 14, 18, 22, etc...
 
     #spanwise location
     y = p
@@ -43,17 +43,17 @@ def Moi_x_wingbox(p):
     #spars root (and tip for front length)
     Spar_fr_len_root = Var.Spar_fr_len_root
     Spar_fr_len_tip = Var.Spar_fr_len_tip
-    Spar_fr_th_root= fr_t_root
+    Spar_fr_th_root= Var.Spar_fr_th_root
 
     Spar_re_len_root = Var.Spar_re_len_root
-    Spar_re_th_root = re_t_root
+    Spar_re_th_root = Var.Spar_re_th_root
 
     #sheets root 
     Sheet_top_len_root = Var.Sheet_top_len_root
-    Sheet_top_th_root = top_sheet_t_root
+    Sheet_top_th_root = Var.Sheet_top_th_root
 
     Sheet_bottom_len_root = Var.Sheet_bottom_len_root
-    Sheet_bottom_th_root = bottom_sheet_t_root
+    Sheet_bottom_th_root = Var.Sheet_bottom_th_root
 
     Sheet_top_angle = Var.Sheet_top_angle
     Sheet_bottom_angle = Var.Sheet_bottom_angle
@@ -260,15 +260,15 @@ Span_y_x = np.arange(0.0, (Var.Span / 2), 1.0)
 #print(Span_y_1)
 index = 0
 for i in range(0, len(Span_y_x)):
-    Moi_x_wingbox_y = Moi_x_wingbox(Span_y_x[i], no_list[index], fr_t_list[index], re_t_list[index], top_t_list[index], bottom_t_list[index])
+    Moi_x_wingbox_y = Moi_x_wingbox(Span_y_x[i])
     moment_of_inertia_x_span_1.append(Moi_x_wingbox_y)
 index += 1
 for i in range(0, len(Span_y_x)):
-    Moi_x_wingbox_y = Moi_x_wingbox(Span_y_x[i], no_list[index], fr_t_list[index], re_t_list[index], top_t_list[index], bottom_t_list[index])
+    Moi_x_wingbox_y = Moi_x_wingbox(Span_y_x[i])
     moment_of_inertia_x_span_2.append(Moi_x_wingbox_y)
 index += 1
 for i in range(0, len(Span_y_x)):
-    Moi_x_wingbox_y = Moi_x_wingbox(Span_y_x[i], no_list[index], fr_t_list[index], re_t_list[index], top_t_list[index], bottom_t_list[index])
+    Moi_x_wingbox_y = Moi_x_wingbox(Span_y_x[i])
     moment_of_inertia_x_span_3.append(Moi_x_wingbox_y)
 
 #Check:
@@ -280,38 +280,21 @@ def test_function(x, A, B, C, D):
     return y 
 
 Parameters1, covariance = curve_fit(test_function, Span_y_x, moment_of_inertia_x_span_1)
-Parameters2, covariance = curve_fit(test_function, Span_y_x, moment_of_inertia_x_span_2)
-Parameters3, covariance = curve_fit(test_function, Span_y_x, moment_of_inertia_x_span_3)
 
 Fit_A_1 = Parameters1[0]
 Fit_B_1 = Parameters1[1]
 Fit_C_1 = Parameters1[2]
 Fit_D_1 = Parameters1[3]
 
-Fit_A_2 = Parameters2[0]
-Fit_B_2 = Parameters2[1]
-Fit_C_2 = Parameters2[2]
-Fit_D_2 = Parameters2[3]
-
-Fit_A_3 = Parameters3[0]
-Fit_B_3 = Parameters3[1]
-Fit_C_3 = Parameters3[2]
-Fit_D_3 = Parameters3[3]
-
 def print_fit():
-    return Parameters1, Parameters2, Parameters3
+    return Parameters1
 
 Fit_y_1 = test_function(Span_y_x, Fit_A_1, Fit_B_1, Fit_C_1, Fit_D_1)
-Fit_y_2 = test_function(Span_y_x, Fit_A_2, Fit_B_2, Fit_C_2, Fit_D_2)
-Fit_y_3 = test_function(Span_y_x, Fit_A_3, Fit_B_3, Fit_C_3, Fit_D_3)
 #print('The values for A, B and C in the function Ax^3 + Bx^2 + Cx + D are:', Fit_A, Fit_B, Fit_C, Fit_D)
 
 #Plotting the results 
 # plt.plot(Span_y_x, moment_of_inertia_x_span_1, 'o', label='Data')
 plt.plot(Span_y_x, Fit_y_1, '-', label='Fit')
-plt.plot(Span_y_x, Fit_y_2, '-', label='Fit')
-plt.plot(Span_y_x, Fit_y_3, '-', label='Fit')
-plt.legend(['philosophy 1', 'philosophy 2', 'philosophy 3'], loc='upper right', frameon=True)
 plt.xlabel("Spanwise location")
 plt.ylabel("Moment of inertia about x axis")
 plt.show()
