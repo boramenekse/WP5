@@ -146,3 +146,5 @@ print(step2.subs(x, 1)) # Output: 0
 print(step2.subs(x, 2)) # Output: 0
 step3 = smp.Heaviside(x-2, 1)
 print(step3.subs(x, 2)) # Output: 1
+fun1 = (x**2+1)*step2
+print(fun1)
