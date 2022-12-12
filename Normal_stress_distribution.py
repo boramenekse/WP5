@@ -65,7 +65,7 @@ Ixx = 0
 Izz = 0
 
 
-def sigma_z(mx, mz, ixx, iyy, ixy=0, x, z):
+def sigma_z(mx, mz, ixx, iyy, x, z):
   exp = ((mx*z)/ixx+(mz*x)/iyy)
   return exp
 
