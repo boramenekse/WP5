@@ -137,15 +137,15 @@ for i in range(len(y_list)):
     tau_average_16_2 = LC_16_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_2(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_2(y))
     tau_average_16_3 = LC_16_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_3(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_3(y))
 
-    average_shear_stress_8_1_list.append(abs(tau_average_8_1))
-    average_shear_stress_8_2_list.append(abs(tau_average_8_2))
-    average_shear_stress_8_3_list.append(abs(tau_average_8_3))
-    average_shear_stress_12_1_list.append(abs(tau_average_12_1))
-    average_shear_stress_12_2_list.append(abs(tau_average_12_2))
-    average_shear_stress_12_3_list.append(abs(tau_average_12_3))
-    average_shear_stress_16_1_list.append(abs(tau_average_16_1))
-    average_shear_stress_16_2_list.append(abs(tau_average_16_2))
-    average_shear_stress_16_3_list.append(abs(tau_average_16_3))
+    average_shear_stress_8_1_list.append((tau_average_8_1))
+    average_shear_stress_8_2_list.append((tau_average_8_2))
+    average_shear_stress_8_3_list.append((tau_average_8_3))
+    average_shear_stress_12_1_list.append((tau_average_12_1))
+    average_shear_stress_12_2_list.append((tau_average_12_2))
+    average_shear_stress_12_3_list.append((tau_average_12_3))
+    average_shear_stress_16_1_list.append((tau_average_16_1))
+    average_shear_stress_16_2_list.append((tau_average_16_2))
+    average_shear_stress_16_3_list.append((tau_average_16_3))
 
     maximum_shear_stress_8_1_list = [i * k_v for i in average_shear_stress_8_1_list]
     maximum_shear_stress_8_2_list = [i * k_v for i in average_shear_stress_8_2_list]
