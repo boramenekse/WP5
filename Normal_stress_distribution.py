@@ -49,13 +49,13 @@ mx_fun_16 = md_fun1_16-md_fun1_16*heaviside+md_fun2_16*heaviside
 Ny_fun = -500000 + 500000*heaviside
 mz_fun = -6008660+514000*x-(-6008660+514000*x)*heaviside
 
-span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
-plt.figure()
-plt.plot(span, -smp.lambdify([x], mx_fun_12)(span[0:]))
-plt.plot(span, -smp.lambdify([x], mx_fun_16)(span[0:]))
-plt.plot(span, smp.lambdify([x], Ny_fun)(span[0:]))
-plt.plot(span, smp.lambdify([x], mz_fun)(span[0:]))
-plt.show()
+#span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
+#plt.figure()
+#plt.plot(span, -smp.lambdify([x], mx_fun_12)(span[0:]))
+#plt.plot(span, -smp.lambdify([x], mx_fun_16)(span[0:]))
+#plt.plot(span, smp.lambdify([x], Ny_fun)(span[0:]))
+#plt.plot(span, smp.lambdify([x], mz_fun)(span[0:]))
+#plt.show()
 
 ixx_1 = []
 ixx_2 = []
