@@ -20,6 +20,7 @@ pi = math.pi            # get pi from the math repository
 E = 69 * (10 ** 9)      # define the young's modulus, in Pa
 v = 0.33                # define the poissons ratio, no unit
 k_s = 9.6               # define the k_s constant, found in figure 16 from the reader, no unit
+k_v = 5
 
 
 def get_chord(y):
@@ -84,8 +85,8 @@ for y in y_list:
     critical_shear_stress_rear_spar_list_3.append(get_critical_shear_stress(pi, get_rear_spar_lenth(y), k_s, get_thickness_rear_spar_3(y), E, v))
 
 #check the calculations
-#plt.plot(y_list, critical_shear_stress_forward_spar_list_1)
-#plt.plot(y_list, critical_shear_stress_rear_spar_list_1)
+plt.plot(y_list, critical_shear_stress_forward_spar_list_1)
+plt.plot(y_list, critical_shear_stress_rear_spar_list_1)
 #plt.legend(["forward", "rear"])
 #plt.show()
 
@@ -146,15 +147,25 @@ for i in range(len(y_list)):
     average_shear_stress_16_2_list.append(abs(tau_average_16_2))
     average_shear_stress_16_3_list.append(abs(tau_average_16_3))
 
+    maximum_shear_stress_8_1_list = [i * k_v for i in average_shear_stress_8_1_list]
+    maximum_shear_stress_8_2_list = [i * k_v for i in average_shear_stress_8_2_list]
+    maximum_shear_stress_8_3_list = [i * k_v for i in average_shear_stress_8_3_list]
+    maximum_shear_stress_12_1_list = [i * k_v for i in average_shear_stress_12_1_list]
+    maximum_shear_stress_12_2_list = [i * k_v for i in average_shear_stress_12_2_list]
+    maximum_shear_stress_12_3_list = [i * k_v for i in average_shear_stress_12_3_list]
+    maximum_shear_stress_16_1_list = [i * k_v for i in average_shear_stress_16_1_list]
+    maximum_shear_stress_16_2_list = [i * k_v for i in average_shear_stress_16_2_list]
+    maximum_shear_stress_16_3_list = [i * k_v for i in average_shear_stress_16_3_list]
+
 #check the calculations
-#plt.plot(y_list, average_shear_stress_8_1_list)
-#plt.plot(y_list, average_shear_stress_8_2_list)
-#plt.plot(y_list, average_shear_stress_8_3_list)
-#plt.plot(y_list, average_shear_stress_12_1_list)
-#plt.plot(y_list, average_shear_stress_12_2_list)
-#plt.plot(y_list, average_shear_stress_12_3_list)
-#plt.plot(y_list, average_shear_stress_16_1_list)
-#plt.plot(y_list, average_shear_stress_16_2_list)
-#plt.plot(y_list, average_shear_stress_16_3_list)
-#plt.legend(["av,tao_8_1", "av,tao_8_2", "av,tao_8_3", "av,tao_12_1", "av,tao_12_2", "av,tao_12_3", "av,tao_16_1", "av,tao_16_2", "av,tao_16_3"])
-#plt.show()
+plt.plot(y_list, maximum_shear_stress_8_1_list)
+plt.plot(y_list, maximum_shear_stress_8_2_list)
+plt.plot(y_list, maximum_shear_stress_8_3_list)
+plt.plot(y_list, maximum_shear_stress_12_1_list)
+plt.plot(y_list, maximum_shear_stress_12_2_list)
+plt.plot(y_list, maximum_shear_stress_12_3_list)
+plt.plot(y_list, maximum_shear_stress_16_1_list)
+plt.plot(y_list, maximum_shear_stress_16_2_list)
+plt.plot(y_list, maximum_shear_stress_16_3_list)
+plt.legend(["av,tao_8_1", "av,tao_8_2", "av,tao_8_3", "av,tao_12_1", "av,tao_12_2", "av,tao_12_3", "av,tao_16_1", "av,tao_16_2", "av,tao_16_3"])
+plt.show()
