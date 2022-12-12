@@ -2,10 +2,6 @@ import matplotlib.pyplot as plt
 import math
 import numpy as np
 import Variables_for_crossection_geometry as Var
-import Centroid_x_direction as Cx
-import Centroid_z_direction as Cz
-import Moment_of_inertia_x as Moix
-import Moment_of_inertia_z as Moiz
 from scipy.optimize import curve_fit
 
 moment_of_inertia_z_span_1 = []
