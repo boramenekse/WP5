@@ -70,8 +70,8 @@ Ixx = 0
 Izz = 0
 
 
-def sigma_z(mx, mz, ixx, iyy, x, z):
-  exp = ((mx*z)/ixx+(mz*x)/iyy)
+def sigma_z(mx, mz, ixx, izz, x, z):
+  exp = ((mx*z)/ixx+(mz*x)/izz)
   return exp
 
-stress = sigma_z(mx_fun_12, mz_fun, ixx, iyy, x, z)
+stress = sigma_z(mx_fun_12, mz_fun, ixx_fun, izz_fun, x, z)
