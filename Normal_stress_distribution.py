@@ -5,6 +5,8 @@ import numpy as np
 import Copy_Variables_for_crossection as var
 from Moment_of_inertia_z_span import return_parameters
 from Moment_of_inertia_x_span import print_fit
+import Centroid_x_direction as cgx
+import Centroid_z_direction as cgz
 
 #Moment Distribution
 #loading case 16 and loading case 12
@@ -38,25 +40,25 @@ M2_16 = [0.40016072098555516, -9.397942238637903, -1047.3842177269048, 6708.8706
 
 # Izz
 par_list_z = return_parameters()
-izz_fun = smp.nsimplify(round(par_list_z[0], 6))*x**3+smp.nsimplify(round(par_list_z[1], 6))*x**2+smp.nsimplify(round(par_list_z[2], 6))*x+smp.nsimplify(round(par_list_z[3], 6))
+izz_fun = smp.nsimplify(round(par_list_z[0], 6))*y**3+smp.nsimplify(round(par_list_z[1], 6))*y**2+smp.nsimplify(round(par_list_z[2], 6))*y+smp.nsimplify(round(par_list_z[3], 6))
 
 # Ixx
 par_list_x = print_fit()
-ixx_fun = smp.nsimplify(round(par_list_x[0], 6))*x**3+smp.nsimplify(round(par_list_x[1], 6))*x**2+smp.nsimplify(round(par_list_x[2], 6))*x+smp.nsimplify(round(par_list_x[3], 6))
+ixx_fun = smp.nsimplify(round(par_list_x[0], 6))*y**3+smp.nsimplify(round(par_list_x[1], 6))*y**2+smp.nsimplify(round(par_list_x[2], 6))*y+smp.nsimplify(round(par_list_x[3], 6))
 
 #Normal force diagram (until 11.69)
 #force is -500000 N (compression)
-md_fun1_12 = smp.nsimplify(round(M1_12[0], 6))*x**5+smp.nsimplify(round(M1_12[1], 6))*x**4+smp.nsimplify(round(M1_12[2], 6))*x**3+smp.nsimplify(round(M1_12[3], 6))*x**2+smp.nsimplify(round(M1_12[4], 6))*x+smp.nsimplify(round(M1_12[5], 6))
-md_fun2_12 = smp.nsimplify(round(M2_12[0], 6))*x**5+smp.nsimplify(round(M2_12[1], 6))*x**4+smp.nsimplify(round(M2_12[2], 6))*x**3+smp.nsimplify(round(M2_12[3], 6))*x**2+smp.nsimplify(round(M2_12[4], 6))*x+smp.nsimplify(round(M2_12[5], 6))
+md_fun1_12 = smp.nsimplify(round(M1_12[0], 6))*y**5+smp.nsimplify(round(M1_12[1], 6))*y**4+smp.nsimplify(round(M1_12[2], 6))*y**3+smp.nsimplify(round(M1_12[3], 6))*y**2+smp.nsimplify(round(M1_12[4], 6))*y+smp.nsimplify(round(M1_12[5], 6))
+md_fun2_12 = smp.nsimplify(round(M2_12[0], 6))*y**5+smp.nsimplify(round(M2_12[1], 6))*y**4+smp.nsimplify(round(M2_12[2], 6))*y**3+smp.nsimplify(round(M2_12[3], 6))*y**2+smp.nsimplify(round(M2_12[4], 6))*y+smp.nsimplify(round(M2_12[5], 6))
 
-md_fun1_16 = smp.nsimplify(round(M1_16[0], 6))*x**5+smp.nsimplify(round(M1_16[1], 6))*x**4+smp.nsimplify(round(M1_16[2], 6))*x**3+smp.nsimplify(round(M1_16[3], 6))*x**2+smp.nsimplify(round(M1_16[4], 6))*x+smp.nsimplify(round(M1_16[5], 6))
-md_fun2_16 = smp.nsimplify(round(M2_16[0], 6))*x**5+smp.nsimplify(round(M2_16[1], 6))*x**4+smp.nsimplify(round(M2_16[2], 6))*x**3+smp.nsimplify(round(M2_16[3], 6))*x**2+smp.nsimplify(round(M2_16[4], 6))*x+smp.nsimplify(round(M2_16[5], 6))
+md_fun1_16 = smp.nsimplify(round(M1_16[0], 6))*y**5+smp.nsimplify(round(M1_16[1], 6))*y**4+smp.nsimplify(round(M1_16[2], 6))*y**3+smp.nsimplify(round(M1_16[3], 6))*y**2+smp.nsimplify(round(M1_16[4], 6))*y+smp.nsimplify(round(M1_16[5], 6))
+md_fun2_16 = smp.nsimplify(round(M2_16[0], 6))*y**5+smp.nsimplify(round(M2_16[1], 6))*y**4+smp.nsimplify(round(M2_16[2], 6))*y**3+smp.nsimplify(round(M2_16[3], 6))*y**2+smp.nsimplify(round(M2_16[4], 6))*y+smp.nsimplify(round(M2_16[5], 6))
 
-heaviside = smp.Heaviside(x-11.69, 0)
+heaviside = smp.Heaviside(y-11.69, 0)
 mx_fun_12 = md_fun1_12-md_fun1_12*heaviside+md_fun2_12*heaviside
 mx_fun_16 = md_fun1_16-md_fun1_16*heaviside+md_fun2_16*heaviside
 Ny_fun = -500000 + 500000*heaviside
-mz_fun = -6008660+514000*x-(-6008660+514000*x)*heaviside
+mz_fun = -6008660+514000*y-(-6008660+514000*y)*heaviside
 
 #span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 #plt.figure()
@@ -66,12 +68,18 @@ mz_fun = -6008660+514000*x-(-6008660+514000*x)*heaviside
 #plt.plot(span, smp.lambdify([x], mz_fun)(span[0:]))
 #plt.show()
 
-Ixx = 0
-Izz = 0
 
 
-def sigma_z(mx, mz, ixx, izz, x, z):
+def sigma_z(mx, mz, ixx, izz):
   exp = ((mx*z)/ixx+(mz*x)/izz)
   return exp
 
-stress = sigma_z(mx_fun_12, mz_fun, ixx_fun, izz_fun, x, z)
+stress = sigma_z(mx_fun_12, mz_fun, ixx_fun, izz_fun)
+# WE are calculating the top left corner location, which coordinates are (-cgx, -cgz)
+stress_top_corner_left = stress.subs([(z, -cgz.Centroid_z), (x, -cgx.Centroid_x), (y, 0)])
+# This time for the top right corner, whose coordinates are (sheet_top_length*cos(Sheet_top_Angle), cgz - sheet_top_lenght*sin(sheet_top_angle))
+stress_top_corner_right = stress.subs([(z, cgz.Centroid_z-var.Sheet_top_len*smp.sin(var.Sheet_top_angle)), (x, var.Sheet_top_len*smp.cos(var.Sheet_top_angle)), (y, 0)])
+
+print(stress_top_corner_left)
+print(stress_top_corner_right)
+print(abs(stress_top_corner_right) > abs(stress_top_corner_left))
