@@ -315,3 +315,46 @@ def Moi_z_wingbox(p, no_str, fr_t_root, re_t_root, top_sheet_t_root, bottom_shee
     #Calculation of centroid
     Centroid_x = sum_of_products/total_area
     return Centroid_x
+
+no_list = [0, 18, 34]
+fr_t_list = [0.045, 0.121, 0.100]
+re_t_list = [0.045, 0.121, 0.100]
+top_t_list = [0.063, 0.056, 0.057]
+bottom_t_list = [0.063, 0.056, 0.057]
+
+Span_y_z = np.arange(0.0, (var.Span / 2), 1.0)
+index = 0
+
+ph1x = []
+ph2x = []
+ph3x = []
+ph1z = []
+ph2z = []
+ph3z = []
+for i in Span_y_z:
+  x = Moi_z_wingbox(i, no_list[index], fr_t_list[index], re_t_list[index], top_t_list[index], bottom_t_list[index])
+  z = zbar(i, no_list[index], fr_t_list[index], re_t_list[index], top_t_list[index], bottom_t_list[index])
+  ph1x.append(x)
+  ph1z.append(z)
+index+=1
+for i in Span_y_z:
+  x = Moi_z_wingbox(i, no_list[index], fr_t_list[index], re_t_list[index], top_t_list[index], bottom_t_list[index])
+  z = zbar(i, no_list[index], fr_t_list[index], re_t_list[index], top_t_list[index], bottom_t_list[index])
+  ph2x.append(x)
+  ph2z.append(z)
+index+=1
+for i in Span_y_z:
+  x = Moi_z_wingbox(i, no_list[index], fr_t_list[index], re_t_list[index], top_t_list[index], bottom_t_list[index])
+  z = zbar(i, no_list[index], fr_t_list[index], re_t_list[index], top_t_list[index], bottom_t_list[index])
+  ph3x.append(x)
+  ph3z.append(z)
+
+fit1x = np.polyfit(Span_y_z, ph1x, 3)
+fit1z = np.polyfit(Span_y_z, ph1z, 3)
+fit2x = np.polyfit(Span_y_z, ph2x, 3)
+fit2z = np.polyfit(Span_y_z, ph2z, 3)
+fit3x = np.polyfit(Span_y_z, ph3x, 3)
+fit3z = np.polyfit(Span_y_z, ph3z, 3)
+
+def print_results():
+  return fit1x, fit1z, fit2x, fit2z, fit3x, fit3z
