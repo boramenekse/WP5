@@ -287,7 +287,7 @@ Fit_y_1 = test_function(Span_y_z, Fit_A_1, Fit_B_1, Fit_C_1, Fit_D_1)
 
 #Plotting the results 
 #plt.plot(Span_y_z, moment_of_inertia_z_span, 'o', label='Data')
-plt.plot(Span_y_z, Fit_y_1, '-', label='Fit')
-plt.xlabel("Spanwise location")
-plt.ylabel("Moment of inertia about z axis")
+# plt.plot(Span_y_z, Fit_y_1, '-', label='Fit')
+# plt.xlabel("Spanwise location")
+# plt.ylabel("Moment of inertia about z axis")
 # plt.show()
