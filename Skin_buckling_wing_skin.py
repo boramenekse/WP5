@@ -66,11 +66,11 @@ m4 = k(4, ab)
 m5 = k(5, ab)
 m6 = k(6, ab)
 kfun = smp.Piecewise((m1, (ab>=0) & (ab <= float(smp.solve(m1-m2, ab)[0]))), (m2, (ab > float(smp.solve(m1-m2, ab)[0])) & (ab <= float(smp.solve(m2-m3, ab)[0]))), (m3, (ab > float(smp.solve(m2-m3, ab)[0])) & (ab <= float(smp.solve(m3-m4, ab)[0]))), (m4, (ab > float(smp.solve(m3-m4, ab)[0])) & (ab <= float(smp.solve(m4-m5, ab)[0]))), (m5, (ab > float(smp.solve(m4-m5, ab)[0])) & (ab <= 5)), (0, True))
-plt.figure()
-plt.ylim((0, 16))
-plt.xlim((0, 5))
-plt.plot(a_b, smp.lambdify([ab], kfun)(a_b[0:]))
-plt.show()
+# plt.figure()
+# plt.ylim((0, 16))
+# plt.xlim((0, 5))
+# plt.plot(a_b, smp.lambdify([ab], kfun)(a_b[0:]))
+# plt.show()
 
 import math
 import numpy as np
