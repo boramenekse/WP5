@@ -43,19 +43,19 @@ M2_16 = [0.40016072098555516, -9.397942238637903, -1047.3842177269048, 6708.8706
 
 # Izz
 par_list_z = return_parameters()
-izz_fun = smp.nsimplify(round(par_list_z[0], 6))*y**3+smp.nsimplify(round(par_list_z[1], 6))*y**2+smp.nsimplify(round(par_list_z[2], 6))*y+smp.nsimplify(round(par_list_z[3], 6))
+izz_fun = par_list_z[0]*y**3+par_list_z[1]*y**2+par_list_z[2]*y+par_list_z[3]
 
 # Ixx
 par_list_x = print_fit()
-ixx_fun = smp.nsimplify(round(par_list_x[0], 6))*y**3+smp.nsimplify(round(par_list_x[1], 6))*y**2+smp.nsimplify(round(par_list_x[2], 6))*y+smp.nsimplify(round(par_list_x[3], 6))
+ixx_fun = par_list_x[0]*y**3+par_list_x[1]*y**2+par_list_x[2]*y+par_list_x[3]
 
 #Normal force diagram (until 11.69)
 #force is -500000 N (compression)
-md_fun1_12 = smp.nsimplify(round(M1_12[0], 6))*y**5+smp.nsimplify(round(M1_12[1], 6))*y**4+smp.nsimplify(round(M1_12[2], 6))*y**3+smp.nsimplify(round(M1_12[3], 6))*y**2+smp.nsimplify(round(M1_12[4], 6))*y+smp.nsimplify(round(M1_12[5], 6))
-md_fun2_12 = smp.nsimplify(round(M2_12[0], 6))*y**5+smp.nsimplify(round(M2_12[1], 6))*y**4+smp.nsimplify(round(M2_12[2], 6))*y**3+smp.nsimplify(round(M2_12[3], 6))*y**2+smp.nsimplify(round(M2_12[4], 6))*y+smp.nsimplify(round(M2_12[5], 6))
+md_fun1_12 = M1_12[0]*y**5+M1_12[1]*y**4+M1_12[2]*y**3+M1_12[3]*y**2+M1_12[4]*y+M1_12[5]
+md_fun2_12 = M2_12[0]*y**5+M2_12[1]*y**4+M2_12[2]*y**3+M2_12[3]*y**2+M2_12[4]*y+M2_12[5]
 
-md_fun1_16 = smp.nsimplify(round(M1_16[0], 6))*y**5+smp.nsimplify(round(M1_16[1], 6))*y**4+smp.nsimplify(round(M1_16[2], 6))*y**3+smp.nsimplify(round(M1_16[3], 6))*y**2+smp.nsimplify(round(M1_16[4], 6))*y+smp.nsimplify(round(M1_16[5], 6))
-md_fun2_16 = smp.nsimplify(round(M2_16[0], 6))*y**5+smp.nsimplify(round(M2_16[1], 6))*y**4+smp.nsimplify(round(M2_16[2], 6))*y**3+smp.nsimplify(round(M2_16[3], 6))*y**2+smp.nsimplify(round(M2_16[4], 6))*y+smp.nsimplify(round(M2_16[5], 6))
+md_fun1_16 = M1_16[0]*y**5+M1_16[1]*y**4+M1_16[2]*y**3+M1_16[3]*y**2+M1_16[4]*y+M1_16[5]
+md_fun2_16 = M2_16[0]*y**5+M2_16[1]*y**4+M2_16[2]*y**3+M2_16[3]*y**2+M2_16[4]*y+M2_16[5]
 
 heaviside = smp.Heaviside(y-11.69, 1)
 mx_fun_12 = md_fun1_12-md_fun1_12*heaviside+md_fun2_12*heaviside
@@ -77,13 +77,13 @@ def sigma_z(mx, mz, ixx, izz):
   exp = ((mx*z)/ixx+(mz*x)/izz)
   return exp
 
-c_fun = var.Chord_root*(1 + (var.Taper_ratio-1)*(y/(0.5*var.Span)))
-spar_fr_len_fun = var.Spar_fr_len_root*(1+(var.Taper_ratio-1)*(y/(0.5*var.Span)))
-# alpha and beta are proportionality constants. Since we don't have a function for the centroid location as a funtion of y, we may move on by assuming the ratios will stay the same throughout the entire half-span
-alpha = cgx.Centroid_x/(0.55*var.Chord_root)
-beta = cgz.Centroid_z/var.Spar_fr_len_root
-cgx_fun = alpha*0.55*c_fun
-cgz_fun = beta*spar_fr_len_fun
+# c_fun = var.Chord_root*(1 + (var.Taper_ratio-1)*(y/(0.5*var.Span)))
+# spar_fr_len_fun = var.Spar_fr_len_root*(1+(var.Taper_ratio-1)*(y/(0.5*var.Span)))
+# # alpha and beta are proportionality constants. Since we don't have a function for the centroid location as a funtion of y, we may move on by assuming the ratios will stay the same throughout the entire half-span
+# alpha = cgx.Centroid_x/(0.55*var.Chord_root)
+# beta = cgz.Centroid_z/var.Spar_fr_len_root
+# cgx_fun = alpha*0.55*c_fun
+# cgz_fun = beta*spar_fr_len_fun
 
 stress_12 = sigma_z(mx_fun_12, mz_fun, ixx_fun, izz_fun)
 stress_16 = sigma_z(mx_fun_16, mz_fun, ixx_fun, izz_fun)
@@ -103,6 +103,7 @@ fit2z = curve_fit(float(ph_list[3][0]), float(ph_list[3][1]), float(ph_list[3][2
 fit3x = curve_fit(float(ph_list[4][0]), float(ph_list[4][1]), float(ph_list[4][2]), float(ph_list[4][3]), y)
 fit3z = curve_fit(float(ph_list[5][0]), float(ph_list[5][1]), float(ph_list[5][2]), float(ph_list[5][3]), y)
 
+
 # print(var.Spar_fr_len)
 # print(var.Spar_fr_len_root)
 # print(var.Spar_fr_len_tip)
@@ -110,23 +111,25 @@ fit3z = curve_fit(float(ph_list[5][0]), float(ph_list[5][1]), float(ph_list[5][2
 # print(cgx.Centroid_x, cgz.Centroid_z) # These values should be for the root
 # print(stress_12.subs(y, 0))
 # print(stress_12.subs(y, 0.5*var.Span))
-print(stress_12.simplify())
 stress_fun = smp.lambdify([y], stress_12.subs([(z, -fit1z), (x, -fit1x)]).simplify())
+print(stress_12.subs([(z, -fit1z), (x, -fit1x)]).simplify())
 plt.figure()
 # plt.xlim(0, 25)
 # plt.ylim(-0.7e8, 0)
-# plt.plot(span, stress_fun(span[0:]))
-plt.plot(span, smp.lambdify([y], ixx_fun)(span[0:]))
+plt.plot(span, stress_fun(span[0:]))
 plt.show()
-plt.figure()
-plt.plot(span, smp.lambdify([y], izz_fun)(span[0:]))
-plt.show()
-plt.figure()
-plt.plot(span, smp.lambdify([y], mx_fun_12)(span[0:]))
-plt.show()
-plt.figure()
-plt.plot(span, smp.lambdify([y], mz_fun)(span[0:]))
-plt.show()
-print(stress_top_corner_left/1e6)
-print(stress_top_corner_right/1e6)
-print(abs(stress_top_corner_right) > abs(stress_top_corner_left))
+# plt.figure()
+# plt.plot(span, smp.lambdify([y], fit1x)(span[0:]))
+# plt.show()
+# plt.figure()
+# plt.plot(span, smp.lambdify([y], fit1z)(span[0:]))
+# plt.show()
+# plt.figure()
+# plt.plot(span, smp.lambdify([y], fit2x)(span[0:]))
+# plt.show()
+# plt.figure()
+# plt.plot(span, smp.lambdify([y], fit2z)(span[0:]))
+# plt.show()
+# print(stress_top_corner_left/1e6)
+# print(stress_top_corner_right/1e6)
+# print(abs(stress_top_corner_right) > abs(stress_top_corner_left))
