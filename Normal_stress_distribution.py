@@ -82,21 +82,22 @@ beta = cgz.Centroid_z/var.Spar_fr_len_root
 cgx_fun = alpha*0.55*c_fun
 cgz_fun = beta*spar_fr_len_fun
 
-stress = sigma_z(mx_fun_12, mz_fun, ixx_fun, izz_fun)
+stress_16 = sigma_z(mx_fun_12, mz_fun, ixx_fun, izz_fun)
+stress_12 = sigma_z(mx_fun_16, mz_fun, ixx_fun, izz_fun)
 # WE are calculating the top left corner location, which coordinates are (-cgx, -cgz)
-stress_top_corner_left = stress.subs([(z, -cgz.Centroid_z), (x, -cgx.Centroid_x), (y, 0)])
+stress_top_corner_left = stress_16.subs([(z, -cgz.Centroid_z), (x, -cgx.Centroid_x), (y, 0)])
 # This time for the top right corner, whose coordinates are (sheet_top_length*cos(Sheet_top_Angle), cgz - sheet_top_lenght*sin(sheet_top_angle))
-stress_top_corner_right = stress.subs([(z, -cgz.Centroid_z+var.Sheet_top_len*smp.sin(var.Sheet_top_angle)), (x, var.Sheet_top_len*smp.cos(var.Sheet_top_angle)-cgx.Centroid_x), (y, 0)])
+stress_top_corner_right = stress_16.subs([(z, -cgz.Centroid_z+var.Sheet_top_len*smp.sin(var.Sheet_top_angle)), (x, var.Sheet_top_len*smp.cos(var.Sheet_top_angle)-cgx.Centroid_x), (y, 0)])
 
 print(var.Spar_fr_len)
 print(var.Spar_fr_len_root)
 print(var.Spar_fr_len_tip)
 print(var.Chord_root*var.Taper_ratio)
 print(cgx.Centroid_x, cgz.Centroid_z) # These values should be for the root
-print(stress.subs(y, 0))
-print(stress.subs(y, 0.5*var.Span))
-print(stress.subs([(z, -cgz_fun), (x, -cgx_fun)]).simplify())
-stress_fun = smp.lambdify([y], stress.subs([(z, -cgz_fun), (x, -cgx_fun)]).simplify())
+print(stress_16.subs(y, 0))
+print(stress_16.subs(y, 0.5*var.Span))
+print(stress_16.subs([(z, -cgz_fun), (x, -cgx_fun)]).simplify())
+stress_fun = smp.lambdify([y], stress_16.subs([(z, -cgz_fun), (x, -cgx_fun)]).simplify())
 plt.figure()
 plt.plot(span, stress_fun(span[0:]))
 plt.show()
