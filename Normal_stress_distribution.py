@@ -81,8 +81,6 @@ def sigma_z(mx, mz, ixx, izz):
   exp = ((mx*z)/ixx+(mz*x)/izz)
   return exp
 
-# c_fun = var.Chord_root*(1 + (var.Taper_ratio-1)*(y/(0.5*var.Span)))
-# spar_fr_len_fun = var.Spar_fr_len_root*(1+(var.Taper_ratio-1)*(y/(0.5*var.Span)))
 # # alpha and beta are proportionality constants. Since we don't have a function for the centroid location as a funtion of y, we may move on by assuming the ratios will stay the same throughout the entire half-span
 # alpha = cgx.Centroid_x/(0.55*var.Chord_root)
 # beta = cgz.Centroid_z/var.Spar_fr_len_root
@@ -111,6 +109,14 @@ fit2z = curve_fit(float(ph_list[3][0]), float(ph_list[3][1]), float(ph_list[3][2
 fit3x = curve_fit(float(ph_list[4][0]), float(ph_list[4][1]), float(ph_list[4][2]), float(ph_list[4][3]), y)
 fit3z = curve_fit(float(ph_list[5][0]), float(ph_list[5][1]), float(ph_list[5][2]), float(ph_list[5][3]), y)
 
+c_fun = var.Chord_root*(1 + (var.Taper_ratio-1)*(y/(0.5*var.Span)))
+spar_re_len_fun = var.Spar_re_len_root*(1+(var.Taper_ratio-1)*(y/(0.5*var.Span)))
+br_z1 = (0.55*c_fun*smp.tan(var.Sheet_top_angle))+spar_re_len_fun-fit1z
+br_x1 = 0.55*c_fun-fit1x
+br_z2 = (0.55*c_fun*smp.tan(var.Sheet_top_angle))+spar_re_len_fun-fit2z
+br_x2 = 0.55*c_fun-fit2x
+br_z3 = (0.55*c_fun*smp.tan(var.Sheet_top_angle))+spar_re_len_fun-fit3z
+br_x3 = 0.55*c_fun-fit3x
 
 # print(var.Spar_fr_len)
 # print(var.Spar_fr_len_root)
@@ -122,9 +128,9 @@ fit3z = curve_fit(float(ph_list[5][0]), float(ph_list[5][1]), float(ph_list[5][2
 stress_fun12_1 = smp.lambdify([y], stress_12_1.subs([(z, -fit1z), (x, -fit1x)]).simplify())
 stress_fun12_2 = smp.lambdify([y], stress_12_2.subs([(z, -fit2z), (x, -fit2x)]).simplify())
 stress_fun12_3 = smp.lambdify([y], stress_12_3.subs([(z, -fit3z), (x, -fit3x)]).simplify())
-stress_fun16_1 = smp.lambdify([y], stress_16_1.subs([(z, -fit1z), (x, -fit1x)]).simplify())
-stress_fun16_2 = smp.lambdify([y], stress_16_2.subs([(z, -fit2z), (x, -fit2x)]).simplify())
-stress_fun16_3 = smp.lambdify([y], stress_16_3.subs([(z, -fit3z), (x, -fit3x)]).simplify())
+stress_fun16_1 = smp.lambdify([y], stress_16_1.subs([(z, br_z1), (x, br_x1)]).simplify())
+stress_fun16_2 = smp.lambdify([y], stress_16_2.subs([(z, br_z2), (x, br_x2)]).simplify())
+stress_fun16_3 = smp.lambdify([y], stress_16_3.subs([(z, br_z3), (x, br_x3)]).simplify())
 plt.figure()
 plt.title('Stress distribution at loading case 12 for philosophy 1')
 plt.plot(span, stress_fun12_1(span[0:]))
