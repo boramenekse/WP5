@@ -54,13 +54,13 @@ md_fun2_12 = smp.nsimplify(round(M2_12[0], 6))*y**5+smp.nsimplify(round(M2_12[1]
 md_fun1_16 = smp.nsimplify(round(M1_16[0], 6))*y**5+smp.nsimplify(round(M1_16[1], 6))*y**4+smp.nsimplify(round(M1_16[2], 6))*y**3+smp.nsimplify(round(M1_16[3], 6))*y**2+smp.nsimplify(round(M1_16[4], 6))*y+smp.nsimplify(round(M1_16[5], 6))
 md_fun2_16 = smp.nsimplify(round(M2_16[0], 6))*y**5+smp.nsimplify(round(M2_16[1], 6))*y**4+smp.nsimplify(round(M2_16[2], 6))*y**3+smp.nsimplify(round(M2_16[3], 6))*y**2+smp.nsimplify(round(M2_16[4], 6))*y+smp.nsimplify(round(M2_16[5], 6))
 
-heaviside = smp.Heaviside(y-0.35*0.5*var.Span, 0)
-mx_fun_12 = md_fun1_12*(1-heaviside)+md_fun2_12*heaviside
-mx_fun_16 = md_fun1_16*(1-heaviside)+md_fun2_16*heaviside
-Ny_fun = -500000*(1-heaviside)
-mz_fun = (-6008660+514000*y)*(1-heaviside)
+heaviside = smp.Heaviside(y-11.69, 0)
+mx_fun_12 = md_fun1_12-md_fun1_12*heaviside+md_fun2_12*heaviside
+mx_fun_16 = md_fun1_16-md_fun1_16*heaviside+md_fun2_16*heaviside
+Ny_fun = -500000 + 500000*heaviside
+mz_fun = -6008660+514000*y-(-6008660+514000*y)*heaviside
 
-span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
+#span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 #plt.figure()
 #plt.plot(span, -smp.lambdify([x], mx_fun_12)(span[0:]))
 #plt.plot(span, -smp.lambdify([x], mx_fun_16)(span[0:]))
@@ -71,7 +71,7 @@ span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 
 
 def sigma_z(mx, mz, ixx, izz):
-  exp = ((mx*z)/ixx)+((mz*x)/izz)
+  exp = ((mx*z)/ixx+(mz*x)/izz)
   return exp
 
 c_fun = var.Chord_root*(1 + (var.Taper_ratio-1)*(y/(0.5*var.Span)))
@@ -82,22 +82,21 @@ beta = cgz.Centroid_z/var.Spar_fr_len_root
 cgx_fun = alpha*0.55*c_fun
 cgz_fun = beta*spar_fr_len_fun
 
-stress_16 = sigma_z(mx_fun_12, mz_fun, ixx_fun, izz_fun)
-stress_12 = sigma_z(mx_fun_16, mz_fun, ixx_fun, izz_fun)
+stress = sigma_z(mx_fun_12, mz_fun, ixx_fun, izz_fun)
 # WE are calculating the top left corner location, which coordinates are (-cgx, -cgz)
 stress_top_corner_left = stress_16.subs([(z, -cgz.Centroid_z), (x, -cgx.Centroid_x), (y, 0)])
 # This time for the top right corner, whose coordinates are (sheet_top_length*cos(Sheet_top_Angle), cgz - sheet_top_lenght*sin(sheet_top_angle))
-stress_top_corner_right = stress_16.subs([(z, -cgz.Centroid_z+var.Sheet_top_len*smp.sin(var.Sheet_top_angle)), (x, var.Sheet_top_len*smp.cos(var.Sheet_top_angle)-cgx.Centroid_x), (y, 0)])
+stress_top_corner_right = stress.subs([(z, -cgz.Centroid_z+var.Sheet_top_len*smp.sin(var.Sheet_top_angle)), (x, var.Sheet_top_len*smp.cos(var.Sheet_top_angle)-cgx.Centroid_x), (y, 0)])
 
 print(var.Spar_fr_len)
 print(var.Spar_fr_len_root)
 print(var.Spar_fr_len_tip)
 print(var.Chord_root*var.Taper_ratio)
 print(cgx.Centroid_x, cgz.Centroid_z) # These values should be for the root
-print(stress_16.subs(y, 0))
-print(stress_16.subs(y, 0.5*var.Span))
-print(stress_16.subs([(z, -cgz_fun), (x, -cgx_fun)]).simplify())
-stress_fun = smp.lambdify([y], stress_16.subs([(z, -cgz_fun), (x, -cgx_fun)]).simplify())
+print(stress.subs(y, 0))
+print(stress.subs(y, 0.5*var.Span))
+print(stress.subs([(z, -cgz_fun), (x, -cgx_fun)]).simplify())
+stress_fun = smp.lambdify([y], stress.subs([(z, -cgz_fun), (x, -cgx_fun)]).simplify())
 plt.figure()
 plt.plot(span, stress_fun(span[0:]))
 plt.show()
