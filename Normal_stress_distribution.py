@@ -55,10 +55,10 @@ md_fun1_16 = smp.nsimplify(round(M1_16[0], 6))*y**5+smp.nsimplify(round(M1_16[1]
 md_fun2_16 = smp.nsimplify(round(M2_16[0], 6))*y**5+smp.nsimplify(round(M2_16[1], 6))*y**4+smp.nsimplify(round(M2_16[2], 6))*y**3+smp.nsimplify(round(M2_16[3], 6))*y**2+smp.nsimplify(round(M2_16[4], 6))*y+smp.nsimplify(round(M2_16[5], 6))
 
 heaviside = smp.Heaviside(y-0.35*0.5*var.Span, 0)
-mx_fun_12 = md_fun1_12-md_fun1_12*heaviside+md_fun2_12*heaviside
-mx_fun_16 = md_fun1_16-md_fun1_16*heaviside+md_fun2_16*heaviside
-Ny_fun = -500000 + 500000*heaviside
-mz_fun = -6008660+514000*y-(-6008660+514000*y)*heaviside
+mx_fun_12 = md_fun1_12*(1-heaviside)+md_fun2_12*heaviside
+mx_fun_16 = md_fun1_16*(1-heaviside)+md_fun2_16*heaviside
+Ny_fun = -500000*(1-heaviside)
+mz_fun = (-6008660+514000*y)*(1-heaviside)
 
 span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 #plt.figure()
@@ -71,13 +71,12 @@ span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 
 
 def sigma_z(mx, mz, ixx, izz):
-  exp = ((mx*z)/ixx+(mz*x)/izz)
+  exp = ((mx*z)/ixx)+((mz*x)/izz)
   return exp
 
 c_fun = var.Chord_root*(1 + (var.Taper_ratio-1)*(y/(0.5*var.Span)))
 spar_fr_len_fun = var.Spar_fr_len_root*(1+(var.Taper_ratio-1)*(y/(0.5*var.Span)))
-
-# alpha and beta are proportionality constants. Since we don't have a funtion for the centroid location as a funtion of y, we may move on by assuming the ratios will stay the same throughout the entire span
+# alpha and beta are proportionality constants. Since we don't have a function for the centroid location as a funtion of y, we may move on by assuming the ratios will stay the same throughout the entire half-span
 alpha = cgx.Centroid_x/(0.55*var.Chord_root)
 beta = cgz.Centroid_z/var.Spar_fr_len_root
 cgx_fun = alpha*0.55*c_fun
@@ -101,6 +100,6 @@ stress_fun = smp.lambdify([y], stress.subs([(z, -cgz_fun), (x, -cgx_fun)]).simpl
 plt.figure()
 plt.plot(span, stress_fun(span[0:]))
 plt.show()
-print(stress_top_corner_left)
-print(stress_top_corner_right)
+print(stress_top_corner_left/1e6)
+print(stress_top_corner_right/1e6)
 print(abs(stress_top_corner_right) > abs(stress_top_corner_left))
