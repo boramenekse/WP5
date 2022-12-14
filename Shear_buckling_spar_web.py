@@ -328,6 +328,7 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
+print("philosophy 1, forward spar: pass")
 
 #Rear
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
@@ -358,6 +359,7 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
+print("philosophy 1, rear spar: pass")
 
 #Desing philosophy 2
 #Front
@@ -389,6 +391,7 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
+print("philosophy 2, forward spar: pass")
 
 #Rear
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
@@ -419,6 +422,7 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
+print("philosophy 2, rear spar: pass")
 
 #Desing philosophy 3
 #Front
@@ -450,6 +454,7 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
+print("philosophy 3, forward spar: pass")
 
 #Rear
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
@@ -480,4 +485,5 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
+print("philosophy 3, rear spar: pass")
 
