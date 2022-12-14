@@ -30,9 +30,9 @@ b_2 = smp.Rational(1, 2)*smp.nsimplify(round(var.Span, 7))
 cr = smp.nsimplify(round(var.Chord_root, 7))
 g_e_relation = smp.Eq(gmod, smp.Rational(1, 2)*(emod/(1+v))) 
 v = smp.solve(g_e_relation, v)[0]
-taper = smp.nsimplify(round(var.Taper_ratio, 7))
-ttopr = smp.nsimplify(round(var.Sheet_top_th_root, 7))
-tbotr = smp.nsimplify(round(var.Sheet_bottom_th_root, 7))
+taper = smp.nsimplify(round(var.Taper_ratio, 7))  #Removed smp.nsimplify(round())
+ttopr = (var.Sheet_top_th_root, 7) #Same applies here
+tbotr = (var.Sheet_bottom_th_root, 7) #E
 ttopfun = ttopr*(1 + (taper-1)*(y/b_2))
 tbotfun = tbotr*(1 + (taper-1)*(y/b_2))
 theta_top = smp.nsimplify(round(var.Sheet_top_angle, 7))
@@ -66,11 +66,11 @@ m4 = k(4, ab)
 m5 = k(5, ab)
 m6 = k(6, ab)
 kfun = smp.Piecewise((m1, (ab>=0) & (ab <= float(smp.solve(m1-m2, ab)[0]))), (m2, (ab > float(smp.solve(m1-m2, ab)[0])) & (ab <= float(smp.solve(m2-m3, ab)[0]))), (m3, (ab > float(smp.solve(m2-m3, ab)[0])) & (ab <= float(smp.solve(m3-m4, ab)[0]))), (m4, (ab > float(smp.solve(m3-m4, ab)[0])) & (ab <= float(smp.solve(m4-m5, ab)[0]))), (m5, (ab > float(smp.solve(m4-m5, ab)[0])) & (ab <= 5)), (0, True))
-plt.figure()
-plt.ylim((0, 16))
-plt.xlim((0, 5))
-plt.plot(a_b, smp.lambdify([ab], kfun)(a_b[0:]))
-plt.show()
+# plt.figure()
+# plt.ylim((0, 16))
+# plt.xlim((0, 5))
+# plt.plot(a_b, smp.lambdify([ab], kfun)(a_b[0:]))
+# plt.show()
 
 import math
 import numpy as np

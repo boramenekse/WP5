@@ -276,6 +276,8 @@ def test_function(x, A, B, C, D):
     return y 
 
 Parameters1, covariance = curve_fit(test_function, Span_y_x, moment_of_inertia_x_span_1)
+Parameters2, covariance = curve_fit(test_function, Span_y_x, moment_of_inertia_x_span_2)
+Parameters3, covariance = curve_fit(test_function, Span_y_x, moment_of_inertia_x_span_3)
 
 Fit_A_1 = Parameters1[0]
 Fit_B_1 = Parameters1[1]
@@ -283,7 +285,7 @@ Fit_C_1 = Parameters1[2]
 Fit_D_1 = Parameters1[3]
 
 def print_fit():
-    return Parameters1
+    return [Parameters1, Parameters2, Parameters3]
 
 Fit_y_1 = test_function(Span_y_x, Fit_A_1, Fit_B_1, Fit_C_1, Fit_D_1)
 #print('The values for A, B and C in the function Ax^3 + Bx^2 + Cx + D are:', Fit_A, Fit_B, Fit_C, Fit_D)
