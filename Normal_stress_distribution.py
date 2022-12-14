@@ -43,11 +43,15 @@ M2_16 = [0.40016072098555516, -9.397942238637903, -1047.3842177269048, 6708.8706
 
 # Izz
 par_list_z = return_parameters()
-izz_fun = par_list_z[0]*y**3+par_list_z[1]*y**2+par_list_z[2]*y+par_list_z[3]
+izz_fun1 = par_list_z[0][0]*y**3+par_list_z[0][1]*y**2+par_list_z[0][2]*y+par_list_z[0][3]
+izz_fun2 = par_list_z[1][0]*y**3+par_list_z[1][1]*y**2+par_list_z[1][2]*y+par_list_z[1][3]
+izz_fun3 = par_list_z[2][0]*y**3+par_list_z[2][1]*y**2+par_list_z[2][2]*y+par_list_z[2][3]
 
 # Ixx
 par_list_x = print_fit()
-ixx_fun = par_list_x[0]*y**3+par_list_x[1]*y**2+par_list_x[2]*y+par_list_x[3]
+ixx_fun1 = par_list_x[0][0]*y**3+par_list_x[0][1]*y**2+par_list_x[0][2]*y+par_list_x[0][3]
+ixx_fun2 = par_list_x[1][0]*y**3+par_list_x[1][1]*y**2+par_list_x[1][2]*y+par_list_x[1][3]
+ixx_fun3 = par_list_x[2][0]*y**3+par_list_x[2][1]*y**2+par_list_x[2][2]*y+par_list_x[2][3]
 
 #Normal force diagram (until 11.69)
 #force is -500000 N (compression)
@@ -85,12 +89,16 @@ def sigma_z(mx, mz, ixx, izz):
 # cgx_fun = alpha*0.55*c_fun
 # cgz_fun = beta*spar_fr_len_fun
 
-stress_12 = sigma_z(mx_fun_12, mz_fun, ixx_fun, izz_fun)
-stress_16 = sigma_z(mx_fun_16, mz_fun, ixx_fun, izz_fun)
+stress_12_1 = sigma_z(mx_fun_12, mz_fun, ixx_fun1, izz_fun1)
+stress_12_2 = sigma_z(mx_fun_12, mz_fun, ixx_fun2, izz_fun2)
+stress_12_3 = sigma_z(mx_fun_12, mz_fun, ixx_fun3, izz_fun3)
+stress_16_1 = sigma_z(mx_fun_16, mz_fun, ixx_fun1, izz_fun1)
+stress_16_2 = sigma_z(mx_fun_16, mz_fun, ixx_fun2, izz_fun2)
+stress_16_3 = sigma_z(mx_fun_16, mz_fun, ixx_fun3, izz_fun3)
 # WE are calculating the top left corner location, which coordinates are (-cgx, -cgz)
-stress_top_corner_left = stress_12.subs([(z, -cgz.Centroid_z), (x, -cgx.Centroid_x), (y, 0)])
-# This time for the top right corner, whose coordinates are (sheet_top_length*cos(Sheet_top_Angle), cgz - sheet_top_lenght*sin(sheet_top_angle))
-stress_top_corner_right = stress_12.subs([(z, -cgz.Centroid_z+var.Sheet_top_len*smp.sin(var.Sheet_top_angle)), (x, var.Sheet_top_len*smp.cos(var.Sheet_top_angle)-cgx.Centroid_x), (y, 0)])
+# stress_top_corner_left = stress_12.subs([(z, -cgz.Centroid_z), (x, -cgx.Centroid_x), (y, 0)])
+# # This time for the top right corner, whose coordinates are (sheet_top_length*cos(Sheet_top_Angle), cgz - sheet_top_lenght*sin(sheet_top_angle))
+# stress_top_corner_right = stress_12.subs([(z, -cgz.Centroid_z+var.Sheet_top_len*smp.sin(var.Sheet_top_angle)), (x, var.Sheet_top_len*smp.cos(var.Sheet_top_angle)-cgx.Centroid_x), (y, 0)])
 
 def curve_fit(a, b, c, d, x):
   exp = a*x**3+b*x**2+c*x+d
@@ -111,12 +119,30 @@ fit3z = curve_fit(float(ph_list[5][0]), float(ph_list[5][1]), float(ph_list[5][2
 # print(cgx.Centroid_x, cgz.Centroid_z) # These values should be for the root
 # print(stress_12.subs(y, 0))
 # print(stress_12.subs(y, 0.5*var.Span))
-stress_fun = smp.lambdify([y], stress_12.subs([(z, -fit1z), (x, -fit1x)]).simplify())
-print(stress_12.subs([(z, -fit1z), (x, -fit1x)]).simplify())
+stress_fun12_1 = smp.lambdify([y], stress_12_1.subs([(z, -fit1z), (x, -fit1x)]).simplify())
+stress_fun12_2 = smp.lambdify([y], stress_12_2.subs([(z, -fit2z), (x, -fit2x)]).simplify())
+stress_fun12_3 = smp.lambdify([y], stress_12_3.subs([(z, -fit3z), (x, -fit3x)]).simplify())
+stress_fun16_1 = smp.lambdify([y], stress_16_1.subs([(z, -fit1z), (x, -fit1x)]).simplify())
+stress_fun16_2 = smp.lambdify([y], stress_16_2.subs([(z, -fit2z), (x, -fit2x)]).simplify())
+stress_fun16_3 = smp.lambdify([y], stress_16_3.subs([(z, -fit3z), (x, -fit3x)]).simplify())
 plt.figure()
-# plt.xlim(0, 25)
-# plt.ylim(-0.7e8, 0)
-plt.plot(span, stress_fun(span[0:]))
+plt.title('Stress distribution at loading case 12 for philosophy 1')
+plt.plot(span, stress_fun12_1(span[0:]))
+plt.figure()
+plt.title('Stress distribution at loading case 12 for philosophy 2')
+plt.plot(span, stress_fun12_2(span[0:]))
+plt.figure()
+plt.title('Stress distribution at loading case 12 for philosophy 3')
+plt.plot(span, stress_fun12_3(span[0:]))
+plt.figure()
+plt.title('Stress distribution at loading case 16 for philosophy 1')
+plt.plot(span, stress_fun16_1(span[0:]))
+plt.figure()
+plt.title('Stress distribution at loading case 16 for philosophy 2')
+plt.plot(span, stress_fun16_2(span[0:]))
+plt.figure()
+plt.title('Stress distribution at loading case 16 for philosophy 3')
+plt.plot(span, stress_fun16_3(span[0:]))
 plt.show()
 # plt.figure()
 # plt.plot(span, smp.lambdify([y], fit1x)(span[0:]))
