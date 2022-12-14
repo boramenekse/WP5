@@ -14,4 +14,4 @@ def critical_stress_b_Str(z):
     sigma = (Var.k * pi**2 *Var.e_mod *Str_MOI_X)/(z**2*Var.Str_A)
     return sigma
 
-print(stress_b_Str(1))
+print(critical_stress_b_Str(1))
