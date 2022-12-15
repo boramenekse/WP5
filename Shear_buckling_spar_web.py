@@ -527,7 +527,7 @@ for i in range(len(y_list)):
     if shear_stress_LC_8_3_rear[i] < critical_shear_stress_rear_spar_list_3[i] and shear_stress_LC_12_3_rear[i] < critical_shear_stress_rear_spar_list_3[i] and shear_stress_LC_16_3_rear[i] < critical_shear_stress_rear_spar_list_3[i]:
         l+=1
     else:
-        print("philosophy 1, rear spar: fail")
+        print("philosophy 3, rear spar: fail")
 if l == len(y_list):
-    print("philosophy 1, rear spar: pass")
+    print("philosophy 3, rear spar: pass")
 
