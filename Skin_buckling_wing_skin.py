@@ -3,6 +3,7 @@ import sympy as smp
 import Copy_Variables_for_crossection as var
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 sigma_cr = smp.symbols('\u03C3_{cr}', real=True)
 theta = smp.symbols('\u03B8', real=True)
@@ -24,19 +25,22 @@ d = smp.symbols('d', real=True, positive=True)
 cr = smp.symbols('c_r', real=True, positive=True) 
 taper = smp.symbols('\u03BB', real=True, positive=True) 
 
+heaviside = smp.Heaviside(y-11.69, 1)
+nd = (514000*y - (514000*y - 6008660)*heaviside - 6008660)*(2.68003769312149e-19*y**3 - 1.6822756916907e-17*y**2 - 0.0704116492628627*y + 3.26464295018786)/(-8.95576123019816e-5*y**3 + 0.00863008340506688*y**2 - 0.291525157620533*y + 3.45400374877192) + (7.87266384897094e-20*y**3 - 3.47925199872395e-18*y**2 - 0.00511997686115935*y + 0.23738822396431)*(0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y + (0.400160720985555*y**5 - 9.3979422386379*y**4 - 1047.3842177269*y**3 + 6708.87061321202*y**2 + 1967575.61730709*y - 39113307.3596346)*heaviside - (0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y - 33488163.0896061)*heaviside - 33488163.0896061)/(-3.69724112051317e-6*y**3 + 0.000356279030822228*y**2 - 0.0120351444942484*y + 0.142592956886914)
+
 emod = var.e_mod
 gmod = var.g_mod
-b_2 = smp.Rational(1, 2)*smp.nsimplify(round(var.Span, 7))
-cr = smp.nsimplify(round(var.Chord_root, 7))
+b_2 = smp.Rational(1, 2)*var.Span
+cr = var.Chord_root
 g_e_relation = smp.Eq(gmod, smp.Rational(1, 2)*(emod/(1+v))) 
 v = smp.solve(g_e_relation, v)[0]
-taper = smp.nsimplify(round(var.Taper_ratio, 7))
-ttopr = smp.nsimplify(round(var.Sheet_top_th_root, 7))
-tbotr = smp.nsimplify(round(var.Sheet_bottom_th_root, 7))
+taper = var.Taper_ratio  #Removed smp.nsimplify(round())
+ttopr = var.Sheet_top_th_root #Same applies here
+tbotr = var.Sheet_bottom_th_root #E
 ttopfun = ttopr*(1 + (taper-1)*(y/b_2))
 tbotfun = tbotr*(1 + (taper-1)*(y/b_2))
-theta_top = smp.nsimplify(round(var.Sheet_top_angle, 7))
-theta_bot = smp.nsimplify(round(var.Sheet_bottom_angle, 7))
+theta_top = var.Sheet_top_angle
+theta_bot = var.Sheet_bottom_angle
 
 def sigma(kc, t, b):
   expr = smp.Rational(1, 12) * ((smp.pi**2 * kc * emod)/(1 - v**2)) * (t/b)**2
@@ -51,6 +55,10 @@ def b(y, theta):
   b_y = c_local*smp.Rational(11, 20)/smp.cos(theta)
   return b_y.simplify()
 
+btopfun = b(y, var.Sheet_top_angle)
+bbotfun = b(y, var.Sheet_bottom_angle)
+
+span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 # KS for C with SS loaded edges 
 a_b = np.linspace(0, 5, 1000, endpoint=True)
 ab = smp.symbols('a_b', real=True, positive=True)
@@ -66,15 +74,73 @@ m4 = k(4, ab)
 m5 = k(5, ab)
 m6 = k(6, ab)
 kfun = smp.Piecewise((m1, (ab>=0) & (ab <= float(smp.solve(m1-m2, ab)[0]))), (m2, (ab > float(smp.solve(m1-m2, ab)[0])) & (ab <= float(smp.solve(m2-m3, ab)[0]))), (m3, (ab > float(smp.solve(m2-m3, ab)[0])) & (ab <= float(smp.solve(m3-m4, ab)[0]))), (m4, (ab > float(smp.solve(m3-m4, ab)[0])) & (ab <= float(smp.solve(m4-m5, ab)[0]))), (m5, (ab > float(smp.solve(m4-m5, ab)[0])) & (ab <= 5)), (0, True))
+# plt.figure()
+# plt.ylim((0, 16))
+# plt.xlim((0, 5))
+# plt.plot(a_b, smp.lambdify([ab], kfun)(a_b[0:]))
 plt.figure()
-plt.ylim((0, 16))
-plt.xlim((0, 5))
-plt.plot(a_b, smp.lambdify([ab], kfun)(a_b[0:]))
+plt.plot(span, smp.lambdify([y], nd)(span[0:]))
+# plt.show()
+
+sfc = 1.5
+nd_des = sfc*nd
+sigmatopfun = sigma(kc, ttopfun, btopfun)
+sigmabotfun = sigma(kc, tbotfun, bbotfun)
+dy = 0
+alist1 = []
+dylist1 = []
+alist2 = []
+dylist2 = []
+while dy <= 0.5*var.Span:
+  if dy <= 0.35*0.5*var.Span:
+    eq1 = smp.Eq(nd_des.subs(y, dy), sigmatopfun.subs(y, dy))
+    kc1 = abs(smp.solve(eq1, kc)[0])
+    a_b1 = smp.solve(kc1-kfun, ab)[0]
+    a1 = (a_b1*btopfun.subs(y, dy)).evalf()
+    bavg1 = (btopfun.subs(y, dy)+btopfun.subs(y, (dy+a1).doit()))/2
+    tavg1 =(ttopfun.subs(y, dy)+ttopfun.subs(y, (dy+a1).doit()))/2
+    eq2 = smp.Eq(nd_des.subs(y, (dy+a1).doit()), sigma(kc, tavg1, bavg1))
+    kc2 = abs(smp.solve(eq2, kc)[0])
+    a_b2 = smp.solve(kc2-kfun, ab)[0]
+    a2 = a_b2*bavg1
+    alist1.append(a2)
+    dylist1.append(dy)
+    dy += a2
+  else: 
+    eq1 = smp.Eq(nd_des.subs(y, dy), sigmatopfun.subs(y, dy))
+    kc1 = abs(smp.solve(eq1, kc)[0])
+    if len(smp.solve(kc1-kfun, ab))==0:
+      dylist2.append(dy)
+      index = alist1.index(max(alist1))
+      alist2.append(alist1[index])
+      dy += max(alist1)
+      continue
+    a_b1 = smp.solve(kc1-kfun, ab)[0]
+    a1 = (a_b1*btopfun.subs(y, dy)).evalf()
+    bavg1 = (btopfun.subs(y, dy)+btopfun.subs(y, (dy+a1).doit()))/2
+    tavg1 =(ttopfun.subs(y, dy)+ttopfun.subs(y, (dy+a1).doit()))/2
+    eq2 = smp.Eq(nd_des.subs(y, dy), sigma(kc, tavg1, bavg1))
+    kc2 = abs(smp.solve(eq2, kc)[0])
+    if len(smp.solve(kc2-kfun, ab))==0:
+      dylist2.append(dy)
+      index = alist1.index(max(alist1))
+      alist2.append(alist1[index])
+      dy += max(alist1)
+      continue
+    a_b2 = smp.solve(kc2-kfun, ab)[0]
+    a2 = a_b2*bavg1
+    alist2.append(a2)
+    dylist2.append(dy)
+    dy += a2
+print(alist1)
+print(dylist1)
+print(alist2)
+print(dylist2)
+print(len(dylist1)+len(dylist2)-1)
+
+plt.figure()
+plt.plot(dylist1+dylist2, alist1+alist2)
 plt.show()
-
-import math
-import numpy as np
-
 
 def zbar(p, no_str, fr_t_root, re_t_root, top_sheet_t_root, bottom_sheet_t_root):
     #input parameters

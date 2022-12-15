@@ -272,6 +272,8 @@ def test_function(x, A, B, C, D):
     return y 
 
 Parameters1, covariance = curve_fit(test_function, Span_y_z, moment_of_inertia_z_span_1)
+Parameters2, covariance = curve_fit(test_function, Span_y_z, moment_of_inertia_z_span_2)
+Parameters3, covariance = curve_fit(test_function, Span_y_z, moment_of_inertia_z_span_3)
 
 Fit_A_1 = Parameters1[0]
 Fit_B_1 = Parameters1[1]
@@ -279,7 +281,7 @@ Fit_C_1 = Parameters1[2]
 Fit_D_1 = Parameters1[3]
 
 def return_parameters():
-    par = [Parameters1[0], Parameters1[1], Parameters1[2], Parameters1[3]]
+    par = [Parameters1, Parameters2, Parameters3]
     return par
 
 Fit_y_1 = test_function(Span_y_z, Fit_A_1, Fit_B_1, Fit_C_1, Fit_D_1)
