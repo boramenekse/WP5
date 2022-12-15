@@ -14,7 +14,7 @@ g_mod = 26*10**9 #[pa]
 
 #stringers
 Str_A = 0.001 #[m^2]
-Str_N = 0 #the number of stringers has to be 2, 6, 10, 14, 18, 22, etc...
+Str_N = 34 #the number of stringers has to be 2, 6, 10, 14, 18, 22, etc...
 
 #spanwise location
 y = 0
@@ -24,18 +24,18 @@ y = 0
 #spars root (and tip for front length) #spar is located at x=0.2c
 Spar_fr_len_root = (0.045100 + 0.045200)*Chord_root #data from https://m-selig.ae.illinois.edu/ads/coord/sc20710.dat
 Spar_fr_len_tip = Spar_fr_len_root * Taper_ratio
-Spar_fr_th_root= 0.045
+Spar_fr_th_root= 0.015
 
 #spar rear is at x=0.75c
 Spar_re_len_root = (0.033900 + 0.016200)*Chord_root #data from https://m-selig.ae.illinois.edu/ads/coord/sc20710.dat
-Spar_re_th_root = 0.045
+Spar_re_th_root = 0.015
 
 #sheets root 
 Sheet_top_len_root = math.sqrt((0.045100 - 0.033900)**2 + 0.55**2)*Chord_root #simply using some Pythagoras.
-Sheet_top_th_root = 0.063 # Need more or less 0.063 to meet the requirement
+Sheet_top_th_root = 0.013 # Need more or less 0.063 to meet the requirement
 
 Sheet_bottom_len_root = math.sqrt((0.045200 - 0.016200)**2 + 0.55**2)*Chord_root  #simply using some Pythagoras.
-Sheet_bottom_th_root = 0.063 # Need more or less 0.063 to meet the requirement
+Sheet_bottom_th_root = 0.013 # Need more or less 0.063 to meet the requirement
 
 Sheet_top_angle = math.atan((0.045100-0.033900)/(0.75-0.2))
 Sheet_bottom_angle = math.atan((0.045200-0.016200)/(0.75-0.2))

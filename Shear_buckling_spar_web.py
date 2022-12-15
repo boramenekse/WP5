@@ -92,6 +92,8 @@ plt.plot(y_list, critical_shear_stress_rear_spar_list_2)
 plt.plot(y_list, critical_shear_stress_forward_spar_list_3)
 plt.plot(y_list, critical_shear_stress_rear_spar_list_3)
 plt.legend(["forward_1", "rear_1", "forward_2", "rear_2", "forward_3", "rear_3"])
+plt.xlabel('Span [m]')
+plt.ylabel('Critical Buckling Shear Stress [Pa]')
 plt.show()
 
 ##### GET THE SHEAR STRESS DUE TO SHEAR FORCE
