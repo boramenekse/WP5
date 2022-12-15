@@ -3,12 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 #also check compressive failure for this component
 
-t_fs_root_1 = 0.045
-t_rs_root_1 = 0.045
-t_fs_root_2 = 0.121
-t_rs_root_2 = 0.121
-t_fs_root_3 = 0.1
-t_rs_root_3 = 0.1
+t_fs_root_1 = 0.025
+t_rs_root_1 = 0.025
+t_fs_root_2 = 0.04
+t_rs_root_2 = 0.04
+t_fs_root_3 = 0.015
+t_rs_root_3 = 0.015
 
 ### SETTING SOME CONSTANTS VOR THE FORMULAE
 
@@ -330,7 +330,14 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
-print("philosophy 1, forward spar: pass")
+l=0
+for i in range(len(y_list)):
+    if shear_stress_LC_8_1_forward[i] < critical_shear_stress_forward_spar_list_1[i] and shear_stress_LC_12_1_forward[i] < critical_shear_stress_forward_spar_list_1[i] and shear_stress_LC_16_1_forward[i] < critical_shear_stress_forward_spar_list_1[i]:
+        l+=1
+    else:
+        print("philosophy 1, forward spar: fail")
+if l == len(y_list):
+    print("philosophy 1, forward spar: pass")
 
 #Rear
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
@@ -361,7 +368,14 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
-print("philosophy 1, rear spar: pass")
+l=0
+for i in range(len(y_list)):
+    if shear_stress_LC_8_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_12_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_16_1_rear[i] < critical_shear_stress_rear_spar_list_1[i]:
+        l+=1
+    else:
+        print("philosophy 1, rear spar: fail")
+if l == len(y_list):
+    print("philosophy 1, rear spar: pass")
 
 #Desing philosophy 2
 #Front
@@ -393,7 +407,14 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
-print("philosophy 2, forward spar: pass")
+l=0
+for i in range(len(y_list)):
+    if shear_stress_LC_8_2_forward[i] < critical_shear_stress_forward_spar_list_2[i] and shear_stress_LC_12_2_forward[i] < critical_shear_stress_forward_spar_list_2[i] and shear_stress_LC_16_2_forward[i] < critical_shear_stress_forward_spar_list_2[i]:
+        l+=1
+    else:
+        print("philosophy 2, forward spar: fail")
+if l == len(y_list):
+    print("philosophy 2, forward spar: pass")
 
 #Rear
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
@@ -424,7 +445,14 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
-print("philosophy 2, rear spar: pass")
+l=0
+for i in range(len(y_list)):
+    if shear_stress_LC_8_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_12_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_16_1_rear[i] < critical_shear_stress_rear_spar_list_1[i]:
+        l+=1
+    else:
+        print("philosophy 1, rear spar: fail")
+if l == len(y_list):
+    print("philosophy 1, rear spar: pass")
 
 #Desing philosophy 3
 #Front
@@ -456,7 +484,14 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
-print("philosophy 3, forward spar: pass")
+l=0
+for i in range(len(y_list)):
+    if shear_stress_LC_8_3_forward[i] < critical_shear_stress_forward_spar_list_3[i] and shear_stress_LC_12_3_forward[i] < critical_shear_stress_forward_spar_list_3[i] and shear_stress_LC_16_3_forward[i] < critical_shear_stress_forward_spar_list_3[i]:
+        l+=1
+    else:
+        print("philosophy 2, forward spar: fail")
+if l == len(y_list):
+    print("philosophy 2, forward spar: pass")
 
 #Rear
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
@@ -487,5 +522,12 @@ kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12, linestyle="none", color=
 ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
 ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
 plt.show()
-print("philosophy 3, rear spar: pass")
+l=0
+for i in range(len(y_list)):
+    if shear_stress_LC_8_3_rear[i] < critical_shear_stress_rear_spar_list_3[i] and shear_stress_LC_12_3_rear[i] < critical_shear_stress_rear_spar_list_3[i] and shear_stress_LC_16_3_rear[i] < critical_shear_stress_rear_spar_list_3[i]:
+        l+=1
+    else:
+        print("philosophy 1, rear spar: fail")
+if l == len(y_list):
+    print("philosophy 1, rear spar: pass")
 
