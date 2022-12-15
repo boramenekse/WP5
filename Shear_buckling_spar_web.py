@@ -450,9 +450,9 @@ for i in range(len(y_list)):
     if shear_stress_LC_8_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_12_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_16_1_rear[i] < critical_shear_stress_rear_spar_list_1[i]:
         l+=1
     else:
-        print("philosophy 1, rear spar: fail")
+        print("philosophy 2, rear spar: fail")
 if l == len(y_list):
-    print("philosophy 1, rear spar: pass")
+    print("philosophy 2, rear spar: pass")
 
 #Desing philosophy 3
 #Front
@@ -489,9 +489,9 @@ for i in range(len(y_list)):
     if shear_stress_LC_8_3_forward[i] < critical_shear_stress_forward_spar_list_3[i] and shear_stress_LC_12_3_forward[i] < critical_shear_stress_forward_spar_list_3[i] and shear_stress_LC_16_3_forward[i] < critical_shear_stress_forward_spar_list_3[i]:
         l+=1
     else:
-        print("philosophy 2, forward spar: fail")
+        print("philosophy 3, forward spar: fail")
 if l == len(y_list):
-    print("philosophy 2, forward spar: pass")
+    print("philosophy 3, forward spar: pass")
 
 #Rear
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
