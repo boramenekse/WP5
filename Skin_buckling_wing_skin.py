@@ -16,9 +16,9 @@ ttopr = smp.symbols('t_{top_r}', real=True, positive=True)
 tbotr = smp.symbols('t_{bottom_r}', real=True, positive=True)
 b = smp.symbols('b', real=True, positive=True)
 b_2 = smp.symbols('b/2', real=True, positive=True)
-x = smp.symbols('x')
-y = smp.symbols('y')
-z = smp.symbols('z')
+x = smp.symbols('x', real=True)
+y = smp.symbols('y', real=True)
+z = smp.symbols('z', real=True)
 a = smp.symbols('a', real=True) 
 h = smp.symbols('h', real=True)
 d = smp.symbols('d', real=True, positive=True) 
@@ -26,7 +26,7 @@ cr = smp.symbols('c_r', real=True, positive=True)
 taper = smp.symbols('\u03BB', real=True, positive=True) 
 
 heaviside = smp.Heaviside(y-11.69, 1)
-nd = (514000*y - (514000*y - 6008660)*heaviside - 6008660)*(2.68003769312149e-19*y**3 - 1.6822756916907e-17*y**2 - 0.0704116492628627*y + 3.26464295018786)/(-8.95576123019816e-5*y**3 + 0.00863008340506688*y**2 - 0.291525157620533*y + 3.45400374877192) + (7.87266384897094e-20*y**3 - 3.47925199872395e-18*y**2 - 0.00511997686115935*y + 0.23738822396431)*(0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y + (0.400160720985555*y**5 - 9.3979422386379*y**4 - 1047.3842177269*y**3 + 6708.87061321202*y**2 + 1967575.61730709*y - 39113307.3596346)*heaviside - (0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y - 33488163.0896061)*heaviside - 33488163.0896061)/(-3.69724112051317e-6*y**3 + 0.000356279030822228*y**2 - 0.0120351444942484*y + 0.142592956886914)
+nd = (5140*(-100*y + (100*y - 1169)*heaviside + 1169)*(5.42626672758448e-7*y**3 - 1.88694820902376e-5*y**2 - 0.071424801946438*y + 3.28756683861378)*(7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184) + (9.75121500397927e-9*y**3 - 3.39092024244981e-7*y**2 + 0.00510357950779944*y - 0.237060165638359)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263)*(0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y + (0.400160720985555*y**5 - 9.3979422386379*y**4 - 1047.3842177269*y**3 + 6708.87061321202*y**2 + 1967575.61730709*y - 39113307.3596346)*heaviside - (0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y - 33488163.0896061)*heaviside - 33488163.0896061))/((7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263))
 
 emod = var.e_mod
 gmod = var.g_mod
@@ -59,6 +59,7 @@ btopfun = b(y, var.Sheet_top_angle)
 bbotfun = b(y, var.Sheet_bottom_angle)
 
 span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
+
 # KS for C with SS loaded edges 
 a_b = np.linspace(0, 5, 1000, endpoint=True)
 ab = smp.symbols('a_b', real=True, positive=True)
@@ -74,73 +75,146 @@ m4 = k(4, ab)
 m5 = k(5, ab)
 m6 = k(6, ab)
 kfun = smp.Piecewise((m1, (ab>=0) & (ab <= float(smp.solve(m1-m2, ab)[0]))), (m2, (ab > float(smp.solve(m1-m2, ab)[0])) & (ab <= float(smp.solve(m2-m3, ab)[0]))), (m3, (ab > float(smp.solve(m2-m3, ab)[0])) & (ab <= float(smp.solve(m3-m4, ab)[0]))), (m4, (ab > float(smp.solve(m3-m4, ab)[0])) & (ab <= float(smp.solve(m4-m5, ab)[0]))), (m5, (ab > float(smp.solve(m4-m5, ab)[0])) & (ab <= 5)), (0, True))
-# plt.figure()
-# plt.ylim((0, 16))
-# plt.xlim((0, 5))
-# plt.plot(a_b, smp.lambdify([ab], kfun)(a_b[0:]))
-plt.figure()
-plt.plot(span, smp.lambdify([y], nd)(span[0:]))
-# plt.show()
 
 sfc = 1.5
 nd_des = sfc*nd
 sigmatopfun = sigma(kc, ttopfun, btopfun)
 sigmabotfun = sigma(kc, tbotfun, bbotfun)
-dy = 0
+
+# Top plate
+dy1 = 0
 alist1 = []
 dylist1 = []
 alist2 = []
 dylist2 = []
-while dy <= 0.5*var.Span:
-  if dy <= 0.35*0.5*var.Span:
-    eq1 = smp.Eq(nd_des.subs(y, dy), sigmatopfun.subs(y, dy))
+while dy1 <= 0.5*var.Span:
+  if dy1 <= 0.35*0.5*var.Span:
+    eq1 = smp.Eq(nd_des.subs(y, dy1), sigmatopfun.subs(y, dy1))
     kc1 = abs(smp.solve(eq1, kc)[0])
     a_b1 = smp.solve(kc1-kfun, ab)[0]
-    a1 = (a_b1*btopfun.subs(y, dy)).evalf()
-    bavg1 = (btopfun.subs(y, dy)+btopfun.subs(y, (dy+a1).doit()))/2
-    tavg1 =(ttopfun.subs(y, dy)+ttopfun.subs(y, (dy+a1).doit()))/2
-    eq2 = smp.Eq(nd_des.subs(y, (dy+a1).doit()), sigma(kc, tavg1, bavg1))
+    a1 = (a_b1*btopfun.subs(y, dy1)).evalf()
+    bavg1 = (btopfun.subs(y, dy1)+btopfun.subs(y, (dy1+a1).doit()))/2
+    tavg1 =(ttopfun.subs(y, dy1)+ttopfun.subs(y, (dy1+a1).doit()))/2
+    eq2 = smp.Eq(nd_des.subs(y, dy1), sigma(kc, tavg1, bavg1))
     kc2 = abs(smp.solve(eq2, kc)[0])
     a_b2 = smp.solve(kc2-kfun, ab)[0]
     a2 = a_b2*bavg1
     alist1.append(a2)
-    dylist1.append(dy)
-    dy += a2
+    dylist1.append(dy1)
+    dy1 += a2
   else: 
-    eq1 = smp.Eq(nd_des.subs(y, dy), sigmatopfun.subs(y, dy))
+    eq1 = smp.Eq(nd_des.subs(y, dy1), sigmatopfun.subs(y, dy1))
     kc1 = abs(smp.solve(eq1, kc)[0])
     if len(smp.solve(kc1-kfun, ab))==0:
-      dylist2.append(dy)
-      index = alist1.index(max(alist1))
-      alist2.append(alist1[index])
-      dy += max(alist1)
+      dylist2.append(dy1)
+      index = alist2.index(max(alist2))
+      alist2.append(alist2[index])
+      dy1 += max(alist2)
       continue
     a_b1 = smp.solve(kc1-kfun, ab)[0]
-    a1 = (a_b1*btopfun.subs(y, dy)).evalf()
-    bavg1 = (btopfun.subs(y, dy)+btopfun.subs(y, (dy+a1).doit()))/2
-    tavg1 =(ttopfun.subs(y, dy)+ttopfun.subs(y, (dy+a1).doit()))/2
-    eq2 = smp.Eq(nd_des.subs(y, dy), sigma(kc, tavg1, bavg1))
+    a1 = (a_b1*btopfun.subs(y, dy1)).evalf()
+    bavg1 = (btopfun.subs(y, dy1)+btopfun.subs(y, (dy1+a1).doit()))/2
+    tavg1 =(ttopfun.subs(y, dy1)+ttopfun.subs(y, (dy1+a1).doit()))/2
+    eq2 = smp.Eq(nd_des.subs(y, dy1), sigma(kc, tavg1, bavg1))
     kc2 = abs(smp.solve(eq2, kc)[0])
     if len(smp.solve(kc2-kfun, ab))==0:
-      dylist2.append(dy)
-      index = alist1.index(max(alist1))
-      alist2.append(alist1[index])
-      dy += max(alist1)
+      dylist2.append(dy1)
+      index = alist2.index(max(alist2))
+      alist2.append(alist2[index])
+      dy1 += max(alist2)
       continue
     a_b2 = smp.solve(kc2-kfun, ab)[0]
     a2 = a_b2*bavg1
     alist2.append(a2)
-    dylist2.append(dy)
-    dy += a2
-print(alist1)
-print(dylist1)
-print(alist2)
-print(dylist2)
-print(len(dylist1)+len(dylist2)-1)
+    dylist2.append(dy1)
+    dy1 += a2
+ribs_no_top = len(dylist1)+len(dylist2)-1
+ribs_location_top_list = dylist1[1:]+dylist2
+# print(ribs_no_top)
+# print(ribs_location_top_list)
 
-plt.figure()
-plt.plot(dylist1+dylist2, alist1+alist2)
-plt.show()
+# Bottom plate
+dy2 = 0
+alist3 = []
+dylist3 = []
+alist4 = []
+dylist4 = []
+while dy2 <= 0.5*var.Span:
+  if dy2 <= 0.35*0.5*var.Span:
+    eq3 = smp.Eq(nd_des.subs(y, dy2), sigmabotfun.subs(y, dy2))
+    kc3 = abs(smp.solve(eq3, kc)[0])
+    a_b3 = smp.solve(kc3-kfun, ab)[0]
+    a3 = (a_b3*bbotfun.subs(y, dy2)).evalf()
+    bavg2 = (bbotfun.subs(y, dy2)+bbotfun.subs(y, (dy2+a3).doit()))/2
+    tavg2 =(tbotfun.subs(y, dy2)+tbotfun.subs(y, (dy2+a3).doit()))/2
+    eq4 = smp.Eq(nd_des.subs(y, dy2), sigma(kc, tavg2, bavg2))
+    kc4 = abs(smp.solve(eq4, kc)[0])
+    a_b4 = smp.solve(kc4-kfun, ab)[0]
+    a4 = a_b4*bavg2
+    alist3.append(a4)
+    dylist3.append(dy2)
+    dy2 += a4
+  else: 
+    eq3 = smp.Eq(nd_des.subs(y, dy2), sigmabotfun.subs(y, dy2))
+    kc3 = abs(smp.solve(eq3, kc)[0])
+    if len(smp.solve(kc3-kfun, ab))==0:
+      dylist4.append(dy2)
+      index = alist4.index(max(alist4))
+      alist4.append(alist4[index])
+      dy2 += max(alist4)
+      continue
+    a_b3 = smp.solve(kc3-kfun, ab)[0]
+    a3 = (a_b3*bbotfun.subs(y, dy2)).evalf()
+    bavg2 = (bbotfun.subs(y, dy2)+bbotfun.subs(y, (dy2+a3).doit()))/2
+    tavg2 =(tbotfun.subs(y, dy2)+tbotfun.subs(y, (dy2+a3).doit()))/2
+    eq4 = smp.Eq(nd_des.subs(y, dy2), sigma(kc, tavg2, bavg2))
+    kc4 = abs(smp.solve(eq4, kc)[0])
+    if len(smp.solve(kc4-kfun, ab))==0:
+      dylist4.append(dy2)
+      index = alist4.index(max(alist4))
+      alist4.append(alist4[index])
+      dy2 += max(alist4)
+      continue
+    a_b4 = smp.solve(kc4-kfun, ab)[0]
+    a4 = a_b4*bavg2
+    alist4.append(a4)
+    dylist4.append(dy2)
+    dy2 += a4
+ribs_no_bot = len(dylist3)+len(dylist4)-1
+ribs_location_bot_list = dylist3[1:]+dylist4
+# print(ribs_no_bot)
+# print(ribs_location_bot_list)
+# print(alist3+alist4)
+
+# Comparing the panel lengths of top and bottom plates to determine the driving one
+li1 = alist1+alist2
+li2 = alist3+alist4
+comp_list = []
+for i in li1:
+  index = li1.index(i)
+  if i > li2[index]:
+    comp_list.append(1)
+  else:
+    comp_list.append(0)
+
+# Forming the a_list according to comparison
+a_list = []
+for i in range(0, len(comp_list)):
+  if comp_list[i] == 1:
+    a_list.append(li2[i])
+  else:
+    a_list.append(li1[i])
+
+# Determining the rib locations according to the comparison
+a1 = 0
+ribs_location_list = []
+for i in a_list[0:-1]:
+  a1 += i
+  ribs_location_list.append(a1)
+
+# Printing the results
+print('Number of ribs: {}'.format(len(ribs_location_list)))
+print(ribs_location_list)
 
 def zbar(p, no_str, fr_t_root, re_t_root, top_sheet_t_root, bottom_sheet_t_root):
     #input parameters
@@ -383,10 +457,10 @@ def Moi_z_wingbox(p, no_str, fr_t_root, re_t_root, top_sheet_t_root, bottom_shee
     return Centroid_x
 
 no_list = [0, 18, 34]
-fr_t_list = [0.045, 0.121, 0.100]
-re_t_list = [0.045, 0.121, 0.100]
-top_t_list = [0.063, 0.056, 0.057]
-bottom_t_list = [0.063, 0.056, 0.057]
+fr_t_list = [0.025, 0.040, 0.015]
+re_t_list = [0.025, 0.040, 0.015]
+top_t_list = [0.017, 0.013, 0.013]
+bottom_t_list = [0.017, 0.013, 0.013]
 
 Span_y_z = np.arange(0.0, (var.Span / 2), 1.0)
 index = 0

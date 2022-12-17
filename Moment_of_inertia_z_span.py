@@ -9,10 +9,10 @@ moment_of_inertia_z_span_2 = []
 moment_of_inertia_z_span_3 = []
 
 no_list = [0, 18, 34]
-fr_t_list = [0.045, 0.121, 0.100]
-re_t_list = [0.045, 0.121, 0.100]
-top_t_list = [0.063, 0.056, 0.057]
-bottom_t_list = [0.063, 0.056, 0.057]
+fr_t_list = [0.025, 0.040, 0.015]
+re_t_list = [0.025, 0.040, 0.015]
+top_t_list = [0.017, 0.013, 0.013]
+bottom_t_list = [0.017, 0.013, 0.013]
 
 def Moi_z_wingbox(p):
         #input parameters
