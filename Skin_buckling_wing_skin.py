@@ -55,8 +55,8 @@ def b(y, theta):
   b_y = c_local*smp.Rational(11, 20)/smp.cos(theta)
   return b_y.simplify()
 
-btopfun = b(y, var.Sheet_top_angle)
-bbotfun = b(y, var.Sheet_bottom_angle)
+btopfun = b(y, theta_top)
+bbotfun = b(y, theta_bot)
 
 span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 
