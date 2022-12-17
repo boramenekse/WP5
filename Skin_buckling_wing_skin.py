@@ -1,6 +1,6 @@
 #also check compressive failure for this component
 import sympy as smp
-import Copy_Variables_for_crossection as var
+import Variables_for_crossection_geometry as var
 import numpy as np
 import matplotlib.pyplot as plt
 import math
