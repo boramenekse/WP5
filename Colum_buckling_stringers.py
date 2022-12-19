@@ -14,4 +14,4 @@ def critical_stress_b_Str(L):
     sigma = (Var.k * pi**2 *Var.e_mod *Str_MOI_X)/(L**2*Var.Str_A)
     return sigma
 
-print(critical_stress_b_Str(Var.Span/(2*11))/1e6, "MPa")             #-67 MPa
+print(critical_stress_b_Str(Var.Span/(2*40))/1e6, "MPa")             #-67 MPa
