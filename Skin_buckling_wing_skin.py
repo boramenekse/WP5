@@ -3,6 +3,7 @@ import sympy as smp
 import Variables_for_crossection_geometry as var
 import numpy as np
 import matplotlib.pyplot as plt
+import Normal_stress_distribution as str 
 
 sigma_cr = smp.symbols('\u03C3_{cr}', real=True)
 theta = smp.symbols('\u03B8', real=True)
@@ -23,7 +24,20 @@ h = smp.symbols('h', real=True)
 d = smp.symbols('d', real=True, positive=True) 
 cr = smp.symbols('c_r', real=True, positive=True) 
 taper = smp.symbols('\u03BB', real=True, positive=True) 
+ixx = smp.symbols('Ixx', real=True)
+iyy = smp.symbols('Iyy', real=True)
+ixy = smp.symbols('Ixy', real=True)
+mx = smp.symbols('Mx', real=True)
+my = smp.symbols('My', real=True)
+r = smp.symbols('r', real=True, positive=True)
+alpha = smp.symbols('\u03B1', real=True)
+beta = smp.symbols('\u03B2', real=True)
+rho = smp.symbols('\u03C1', real=True)
+sigma = smp.symbols('\u03C3', real=True)
+eta = smp.symbols('\u03B7', real=True)
+xi = smp.symbols('\u03BE', real=True)
 
+# nd = str.stress_16_3.subs([(z, str.br_z3), (x, str.br_x3)]).simplify()
 span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 heaviside = smp.Heaviside(y-11.69, 1)
 nd = (5140*(-100*y + (100*y - 1169)*heaviside + 1169)*(5.42626672758448e-7*y**3 - 1.88694820902376e-5*y**2 - 0.071424801946438*y + 3.28756683861378)*(7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184) + (9.75121500397927e-9*y**3 - 3.39092024244981e-7*y**2 + 0.00510357950779944*y - 0.237060165638359)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263)*(0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y + (0.400160720985555*y**5 - 9.3979422386379*y**4 - 1047.3842177269*y**3 + 6708.87061321202*y**2 + 1967575.61730709*y - 39113307.3596346)*heaviside - (0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y - 33488163.0896061)*heaviside - 33488163.0896061))/((7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263))
@@ -242,7 +256,11 @@ for i in li1:
     comp_list.append(1)
   else:
     comp_list.append(0)
-diff = len(ribs_location_bot_list)-len(ribs_location_top_list)
+diff = 0
+if len(ribs_location_bot_list)>len(ribs_location_top_list):
+  diff += len(ribs_location_bot_list)-len(ribs_location_top_list)
+else:
+  diff += 0
 for i in range(0, diff):
   comp_list.append(1)
 
