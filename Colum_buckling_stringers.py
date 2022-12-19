@@ -15,3 +15,4 @@ def critical_stress_b_Str(L):
     return sigma
 
 print(critical_stress_b_Str(Var.Span/(2*40))/1e6, "MPa")             #-67 MPa
+
