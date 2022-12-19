@@ -167,6 +167,7 @@ ribs_no_top = len(dylist1)+len(dylist2)-1
 ribs_location_top_list = dylist1[1:]+dylist2
 # print(ribs_no_top)
 # print(ribs_location_top_list)
+# print(len(ribs_location_top_list))
 
 # Bottom plate
 dy2 = 0
@@ -231,7 +232,7 @@ ribs_no_bot = len(dylist3)+len(dylist4)-1
 ribs_location_bot_list = dylist3[1:]+dylist4
 # print(ribs_no_bot)
 # print(ribs_location_bot_list)
-# print(alist3+alist4)
+# print(len(ribs_location_bot_list))
 
 # Comparing the panel lengths of top and bottom plates to determine the driving one
 li1 = alist1+alist2
@@ -243,6 +244,9 @@ for i in li1:
     comp_list.append(1)
   else:
     comp_list.append(0)
+diff = len(ribs_location_bot_list)-len(ribs_location_top_list)
+for i in range(0, diff):
+  comp_list.append(1)
 
 # Forming the a_list according to comparison
 a_list = []
@@ -255,13 +259,18 @@ for i in range(0, len(comp_list)):
 # Determining the rib locations according to the comparison
 a1 = 0
 ribs_location_list = []
-for i in a_list[0:-1]:
+for i in a_list[0:]:
   a1 += i
   ribs_location_list.append(a1)
 
 # Printing the results
-print('Number of ribs: {}'.format(len(ribs_location_list)))
-print(ribs_location_list)
+if ribs_location_list[-1]>0.5*var.Span:
+  print('Number of ribs: {}'.format(len(ribs_location_list[0:-1])))
+  print(ribs_location_list[0:-1])
+else:
+  print('Number of ribs: {}'.format(len(ribs_location_list[0:])))
+  print(ribs_location_list[0:])
+
 
 def zbar(p, no_str, fr_t_root, re_t_root, top_sheet_t_root, bottom_sheet_t_root):
     #input parameters

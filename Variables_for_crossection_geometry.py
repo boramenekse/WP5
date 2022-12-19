@@ -127,6 +127,5 @@ Str_v_th = 0.004
 
 #Str_A = 0.001 #[m^2]
 Str_A = Str_h_len*Str_h_th + Str_v_len*Str_v_th         #should be 10 cm^2 from last report
-Str_N = 0 #the number of stringers has to be 2, 6, 10, 14, 18, 22, etc...
 k = 4   #clamping conditions
 L = 1   #spacing between the ribs
