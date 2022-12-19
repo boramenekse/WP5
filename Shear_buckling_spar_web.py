@@ -105,11 +105,11 @@ def get_shear_functions(y_list):
     LC_16_shear = []
     for y in y_list:
         if y < 11.69:
-            LC_8_shear.append(-1.7643233643147067 * y**4 + 26.55083716939181 * y**3 + 3358.583972792644 * y**2 + -27822.798128670238 * y + -1225433.3783305446)
+            #LC_8_shear.append(-1.7643233643147067 * y**4 + 26.55083716939181 * y**3 + 3358.583972792644 * y**2 + -27822.798128670238 * y + -1225433.3783305446)
             LC_12_shear.append(0.9784933304341741 * y ** 4 + -26.72072199357151 * y ** 3 + -1042.9512097953173 * y ** 2 + 7702.078406464768 * y + 529912.4293065071)
             LC_16_shear.append(-2.0008036049323445 * y ** 4 + 37.59176895469123 * y ** 3 + 3142.1526531781406 * y ** 2 + -13417.741226393178 * y + -1582191.8673072504)
         else:
-            LC_8_shear.append(-1.7643233643147067 * y**4 + 26.55083716939181 * y**3 + 3358.583972792644 * y**2 + -27822.798128670238 * y + -1610817.128330534)
+            #LC_8_shear.append(-1.7643233643147067 * y**4 + 26.55083716939181 * y**3 + 3358.583972792644 * y**2 + -27822.798128670238 * y + -1610817.128330534)
             LC_12_shear.append(0.9784933304341741 * y ** 4 + -26.72072199357151 * y ** 3 + -1042.9512097953173 * y ** 2 + 7702.078406464768 * y + 684065.9293065054)
             LC_16_shear.append(-2.0008036049323445 * y ** 4 + 37.59176895469123 * y ** 3 + 3142.1526531781406 * y ** 2 + -13417.741226393178 * y + -1967575.617307226)
     return LC_8_shear, LC_12_shear, LC_16_shear
@@ -122,9 +122,9 @@ LC_8_shear, LC_12_shear, LC_16_shear = get_shear_functions(y_list)
 #plt.plot(y_list, LC_16_shear)
 #plt.show()
 
-average_shear_stress_8_1_list = []
-average_shear_stress_8_2_list = []
-average_shear_stress_8_3_list = []
+#average_shear_stress_8_1_list = []
+#average_shear_stress_8_2_list = []
+#average_shear_stress_8_3_list = []
 average_shear_stress_12_1_list = []
 average_shear_stress_12_2_list = []
 average_shear_stress_12_3_list = []
@@ -134,9 +134,9 @@ average_shear_stress_16_3_list = []
 
 for i in range(len(y_list)):
     y = y_list[i]
-    tau_average_8_1 = LC_8_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_1(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_1(y))
-    tau_average_8_2 = LC_8_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_2(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_2(y))
-    tau_average_8_3 = LC_8_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_3(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_3(y))
+    #tau_average_8_1 = LC_8_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_1(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_1(y))
+    #tau_average_8_2 = LC_8_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_2(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_2(y))
+    #tau_average_8_3 = LC_8_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_3(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_3(y))
     tau_average_12_1 = LC_12_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_1(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_1(y))
     tau_average_12_2 = LC_12_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_2(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_2(y))
     tau_average_12_3 = LC_12_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_3(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_3(y))
@@ -144,9 +144,9 @@ for i in range(len(y_list)):
     tau_average_16_2 = LC_16_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_2(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_2(y))
     tau_average_16_3 = LC_16_shear[i] / (get_forward_spar_lenth(y) * get_thickness_forward_spar_3(y) + get_rear_spar_lenth(y) * get_thickness_rear_spar_3(y))
 
-    average_shear_stress_8_1_list.append((tau_average_8_1))
-    average_shear_stress_8_2_list.append((tau_average_8_2))
-    average_shear_stress_8_3_list.append((tau_average_8_3))
+    #average_shear_stress_8_1_list.append((tau_average_8_1))
+    #average_shear_stress_8_2_list.append((tau_average_8_2))
+    #average_shear_stress_8_3_list.append((tau_average_8_3))
     average_shear_stress_12_1_list.append((tau_average_12_1))
     average_shear_stress_12_2_list.append((tau_average_12_2))
     average_shear_stress_12_3_list.append((tau_average_12_3))
@@ -154,9 +154,9 @@ for i in range(len(y_list)):
     average_shear_stress_16_2_list.append((tau_average_16_2))
     average_shear_stress_16_3_list.append((tau_average_16_3))
 
-    maximum_shear_stress_8_1_list = [i * k_v for i in average_shear_stress_8_1_list]
-    maximum_shear_stress_8_2_list = [i * k_v for i in average_shear_stress_8_2_list]
-    maximum_shear_stress_8_3_list = [i * k_v for i in average_shear_stress_8_3_list]
+    #maximum_shear_stress_8_1_list = [i * k_v for i in average_shear_stress_8_1_list]
+    #maximum_shear_stress_8_2_list = [i * k_v for i in average_shear_stress_8_2_list]
+    #maximum_shear_stress_8_3_list = [i * k_v for i in average_shear_stress_8_3_list]
     maximum_shear_stress_12_1_list = [i * k_v for i in average_shear_stress_12_1_list]
     maximum_shear_stress_12_2_list = [i * k_v for i in average_shear_stress_12_2_list]
     maximum_shear_stress_12_3_list = [i * k_v for i in average_shear_stress_12_3_list]
@@ -201,12 +201,12 @@ def get_LC_16_torque(y):
 def get_inclosed_area(y):
     return (get_forward_spar_lenth(y) + get_rear_spar_lenth(y)) * 0.55 * get_chord(y)
 
-shear_stress_torque_LC_8_1_forward = []
-shear_stress_torque_LC_8_1_rear = []
-shear_stress_torque_LC_8_2_forward = []
-shear_stress_torque_LC_8_2_rear = []
-shear_stress_torque_LC_8_3_forward = []
-shear_stress_torque_LC_8_3_rear = []
+#shear_stress_torque_LC_8_1_forward = []
+#shear_stress_torque_LC_8_1_rear = []
+#shear_stress_torque_LC_8_2_forward = []
+#shear_stress_torque_LC_8_2_rear = []
+#shear_stress_torque_LC_8_3_forward = []
+#shear_stress_torque_LC_8_3_rear = []
 shear_stress_torque_LC_12_1_forward = []
 shear_stress_torque_LC_12_1_rear = []
 shear_stress_torque_LC_12_2_forward = []
@@ -221,12 +221,12 @@ shear_stress_torque_LC_16_3_forward = []
 shear_stress_torque_LC_16_3_rear = []
 
 for y in y_list:
-    shear_stress_torque_LC_8_1_forward.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_forward_spar_1(y)))
-    shear_stress_torque_LC_8_1_rear.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_rear_spar_1(y)))
-    shear_stress_torque_LC_8_2_forward.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_forward_spar_2(y)))
-    shear_stress_torque_LC_8_2_rear.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_rear_spar_2(y)))
-    shear_stress_torque_LC_8_3_forward.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_forward_spar_3(y)))
-    shear_stress_torque_LC_8_3_rear.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_rear_spar_3(y)))
+    #shear_stress_torque_LC_8_1_forward.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_forward_spar_1(y)))
+    #shear_stress_torque_LC_8_1_rear.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_rear_spar_1(y)))
+    #shear_stress_torque_LC_8_2_forward.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_forward_spar_2(y)))
+    #shear_stress_torque_LC_8_2_rear.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_rear_spar_2(y)))
+    #shear_stress_torque_LC_8_3_forward.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_forward_spar_3(y)))
+    #shear_stress_torque_LC_8_3_rear.append(get_LC_8_torque(y) / (2 * get_inclosed_area(y) * get_thickness_rear_spar_3(y)))
     shear_stress_torque_LC_12_1_forward.append(get_LC_12_torque(y) / (2 * get_inclosed_area(y) * get_thickness_forward_spar_1(y)))
     shear_stress_torque_LC_12_1_rear.append(get_LC_12_torque(y) / (2 * get_inclosed_area(y) * get_thickness_rear_spar_1(y)))
     shear_stress_torque_LC_12_2_forward.append(get_LC_12_torque(y) / (2 * get_inclosed_area(y) * get_thickness_forward_spar_2(y)))
@@ -261,12 +261,12 @@ for y in y_list:
 #plt.show()
 
 
-shear_stress_LC_8_1_forward = []
-shear_stress_LC_8_1_rear = []
-shear_stress_LC_8_2_forward = []
-shear_stress_LC_8_2_rear = []
-shear_stress_LC_8_3_forward = []
-shear_stress_LC_8_3_rear = []
+#shear_stress_LC_8_1_forward = []
+#shear_stress_LC_8_1_rear = []
+#shear_stress_LC_8_2_forward = []
+#shear_stress_LC_8_2_rear = []
+#shear_stress_LC_8_3_forward = []
+#shear_stress_LC_8_3_rear = []
 shear_stress_LC_12_1_forward = []
 shear_stress_LC_12_1_rear = []
 shear_stress_LC_12_2_forward = []
@@ -280,12 +280,12 @@ shear_stress_LC_16_2_rear = []
 shear_stress_LC_16_3_forward = []
 shear_stress_LC_16_3_rear = []
 for i in range(len(y_list)):
-    shear_stress_LC_8_1_forward.append(average_shear_stress_8_1_list[i] - shear_stress_torque_LC_8_1_forward[i])
-    shear_stress_LC_8_1_rear.append(average_shear_stress_8_1_list[i] + shear_stress_torque_LC_8_1_rear[i])
-    shear_stress_LC_8_2_forward.append(average_shear_stress_8_2_list[i] - shear_stress_torque_LC_8_2_forward[i])
-    shear_stress_LC_8_2_rear.append(average_shear_stress_8_2_list[i] + shear_stress_torque_LC_8_2_rear[i])
-    shear_stress_LC_8_3_forward.append(average_shear_stress_8_3_list[i] - shear_stress_torque_LC_8_3_forward[i])
-    shear_stress_LC_8_3_rear.append(average_shear_stress_8_3_list[i] + shear_stress_torque_LC_8_3_rear[i])
+    #shear_stress_LC_8_1_forward.append(average_shear_stress_8_1_list[i] - shear_stress_torque_LC_8_1_forward[i])
+    #shear_stress_LC_8_1_rear.append(average_shear_stress_8_1_list[i] + shear_stress_torque_LC_8_1_rear[i])
+    #shear_stress_LC_8_2_forward.append(average_shear_stress_8_2_list[i] - shear_stress_torque_LC_8_2_forward[i])
+    #shear_stress_LC_8_2_rear.append(average_shear_stress_8_2_list[i] + shear_stress_torque_LC_8_2_rear[i])
+    #shear_stress_LC_8_3_forward.append(average_shear_stress_8_3_list[i] - shear_stress_torque_LC_8_3_forward[i])
+    #shear_stress_LC_8_3_rear.append(average_shear_stress_8_3_list[i] + shear_stress_torque_LC_8_3_rear[i])
     shear_stress_LC_12_1_forward.append(average_shear_stress_12_1_list[i] - shear_stress_torque_LC_12_1_forward[i])
     shear_stress_LC_12_1_rear.append(average_shear_stress_12_1_list[i] + shear_stress_torque_LC_12_1_rear[i])
     shear_stress_LC_12_2_forward.append(average_shear_stress_12_2_list[i] - shear_stress_torque_LC_12_2_forward[i])
@@ -306,7 +306,7 @@ for i in range(len(y_list)):
 #fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
 #fig.subplots_adjust(hspace=0.05)
 plt.plot(y_list, critical_shear_stress_forward_spar_list_1, '-', label='Tau_Crit')
-plt.plot(y_list, shear_stress_LC_8_1_forward, '-', label='Tau_LC8')
+#plt.plot(y_list, shear_stress_LC_8_1_forward, '-', label='Tau_LC8')
 plt.plot(y_list, shear_stress_LC_12_1_forward, '-', label='Tau_LC12')
 plt.plot(y_list, shear_stress_LC_16_1_forward, '-', label='Tau_LC16')
 plt.title('Shear stress in the forward spar, philosophy 1')
@@ -317,8 +317,8 @@ plt.title('Shear stress in the forward spar, philosophy 1')
 plt.legend(loc = 'upper right')
 plt.xlabel('Span [m]')
 plt.ylabel('Shear stress [Pa]')
-minimum = min(min(shear_stress_LC_8_1_forward), min(shear_stress_LC_12_1_forward), min(shear_stress_LC_16_1_forward))
-maximum = max(max(shear_stress_LC_8_1_forward), max(shear_stress_LC_12_1_forward), max(shear_stress_LC_16_1_forward))
+minimum = min(min(shear_stress_LC_12_1_forward), min(shear_stress_LC_16_1_forward))
+maximum = max(max(shear_stress_LC_12_1_forward), max(shear_stress_LC_16_1_forward))
 plt.ylim(minimum - 0.5 * max(abs(minimum), abs(maximum)), critical_shear_stress_forward_spar_list_1[0] + 0.5 * (maximum - minimum + max(abs(minimum), abs(maximum))))  # outliers only
 #ax2.set_ylim(minimum - 0.5 * max(abs(minimum), abs(maximum)), maximum + 0.5 * max(abs(minimum), abs(maximum)))
 #ax1.spines.bottom.set_visible(False)
@@ -334,7 +334,7 @@ plt.grid()
 plt.show()
 l=0
 for i in range(len(y_list)):
-    if shear_stress_LC_8_1_forward[i] < critical_shear_stress_forward_spar_list_1[i] and shear_stress_LC_12_1_forward[i] < critical_shear_stress_forward_spar_list_1[i] and shear_stress_LC_16_1_forward[i] < critical_shear_stress_forward_spar_list_1[i]:
+    if shear_stress_LC_12_1_forward[i] < critical_shear_stress_forward_spar_list_1[i] and shear_stress_LC_16_1_forward[i] < critical_shear_stress_forward_spar_list_1[i]:
         l+=1
     else:
         print("philosophy 1, forward spar: fail")
@@ -345,19 +345,19 @@ if l == len(y_list):
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
 fig.subplots_adjust(hspace=0.05)
 ax1.plot(y_list, critical_shear_stress_rear_spar_list_1, '-', label='Tau_Crit')
-ax1.plot(y_list, shear_stress_LC_8_1_rear, '-', label='Tau_LC8')
+#ax1.plot(y_list, shear_stress_LC_8_1_rear, '-', label='Tau_LC8')
 ax1.plot(y_list, shear_stress_LC_12_1_rear, '-', label='Tau_LC12')
 ax1.plot(y_list, shear_stress_LC_16_1_rear, '-', label='Tau_LC16')
 plt.suptitle('Shear stress in the rear spar, philosophy 1')
 ax2.plot(y_list, critical_shear_stress_rear_spar_list_1, '-', label='Tau_Crit')
-ax2.plot(y_list, shear_stress_LC_8_1_rear, '-', label='Tau_LC8')
+#ax2.plot(y_list, shear_stress_LC_8_1_rear, '-', label='Tau_LC8')
 ax2.plot(y_list, shear_stress_LC_12_1_rear, '-', label='Tau_LC12')
 ax2.plot(y_list, shear_stress_LC_16_1_rear, '-', label='Tau_LC16')
 ax1.legend(loc = 'upper right')
 plt.xlabel('Span [m]')
 fig.supylabel('Shear stress [Pa]')
-minimum = min(min(shear_stress_LC_8_1_rear), min(shear_stress_LC_12_1_rear), min(shear_stress_LC_16_1_rear))
-maximum = max(max(shear_stress_LC_8_1_rear), max(shear_stress_LC_12_1_rear), max(shear_stress_LC_16_1_rear))
+minimum = min(min(shear_stress_LC_12_1_rear), min(shear_stress_LC_16_1_rear))
+maximum = max(max(shear_stress_LC_12_1_rear), max(shear_stress_LC_16_1_rear))
 ax1.set_ylim(critical_shear_stress_rear_spar_list_1[0] - 0.5 * (maximum - minimum + max(abs(minimum), abs(maximum))), critical_shear_stress_rear_spar_list_1[0] + 0.5 * (maximum - minimum + max(abs(minimum), abs(maximum))))  # outliers only
 ax2.set_ylim(minimum - 0.5 * max(abs(minimum), abs(maximum)), maximum + 0.5 * max(abs(minimum), abs(maximum)))
 ax1.spines.bottom.set_visible(False)
@@ -374,7 +374,7 @@ ax2.grid()
 plt.show()
 l=0
 for i in range(len(y_list)):
-    if shear_stress_LC_8_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_12_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_16_1_rear[i] < critical_shear_stress_rear_spar_list_1[i]:
+    if shear_stress_LC_12_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_16_1_rear[i] < critical_shear_stress_rear_spar_list_1[i]:
         l+=1
     else:
         print("philosophy 1, rear spar: fail")
@@ -386,19 +386,19 @@ if l == len(y_list):
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
 fig.subplots_adjust(hspace=0.05)
 ax1.plot(y_list, critical_shear_stress_forward_spar_list_2, '-', label='Tau_Crit')
-ax1.plot(y_list, shear_stress_LC_8_2_forward, '-', label='Tau_LC8')
+#ax1.plot(y_list, shear_stress_LC_8_2_forward, '-', label='Tau_LC8')
 ax1.plot(y_list, shear_stress_LC_12_2_forward, '-', label='Tau_LC12')
 ax1.plot(y_list, shear_stress_LC_16_2_forward, '-', label='Tau_LC16')
 plt.suptitle('Shear stress in the forward spar, philosophy 2')
 ax2.plot(y_list, critical_shear_stress_forward_spar_list_2, '-', label='Tau_Crit')
-ax2.plot(y_list, shear_stress_LC_8_2_forward, '-', label='Tau_LC8')
+#ax2.plot(y_list, shear_stress_LC_8_2_forward, '-', label='Tau_LC8')
 ax2.plot(y_list, shear_stress_LC_12_2_forward, '-', label='Tau_LC12')
 ax2.plot(y_list, shear_stress_LC_16_2_forward, '-', label='Tau_LC16')
 ax1.legend(loc = 'upper right')
 plt.xlabel('Span [m]')
 fig.supylabel('Shear stress [Pa]')
-minimum = min(min(shear_stress_LC_8_2_forward), min(shear_stress_LC_12_2_forward), min(shear_stress_LC_16_2_forward))
-maximum = max(max(shear_stress_LC_8_2_forward), max(shear_stress_LC_12_2_forward), max(shear_stress_LC_16_2_forward))
+minimum = min(min(shear_stress_LC_12_2_forward), min(shear_stress_LC_16_2_forward))
+maximum = max(max(shear_stress_LC_12_2_forward), max(shear_stress_LC_16_2_forward))
 ax1.set_ylim(critical_shear_stress_forward_spar_list_2[0] - 0.5 * (maximum - minimum + max(abs(minimum), abs(maximum))), critical_shear_stress_forward_spar_list_2[0] + 0.5 * (maximum - minimum + max(abs(minimum), abs(maximum))))  # outliers only
 ax2.set_ylim(minimum - 0.5 * max(abs(minimum), abs(maximum)), maximum + 0.5 * max(abs(minimum), abs(maximum)))
 ax1.spines.bottom.set_visible(False)
@@ -415,7 +415,7 @@ ax2.grid()
 plt.show()
 l=0
 for i in range(len(y_list)):
-    if shear_stress_LC_8_2_forward[i] < critical_shear_stress_forward_spar_list_2[i] and shear_stress_LC_12_2_forward[i] < critical_shear_stress_forward_spar_list_2[i] and shear_stress_LC_16_2_forward[i] < critical_shear_stress_forward_spar_list_2[i]:
+    if shear_stress_LC_12_2_forward[i] < critical_shear_stress_forward_spar_list_2[i] and shear_stress_LC_16_2_forward[i] < critical_shear_stress_forward_spar_list_2[i]:
         l+=1
     else:
         print("philosophy 2, forward spar: fail")
@@ -426,19 +426,19 @@ if l == len(y_list):
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
 fig.subplots_adjust(hspace=0.05)
 ax1.plot(y_list, critical_shear_stress_rear_spar_list_2, '-', label='Tau_Crit')
-ax1.plot(y_list, shear_stress_LC_8_2_rear, '-', label='Tau_LC8')
+#ax1.plot(y_list, shear_stress_LC_8_2_rear, '-', label='Tau_LC8')
 ax1.plot(y_list, shear_stress_LC_12_2_rear, '-', label='Tau_LC12')
 ax1.plot(y_list, shear_stress_LC_16_2_rear, '-', label='Tau_LC16')
 plt.suptitle('Shear stress in the rear spar, philosophy 2')
 ax2.plot(y_list, critical_shear_stress_rear_spar_list_2, '-', label='Tau_Crit')
-ax2.plot(y_list, shear_stress_LC_8_2_rear, '-', label='Tau_LC8')
+#ax2.plot(y_list, shear_stress_LC_8_2_rear, '-', label='Tau_LC8')
 ax2.plot(y_list, shear_stress_LC_12_2_rear, '-', label='Tau_LC12')
 ax2.plot(y_list, shear_stress_LC_16_2_rear, '-', label='Tau_LC16')
 ax1.legend(loc = 'upper right')
 plt.xlabel('Span [m]')
 fig.supylabel('Shear stress [Pa]')
-minimum = min(min(shear_stress_LC_8_2_rear), min(shear_stress_LC_12_2_rear), min(shear_stress_LC_16_2_rear))
-maximum = max(max(shear_stress_LC_8_2_rear), max(shear_stress_LC_12_2_rear), max(shear_stress_LC_16_2_rear))
+minimum = min(min(shear_stress_LC_12_2_rear), min(shear_stress_LC_16_2_rear))
+maximum = max(max(shear_stress_LC_12_2_rear), max(shear_stress_LC_16_2_rear))
 ax1.set_ylim(critical_shear_stress_rear_spar_list_2[0] - 0.5 * (maximum - minimum + max(abs(minimum), abs(maximum))), critical_shear_stress_rear_spar_list_2[0] + 0.5 * (maximum - minimum + max(abs(minimum), abs(maximum))))  # outliers only
 ax2.set_ylim(minimum - 0.5 * max(abs(minimum), abs(maximum)), maximum + 0.5 * max(abs(minimum), abs(maximum)))
 ax1.spines.bottom.set_visible(False)
@@ -455,7 +455,7 @@ ax2.grid()
 plt.show()
 l=0
 for i in range(len(y_list)):
-    if shear_stress_LC_8_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_12_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_16_1_rear[i] < critical_shear_stress_rear_spar_list_1[i]:
+    if shear_stress_LC_12_1_rear[i] < critical_shear_stress_rear_spar_list_1[i] and shear_stress_LC_16_1_rear[i] < critical_shear_stress_rear_spar_list_1[i]:
         l+=1
     else:
         print("philosophy 2, rear spar: fail")
@@ -467,7 +467,7 @@ if l == len(y_list):
 #fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
 #fig.subplots_adjust(hspace=0.05)
 plt.plot(y_list, critical_shear_stress_forward_spar_list_3, '-', label='Tau_Crit')
-plt.plot(y_list, shear_stress_LC_8_3_forward, '-', label='Tau_LC8')
+#plt.plot(y_list, shear_stress_LC_8_3_forward, '-', label='Tau_LC8')
 plt.plot(y_list, shear_stress_LC_12_3_forward, '-', label='Tau_LC12')
 plt.plot(y_list, shear_stress_LC_16_3_forward, '-', label='Tau_LC16')
 plt.title('Shear stress in the forward spar, philosophy 3')
@@ -478,8 +478,8 @@ plt.title('Shear stress in the forward spar, philosophy 3')
 plt.legend(loc = 'upper right')
 plt.xlabel('Span [m]')
 plt.ylabel('Shear stress [Pa]')
-minimum = min(min(shear_stress_LC_8_3_forward), min(shear_stress_LC_12_3_forward), min(shear_stress_LC_16_3_forward))
-maximum = max(max(shear_stress_LC_8_3_forward), max(shear_stress_LC_12_3_forward), max(shear_stress_LC_16_3_forward))
+minimum = min(min(shear_stress_LC_12_3_forward), min(shear_stress_LC_16_3_forward))
+maximum = max(max(shear_stress_LC_12_3_forward), max(shear_stress_LC_16_3_forward))
 plt.ylim(minimum - 0.5 * max(abs(minimum), abs(maximum)), critical_shear_stress_forward_spar_list_3[0] + 0.5 * (maximum - minimum + max(abs(minimum), abs(maximum))))  # outliers only
 #ax2.set_ylim(minimum - 0.5 * max(abs(minimum), abs(maximum)), maximum + 0.5 * max(abs(minimum), abs(maximum)))
 #ax1.spines.bottom.set_visible(False)
@@ -495,7 +495,7 @@ plt.grid()
 plt.show()
 l=0
 for i in range(len(y_list)):
-    if shear_stress_LC_8_3_forward[i] < critical_shear_stress_forward_spar_list_3[i] and shear_stress_LC_12_3_forward[i] < critical_shear_stress_forward_spar_list_3[i] and shear_stress_LC_16_3_forward[i] < critical_shear_stress_forward_spar_list_3[i]:
+    if shear_stress_LC_12_3_forward[i] < critical_shear_stress_forward_spar_list_3[i] and shear_stress_LC_16_3_forward[i] < critical_shear_stress_forward_spar_list_3[i]:
         l+=1
     else:
         print("philosophy 3, forward spar: fail")
@@ -506,7 +506,7 @@ if l == len(y_list):
 #fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
 #fig.subplots_adjust(hspace=0.05)
 plt.plot(y_list, critical_shear_stress_rear_spar_list_3, '-', label='Tau_Crit')
-plt.plot(y_list, shear_stress_LC_8_3_rear, '-', label='Tau_LC8')
+#plt.plot(y_list, shear_stress_LC_8_3_rear, '-', label='Tau_LC8')
 plt.plot(y_list, shear_stress_LC_12_3_rear, '-', label='Tau_LC12')
 plt.plot(y_list, shear_stress_LC_16_3_rear, '-', label='Tau_LC16')
 plt.title('Shear stress in the rear spar, philosophy 3')
@@ -517,8 +517,8 @@ plt.title('Shear stress in the rear spar, philosophy 3')
 plt.legend(loc = 'upper right')
 plt.xlabel('Span [m]')
 plt.ylabel('Shear stress [Pa]')
-minimum = min(min(shear_stress_LC_8_3_rear), min(shear_stress_LC_12_3_rear), min(shear_stress_LC_16_3_rear))
-maximum = max(max(shear_stress_LC_8_3_rear), max(shear_stress_LC_12_3_rear), max(shear_stress_LC_16_3_rear))
+minimum = min(min(shear_stress_LC_12_3_rear), min(shear_stress_LC_16_3_rear))
+maximum = max(max(shear_stress_LC_12_3_rear), max(shear_stress_LC_16_3_rear))
 plt.ylim(minimum - 0.5 * max(abs(minimum), abs(maximum)), critical_shear_stress_rear_spar_list_3[0] + 0.5 * (maximum - minimum + max(abs(minimum), abs(maximum))))  # outliers only
 #ax2.set_ylim(minimum - 0.5 * max(abs(minimum), abs(maximum)), maximum + 0.5 * max(abs(minimum), abs(maximum)))
 #ax1.spines.bottom.set_visible(False)
@@ -534,7 +534,7 @@ plt.grid()
 plt.show()
 l=0
 for i in range(len(y_list)):
-    if shear_stress_LC_8_3_rear[i] < critical_shear_stress_rear_spar_list_3[i] and shear_stress_LC_12_3_rear[i] < critical_shear_stress_rear_spar_list_3[i] and shear_stress_LC_16_3_rear[i] < critical_shear_stress_rear_spar_list_3[i]:
+    if shear_stress_LC_12_3_rear[i] < critical_shear_stress_rear_spar_list_3[i] and shear_stress_LC_16_3_rear[i] < critical_shear_stress_rear_spar_list_3[i]:
         l+=1
     else:
         print("philosophy 3, rear spar: fail")
