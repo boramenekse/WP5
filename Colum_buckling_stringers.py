@@ -1,6 +1,6 @@
 #also check compressive failure for this component
 
-import Copy_Variables_for_crossection as Var
+import Variables_for_crossection_geometry as Var
 from math import *
 
 
