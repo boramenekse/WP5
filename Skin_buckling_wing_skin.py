@@ -253,6 +253,27 @@ for i in range(0, len(comp_list)):
     a_list.append(li2[i])
   else:
     a_list.append(li1[i])
+
+max_repeating = 0
+if max(alist2)>max(alist4):
+  max_repeating+=max(alist2)
+else:
+  max_repeating+=max(alist4)
+repeating_index = 0
+for i in range(0, len(a_list)-1):
+  if a_list[i]==a_list[i+1]:
+    if repeating_index == 0:
+      repeating_index += i
+first_or_already = 0
+if li2[repeating_index-1]==li2[repeating_index]:
+  first_or_already += 1
+max_repeating_list = []
+for i in range(0, len(a_list)-repeating_index):
+  max_repeating_list.append(max_repeating)
+if first_or_already == 1:
+  a_list[repeating_index:] = max_repeating_list
+else:
+  a_list[repeating_index+1:] = max_repeating_list[1:]
 print('Comparison is done, determining the rib locations.')
 
 # Determining the rib locations according to the comparison
@@ -261,18 +282,25 @@ ribs_location_list = []
 for i in a_list[0:]:
   a1 += i
   ribs_location_list.append(a1)
+exceed_index = 0
+for i in ribs_location_list:
+  if i> (0.5*var.Span):
+    exceed_index = ribs_location_list.index(i)
+    break
 
 # Printing the results
-if ribs_location_list[-1]>0.5*var.Span:
-  print('Number of ribs: {}'.format(len(ribs_location_list[0:-1])))
-  print(ribs_location_list[0:-1])
+if exceed_index != 0:
+  print('Number of ribs: {}'.format(len(ribs_location_list)-len(ribs_location_list[exceed_index:])))
+  print('Rib locations:')
+  print(ribs_location_list[0:-1*len(ribs_location_list[exceed_index:])])
 else:
   print('Number of ribs: {}'.format(len(ribs_location_list[0:])))
+  print('Rib locations:')
   print(ribs_location_list[0:])
 
-ribs_spacing_list = []
-for i in ribs_location_list:
-  index = ribs_location_list.index(i)
-  difference = ribs_location_list[index+1]-ribs_location_list[index]
-  ribs_spacing_list.append(difference)
-print(ribs_spacing_list)
+print('Rib spacings:')
+print(a_list[1:-1*len(ribs_location_list[exceed_index:])])
+
+plt.figure()
+plt.plot([*range(0, len(a_list[1:-1*len(ribs_location_list[exceed_index:])]))], a_list[1:-1*len(ribs_location_list[exceed_index:])], marker='o')
+plt.show()
