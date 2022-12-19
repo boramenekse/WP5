@@ -280,18 +280,18 @@ for i in range(len(y_list)):
     #shear_stress_LC_8_2_rear.append(average_shear_stress_8_2_list[i] + shear_stress_torque_LC_8_2_rear[i])
     #shear_stress_LC_8_3_forward.append(average_shear_stress_8_3_list[i] - shear_stress_torque_LC_8_3_forward[i])
     #shear_stress_LC_8_3_rear.append(average_shear_stress_8_3_list[i] + shear_stress_torque_LC_8_3_rear[i])
-    shear_stress_LC_12_1_forward.append(average_shear_stress_12_1_list[i] - shear_stress_torque_LC_12_1_forward[i])
-    shear_stress_LC_12_1_rear.append(average_shear_stress_12_1_list[i] + shear_stress_torque_LC_12_1_rear[i])
-    shear_stress_LC_12_2_forward.append(average_shear_stress_12_2_list[i] - shear_stress_torque_LC_12_2_forward[i])
-    shear_stress_LC_12_2_rear.append(average_shear_stress_12_2_list[i] + shear_stress_torque_LC_12_2_rear[i])
-    shear_stress_LC_12_3_forward.append(average_shear_stress_12_3_list[i] - shear_stress_torque_LC_12_3_forward[i])
-    shear_stress_LC_12_3_rear.append(average_shear_stress_12_3_list[i] + shear_stress_torque_LC_12_3_rear[i])
-    shear_stress_LC_16_1_forward.append(average_shear_stress_16_1_list[i] - shear_stress_torque_LC_16_1_forward[i])
-    shear_stress_LC_16_1_rear.append(average_shear_stress_16_1_list[i] + shear_stress_torque_LC_16_1_rear[i])
-    shear_stress_LC_16_2_forward.append(average_shear_stress_16_2_list[i] - shear_stress_torque_LC_16_2_forward[i])
-    shear_stress_LC_16_2_rear.append(average_shear_stress_16_2_list[i] + shear_stress_torque_LC_16_2_rear[i])
-    shear_stress_LC_16_3_forward.append(average_shear_stress_16_3_list[i] - shear_stress_torque_LC_16_3_forward[i])
-    shear_stress_LC_16_3_rear.append(average_shear_stress_16_3_list[i] + shear_stress_torque_LC_16_3_rear[i])
+    shear_stress_LC_12_1_forward.append(abs(average_shear_stress_12_1_list[i] - shear_stress_torque_LC_12_1_forward[i]))
+    shear_stress_LC_12_1_rear.append(abs(average_shear_stress_12_1_list[i] + shear_stress_torque_LC_12_1_rear[i]))
+    shear_stress_LC_12_2_forward.append(abs(average_shear_stress_12_2_list[i] - shear_stress_torque_LC_12_2_forward[i]))
+    shear_stress_LC_12_2_rear.append(abs(average_shear_stress_12_2_list[i] + shear_stress_torque_LC_12_2_rear[i]))
+    shear_stress_LC_12_3_forward.append(abs(average_shear_stress_12_3_list[i] - shear_stress_torque_LC_12_3_forward[i]))
+    shear_stress_LC_12_3_rear.append(abs(average_shear_stress_12_3_list[i] + shear_stress_torque_LC_12_3_rear[i]))
+    shear_stress_LC_16_1_forward.append(abs(average_shear_stress_16_1_list[i] - shear_stress_torque_LC_16_1_forward[i]))
+    shear_stress_LC_16_1_rear.append(abs(average_shear_stress_16_1_list[i] + shear_stress_torque_LC_16_1_rear[i]))
+    shear_stress_LC_16_2_forward.append(abs(average_shear_stress_16_2_list[i] - shear_stress_torque_LC_16_2_forward[i]))
+    shear_stress_LC_16_2_rear.append(abs(average_shear_stress_16_2_list[i] + shear_stress_torque_LC_16_2_rear[i]))
+    shear_stress_LC_16_3_forward.append(abs(average_shear_stress_16_3_list[i] - shear_stress_torque_LC_16_3_forward[i]))
+    shear_stress_LC_16_3_rear.append(abs(average_shear_stress_16_3_list[i] + shear_stress_torque_LC_16_3_rear[i]))
 
 #PLOTTING OF THE DIFFERENT PHILOSOPHYS AND FORWARD OR REAR
 
@@ -334,7 +334,7 @@ for i in range(len(y_list)):
         print("philosophy 1, forward spar: fail")
 if l == len(y_list):
     print("philosophy 1, forward spar: pass")
-
+print("Margin of safety = "+ str(critical_shear_stress_forward_spar_list_1[1] / max(max(shear_stress_LC_12_1_forward), -min(shear_stress_LC_12_1_forward), max(shear_stress_LC_16_1_forward), -min(shear_stress_LC_16_1_forward))))
 #Rear
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
 fig.subplots_adjust(hspace=0.05)
@@ -374,7 +374,7 @@ for i in range(len(y_list)):
         print("philosophy 1, rear spar: fail")
 if l == len(y_list):
     print("philosophy 1, rear spar: pass")
-
+print("Margin of safety = "+ str(critical_shear_stress_rear_spar_list_1[1] / max(max(shear_stress_LC_12_1_rear), -min(shear_stress_LC_12_1_rear), max(shear_stress_LC_16_1_rear), -min(shear_stress_LC_16_1_rear))))
 #Desing philosophy 2
 #Front
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
@@ -415,6 +415,7 @@ for i in range(len(y_list)):
         print("philosophy 2, forward spar: fail")
 if l == len(y_list):
     print("philosophy 2, forward spar: pass")
+print("Margin of safety = "+ str(critical_shear_stress_forward_spar_list_2[1] / max(max(shear_stress_LC_12_2_forward), -min(shear_stress_LC_12_2_forward), max(shear_stress_LC_16_2_forward), -min(shear_stress_LC_16_2_forward))))
 
 #Rear
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
@@ -455,6 +456,7 @@ for i in range(len(y_list)):
         print("philosophy 2, rear spar: fail")
 if l == len(y_list):
     print("philosophy 2, rear spar: pass")
+print("Margin of safety = "+ str(critical_shear_stress_rear_spar_list_2[1] / max(max(shear_stress_LC_12_2_rear), -min(shear_stress_LC_12_2_rear), max(shear_stress_LC_16_2_rear), -min(shear_stress_LC_16_2_rear))))
 
 #Desing philosophy 3
 #Front
@@ -495,6 +497,7 @@ for i in range(len(y_list)):
         print("philosophy 3, forward spar: fail")
 if l == len(y_list):
     print("philosophy 3, forward spar: pass")
+print("Margin of safety = "+ str(critical_shear_stress_forward_spar_list_3[1] / max(max(shear_stress_LC_12_3_forward), -min(shear_stress_LC_12_3_forward), max(shear_stress_LC_16_3_forward), -min(shear_stress_LC_16_3_forward))))
 
 #Rear
 #fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
@@ -534,4 +537,8 @@ for i in range(len(y_list)):
         print("philosophy 3, rear spar: fail")
 if l == len(y_list):
     print("philosophy 3, rear spar: pass")
+print("Margin of safety = "+ str(critical_shear_stress_rear_spar_list_3[1] / max(max(shear_stress_LC_12_3_rear), -min(shear_stress_LC_12_3_rear), max(shear_stress_LC_16_3_rear), -min(shear_stress_LC_16_3_rear))))
+
+
+
 
