@@ -28,14 +28,14 @@ span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 heaviside = smp.Heaviside(y-11.69, 1)
 nd = (5140*(-100*y + (100*y - 1169)*heaviside + 1169)*(5.42626672758448e-7*y**3 - 1.88694820902376e-5*y**2 - 0.071424801946438*y + 3.28756683861378)*(7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184) + (9.75121500397927e-9*y**3 - 3.39092024244981e-7*y**2 + 0.00510357950779944*y - 0.237060165638359)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263)*(0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y + (0.400160720985555*y**5 - 9.3979422386379*y**4 - 1047.3842177269*y**3 + 6708.87061321202*y**2 + 1967575.61730709*y - 39113307.3596346)*heaviside - (0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y - 33488163.0896061)*heaviside - 33488163.0896061))/((7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263))
 # nd = (5140*(-100*y + (100*y - 1169)*heaviside + 1169)*(5.42626672758448e-7*y**3 - 1.88694820902376e-5*y**2 - 0.071424801946438*y + 3.28756683861378)*(7.78733870357834e-7*y**3 - 7.50415077493545e-5*y**2 + 0.00253491030860201*y - 0.0300337363084974) + (9.75121500397927e-9*y**3 - 3.39092024244981e-7*y**2 + 0.00510357950779944*y - 0.237060165638359)*(2.08842547213758e-5*y**3 - 0.00201247951941106*y**2 + 0.0679817775327849*y - 0.805451291334324)*(0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y + (0.400160720985555*y**5 - 9.3979422386379*y**4 - 1047.3842177269*y**3 + 6708.87061321202*y**2 + 1967575.61730709*y - 39113307.3596346)*heaviside - (0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y - 33488163.0896061)*heaviside - 33488163.0896061))/((7.78733870357834e-7*y**3 - 7.50415077493545e-5*y**2 + 0.00253491030860201*y - 0.0300337363084974)*(2.08842547213758e-5*y**3 - 0.00201247951941106*y**2 + 0.0679817775327849*y - 0.805451291334324))
-plt.figure()
-des_list = []
-for i in range(0, 1000):
-  des_list.append(-3.0e8)
-plt.plot(span, smp.lambdify([y], nd)(span[0:]))
-plt.plot(span, 1.5*smp.lambdify([y], nd)(span[0:]))
-plt.plot(span, des_list)
-plt.show()
+# plt.figure()
+# des_list = []
+# for i in range(0, 1000):
+#   des_list.append(-3.0e8)
+# plt.plot(span, smp.lambdify([y], nd)(span[0:]))
+# plt.plot(span, 1.5*smp.lambdify([y], nd)(span[0:]))
+# plt.plot(span, des_list)
+# plt.show()
 
 
 emod = var.e_mod
@@ -104,6 +104,8 @@ sigmabotfun = sigma(kc, tbotfun, bbotfun)
 # print(a)
 # print(smp.ceiling((0.5*var.Span)/a))
 
+print('Starting the calculation, stay patient.')
+
 # Top plate
 dy1 = 0
 alist1 = []
@@ -165,9 +167,7 @@ while dy1 <= 0.5*var.Span:
     dy1 += a2
 ribs_no_top = len(dylist1)+len(dylist2)-1
 ribs_location_top_list = dylist1[1:]+dylist2
-# print(ribs_no_top)
-# print(ribs_location_top_list)
-# print(len(ribs_location_top_list))
+print('Top plate calculation is done, moving on to the bottom plate.')
 
 # Bottom plate
 dy2 = 0
@@ -230,9 +230,7 @@ while dy2 <= 0.5*var.Span:
     dy2 += a4
 ribs_no_bot = len(dylist3)+len(dylist4)-1
 ribs_location_bot_list = dylist3[1:]+dylist4
-# print(ribs_no_bot)
-# print(ribs_location_bot_list)
-# print(len(ribs_location_bot_list))
+print('Bottom plate calculation is done, moving on to the comparison.')
 
 # Comparing the panel lengths of top and bottom plates to determine the driving one
 li1 = alist1+alist2
@@ -255,6 +253,7 @@ for i in range(0, len(comp_list)):
     a_list.append(li2[i])
   else:
     a_list.append(li1[i])
+print('Comparison is done, determining the rib locations.')
 
 # Determining the rib locations according to the comparison
 a1 = 0
@@ -270,3 +269,10 @@ if ribs_location_list[-1]>0.5*var.Span:
 else:
   print('Number of ribs: {}'.format(len(ribs_location_list[0:])))
   print(ribs_location_list[0:])
+
+ribs_spacing_list = []
+for i in ribs_location_list:
+  index = ribs_location_list.index(i)
+  difference = ribs_location_list[index+1]-ribs_location_list[index]
+  ribs_spacing_list.append(difference)
+print(ribs_spacing_list)
