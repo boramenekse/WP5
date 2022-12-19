@@ -117,3 +117,10 @@ TnB_F = Moment_distribution_constants_16[5]
 #maximum deflection and twist
 max_defl = 0
 max_twist = 0
+
+#L stringer parameters
+
+Str_h_len = 0.02
+Str_v_len = 0.048
+Str_h_th = 0.004
+Str_v_th = 0.004
