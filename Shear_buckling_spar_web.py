@@ -7,7 +7,7 @@ t_fs_root_1 = 0.025
 t_rs_root_1 = 0.025
 t_fs_root_2 = 0.04
 t_rs_root_2 = 0.04
-t_fs_root_3 = 0.02
+t_fs_root_3 = 0.015
 t_rs_root_3 = 0.015
 
 ### SETTING SOME CONSTANTS VOR THE FORMULAE
@@ -280,18 +280,18 @@ for i in range(len(y_list)):
     #shear_stress_LC_8_2_rear.append(average_shear_stress_8_2_list[i] + shear_stress_torque_LC_8_2_rear[i])
     #shear_stress_LC_8_3_forward.append(average_shear_stress_8_3_list[i] - shear_stress_torque_LC_8_3_forward[i])
     #shear_stress_LC_8_3_rear.append(average_shear_stress_8_3_list[i] + shear_stress_torque_LC_8_3_rear[i])
-    shear_stress_LC_12_1_forward.append(average_shear_stress_12_1_list[i] - shear_stress_torque_LC_12_1_forward[i])
-    shear_stress_LC_12_1_rear.append(average_shear_stress_12_1_list[i] + shear_stress_torque_LC_12_1_rear[i])
-    shear_stress_LC_12_2_forward.append(average_shear_stress_12_2_list[i] - shear_stress_torque_LC_12_2_forward[i])
-    shear_stress_LC_12_2_rear.append(average_shear_stress_12_2_list[i] + shear_stress_torque_LC_12_2_rear[i])
-    shear_stress_LC_12_3_forward.append(average_shear_stress_12_3_list[i] - shear_stress_torque_LC_12_3_forward[i])
-    shear_stress_LC_12_3_rear.append(average_shear_stress_12_3_list[i] + shear_stress_torque_LC_12_3_rear[i])
-    shear_stress_LC_16_1_forward.append(average_shear_stress_16_1_list[i] - shear_stress_torque_LC_16_1_forward[i])
-    shear_stress_LC_16_1_rear.append(average_shear_stress_16_1_list[i] + shear_stress_torque_LC_16_1_rear[i])
-    shear_stress_LC_16_2_forward.append(average_shear_stress_16_2_list[i] - shear_stress_torque_LC_16_2_forward[i])
-    shear_stress_LC_16_2_rear.append(average_shear_stress_16_2_list[i] + shear_stress_torque_LC_16_2_rear[i])
-    shear_stress_LC_16_3_forward.append(average_shear_stress_16_3_list[i] - shear_stress_torque_LC_16_3_forward[i])
-    shear_stress_LC_16_3_rear.append(average_shear_stress_16_3_list[i] + shear_stress_torque_LC_16_3_rear[i])
+    shear_stress_LC_12_1_forward.append(abs(average_shear_stress_12_1_list[i] - shear_stress_torque_LC_12_1_forward[i]))
+    shear_stress_LC_12_1_rear.append(abs(average_shear_stress_12_1_list[i] + shear_stress_torque_LC_12_1_rear[i]))
+    shear_stress_LC_12_2_forward.append(abs(average_shear_stress_12_2_list[i] - shear_stress_torque_LC_12_2_forward[i]))
+    shear_stress_LC_12_2_rear.append(abs(average_shear_stress_12_2_list[i] + shear_stress_torque_LC_12_2_rear[i]))
+    shear_stress_LC_12_3_forward.append(abs(average_shear_stress_12_3_list[i] - shear_stress_torque_LC_12_3_forward[i]))
+    shear_stress_LC_12_3_rear.append(abs(average_shear_stress_12_3_list[i] + shear_stress_torque_LC_12_3_rear[i]))
+    shear_stress_LC_16_1_forward.append(abs(average_shear_stress_16_1_list[i] - shear_stress_torque_LC_16_1_forward[i]))
+    shear_stress_LC_16_1_rear.append(abs(average_shear_stress_16_1_list[i] + shear_stress_torque_LC_16_1_rear[i]))
+    shear_stress_LC_16_2_forward.append(abs(average_shear_stress_16_2_list[i] - shear_stress_torque_LC_16_2_forward[i]))
+    shear_stress_LC_16_2_rear.append(abs(average_shear_stress_16_2_list[i] + shear_stress_torque_LC_16_2_rear[i]))
+    shear_stress_LC_16_3_forward.append(abs(average_shear_stress_16_3_list[i] - shear_stress_torque_LC_16_3_forward[i]))
+    shear_stress_LC_16_3_rear.append(abs(average_shear_stress_16_3_list[i] + shear_stress_torque_LC_16_3_rear[i]))
 
 #PLOTTING OF THE DIFFERENT PHILOSOPHYS AND FORWARD OR REAR
 
