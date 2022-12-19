@@ -25,8 +25,18 @@ d = smp.symbols('d', real=True, positive=True)
 cr = smp.symbols('c_r', real=True, positive=True) 
 taper = smp.symbols('\u03BB', real=True, positive=True) 
 
+span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 heaviside = smp.Heaviside(y-11.69, 1)
 nd = (5140*(-100*y + (100*y - 1169)*heaviside + 1169)*(5.42626672758448e-7*y**3 - 1.88694820902376e-5*y**2 - 0.071424801946438*y + 3.28756683861378)*(7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184) + (9.75121500397927e-9*y**3 - 3.39092024244981e-7*y**2 + 0.00510357950779944*y - 0.237060165638359)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263)*(0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y + (0.400160720985555*y**5 - 9.3979422386379*y**4 - 1047.3842177269*y**3 + 6708.87061321202*y**2 + 1967575.61730709*y - 39113307.3596346)*heaviside - (0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y - 33488163.0896061)*heaviside - 33488163.0896061))/((7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263))
+plt.figure()
+des_list = []
+for i in range(0, 1000):
+  des_list.append(-3.0e8)
+plt.plot(span, smp.lambdify([y], nd)(span[0:]))
+plt.plot(span, 1.5*smp.lambdify([y], nd)(span[0:]))
+plt.plot(span, des_list)
+plt.show()
+
 
 emod = var.e_mod
 gmod = var.g_mod
@@ -41,6 +51,7 @@ ttopfun = ttopr*(1 + (taper-1)*(y/b_2))
 tbotfun = tbotr*(1 + (taper-1)*(y/b_2))
 theta_top = var.Sheet_top_angle
 theta_bot = var.Sheet_bottom_angle
+str_no = var.Str_N
 
 def sigma(kc, t, b):
   expr = smp.Rational(1, 12) * ((smp.pi**2 * kc * emod)/(1 - v**2)) * (t/b)**2
@@ -52,13 +63,12 @@ def b(y, theta):
      So b is 55 percent of the local chord length -> 11/20
      Sheets are at an angle
   '''
-  b_y = c_local*smp.Rational(11, 20)/smp.cos(theta)
+  b_y = c_local*smp.Rational(11, 20)/((0.5*str_no+1)*smp.cos(theta))
   return b_y.simplify()
 
 btopfun = b(y, theta_top)
 bbotfun = b(y, theta_bot)
 
-span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 
 # KS for C with SS loaded edges 
 a_b = np.linspace(0, 5, 1000, endpoint=True)
@@ -81,6 +91,19 @@ nd_des = sfc*nd
 sigmatopfun = sigma(kc, ttopfun, btopfun)
 sigmabotfun = sigma(kc, tbotfun, bbotfun)
 
+# # top plate
+# tavg = (ttopfun.subs(y, 0)+ttopfun.subs(y, 0.5*var.Span))/2
+# bavg = (btopfun.subs(y, 0)+btopfun.subs(y, 0.5*var.Span))/2
+# sigma_max = 1.5*2.45e8
+# sigma_top = sigma(kc, tavg, bavg)
+# eq1 = smp.Eq(sigma_max, sigma_top)
+# kc = smp.solve(eq1, kc)[0]
+# a_b1 = smp.solve(kc-kfun, ab)[-1]
+# print(a_b1)
+# a = a_b1*bavg
+# print(a)
+# print(smp.ceiling((0.5*var.Span)/a))
+
 # Top plate
 dy1 = 0
 alist1 = []
@@ -91,13 +114,25 @@ while dy1 <= 0.5*var.Span:
   if dy1 <= 0.35*0.5*var.Span:
     eq1 = smp.Eq(nd_des.subs(y, dy1), sigmatopfun.subs(y, dy1))
     kc1 = abs(smp.solve(eq1, kc)[0])
-    a_b1 = smp.solve(kc1-kfun, ab)[0]
+    if len(smp.solve(kc1-kfun, ab))==0:
+      dylist1.append(dy1)
+      index = alist1.index(max(alist1))
+      alist1.append(alist1[index])
+      dy1 += max(alist1)
+      continue
+    a_b1 = smp.solve(kc1-kfun, ab)[-1]
     a1 = (a_b1*btopfun.subs(y, dy1)).evalf()
     bavg1 = (btopfun.subs(y, dy1)+btopfun.subs(y, (dy1+a1).doit()))/2
     tavg1 =(ttopfun.subs(y, dy1)+ttopfun.subs(y, (dy1+a1).doit()))/2
     eq2 = smp.Eq(nd_des.subs(y, dy1), sigma(kc, tavg1, bavg1))
     kc2 = abs(smp.solve(eq2, kc)[0])
-    a_b2 = smp.solve(kc2-kfun, ab)[0]
+    if len(smp.solve(kc1-kfun, ab))==0:
+      dylist1.append(dy1)
+      index = alist1.index(max(alist1))
+      alist1.append(alist1[index])
+      dy1 += max(alist1)
+      continue
+    a_b2 = smp.solve(kc2-kfun, ab)[-1]
     a2 = a_b2*bavg1
     alist1.append(a2)
     dylist1.append(dy1)
@@ -111,7 +146,7 @@ while dy1 <= 0.5*var.Span:
       alist2.append(alist2[index])
       dy1 += max(alist2)
       continue
-    a_b1 = smp.solve(kc1-kfun, ab)[0]
+    a_b1 = smp.solve(kc1-kfun, ab)[-1]
     a1 = (a_b1*btopfun.subs(y, dy1)).evalf()
     bavg1 = (btopfun.subs(y, dy1)+btopfun.subs(y, (dy1+a1).doit()))/2
     tavg1 =(ttopfun.subs(y, dy1)+ttopfun.subs(y, (dy1+a1).doit()))/2
@@ -123,7 +158,7 @@ while dy1 <= 0.5*var.Span:
       alist2.append(alist2[index])
       dy1 += max(alist2)
       continue
-    a_b2 = smp.solve(kc2-kfun, ab)[0]
+    a_b2 = smp.solve(kc2-kfun, ab)[-1]
     a2 = a_b2*bavg1
     alist2.append(a2)
     dylist2.append(dy1)
@@ -143,13 +178,25 @@ while dy2 <= 0.5*var.Span:
   if dy2 <= 0.35*0.5*var.Span:
     eq3 = smp.Eq(nd_des.subs(y, dy2), sigmabotfun.subs(y, dy2))
     kc3 = abs(smp.solve(eq3, kc)[0])
-    a_b3 = smp.solve(kc3-kfun, ab)[0]
+    if len(smp.solve(kc3-kfun, ab))==0:
+      dylist3.append(dy2)
+      index = alist3.index(max(alist3))
+      alist3.append(alist3[index])
+      dy2 += max(alist3)
+      continue
+    a_b3 = smp.solve(kc3-kfun, ab)[-1]
     a3 = (a_b3*bbotfun.subs(y, dy2)).evalf()
     bavg2 = (bbotfun.subs(y, dy2)+bbotfun.subs(y, (dy2+a3).doit()))/2
     tavg2 =(tbotfun.subs(y, dy2)+tbotfun.subs(y, (dy2+a3).doit()))/2
     eq4 = smp.Eq(nd_des.subs(y, dy2), sigma(kc, tavg2, bavg2))
     kc4 = abs(smp.solve(eq4, kc)[0])
-    a_b4 = smp.solve(kc4-kfun, ab)[0]
+    if len(smp.solve(kc3-kfun, ab))==0:
+      dylist3.append(dy2)
+      index = alist3.index(max(alist3))
+      alist3.append(alist3[index])
+      dy2 += max(alist3)
+      continue
+    a_b4 = smp.solve(kc4-kfun, ab)[-1]
     a4 = a_b4*bavg2
     alist3.append(a4)
     dylist3.append(dy2)
@@ -163,7 +210,7 @@ while dy2 <= 0.5*var.Span:
       alist4.append(alist4[index])
       dy2 += max(alist4)
       continue
-    a_b3 = smp.solve(kc3-kfun, ab)[0]
+    a_b3 = smp.solve(kc3-kfun, ab)[-1]
     a3 = (a_b3*bbotfun.subs(y, dy2)).evalf()
     bavg2 = (bbotfun.subs(y, dy2)+bbotfun.subs(y, (dy2+a3).doit()))/2
     tavg2 =(tbotfun.subs(y, dy2)+tbotfun.subs(y, (dy2+a3).doit()))/2
@@ -175,7 +222,7 @@ while dy2 <= 0.5*var.Span:
       alist4.append(alist4[index])
       dy2 += max(alist4)
       continue
-    a_b4 = smp.solve(kc4-kfun, ab)[0]
+    a_b4 = smp.solve(kc4-kfun, ab)[-1]
     a4 = a_b4*bavg2
     alist4.append(a4)
     dylist4.append(dy2)
