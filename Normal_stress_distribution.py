@@ -7,7 +7,7 @@ from Moment_of_inertia_z_span import return_parameters
 from Moment_of_inertia_x_span import print_fit
 import Centroid_x_direction as cgx
 import Centroid_z_direction as cgz
-from Skin_buckling_wing_skin import print_results
+from Normal_Stress_2 import print_results
 
 ph_list = print_results()
 
