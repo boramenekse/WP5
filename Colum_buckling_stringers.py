@@ -30,16 +30,17 @@ for i in range(len(ribs_spacing_list)):
     critical_buck_stress.append(sigma_buck)
 
 final_position_list = []
-for i in range(len(ribs_location_list)):
+for i in range(len(ribs_location_list)-1):
     final_position_list.append(ribs_location_list[i])
-    final_position_list.append(ribs_location_list[i])
+    final_position_list.append(ribs_location_list[i+1])
 
-#print(len(final_position_list))
+#print(final_position_list)
 
 #Check
-#print(len(critical_buck_stress))
+#print(critical_buck_stress)
 plt.figure()
-plt.plot(final_position_list[1:], critical_buck_stress, marker='o')
+#plt.plot(ribs_location_list[:38], critical_buck_stress, marker='o')
+plt.plot(final_position_list, critical_buck_stress)
 plt.xlabel("Spanwise location")
 plt.ylabel("Critical buckling stress")
 plt.show()
