@@ -66,7 +66,7 @@ for i in range(len(ribs_location_list)-1):
 #print(critical_buck_stress)
 plt.figure()
 #plt.plot(ribs_location_list[:38], critical_buck_stress, marker='o')
-# plt.plot(final_position_list, critical_buck_stress)
+plt.plot(final_position_list, critical_buck_stress)
 plt.plot(span, -stress_dist_fun(span[0:]))
 plt.xlabel("Spanwise location")
 plt.ylabel("Critical buckling stress [MPA]")
