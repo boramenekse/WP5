@@ -7,7 +7,7 @@ t_fs_root_1 = 0.025
 t_rs_root_1 = 0.025
 t_fs_root_2 = 0.04
 t_rs_root_2 = 0.04
-t_fs_root_3 = 0.015
+t_fs_root_3 = 0.02
 t_rs_root_3 = 0.015
 
 ### SETTING SOME CONSTANTS VOR THE FORMULAE
@@ -332,6 +332,7 @@ for i in range(len(y_list)):
         l+=1
     else:
         print("philosophy 1, forward spar: fail")
+        break
 if l == len(y_list):
     print("philosophy 1, forward spar: pass")
 print("Margin of safety = "+ str(critical_shear_stress_forward_spar_list_1[1] / max(max(shear_stress_LC_12_1_forward), -min(shear_stress_LC_12_1_forward), max(shear_stress_LC_16_1_forward), -min(shear_stress_LC_16_1_forward))))
@@ -372,6 +373,7 @@ for i in range(len(y_list)):
         l+=1
     else:
         print("philosophy 1, rear spar: fail")
+        break
 if l == len(y_list):
     print("philosophy 1, rear spar: pass")
 print("Margin of safety = "+ str(critical_shear_stress_rear_spar_list_1[1] / max(max(shear_stress_LC_12_1_rear), -min(shear_stress_LC_12_1_rear), max(shear_stress_LC_16_1_rear), -min(shear_stress_LC_16_1_rear))))
@@ -413,6 +415,7 @@ for i in range(len(y_list)):
         l+=1
     else:
         print("philosophy 2, forward spar: fail")
+        break
 if l == len(y_list):
     print("philosophy 2, forward spar: pass")
 print("Margin of safety = "+ str(critical_shear_stress_forward_spar_list_2[1] / max(max(shear_stress_LC_12_2_forward), -min(shear_stress_LC_12_2_forward), max(shear_stress_LC_16_2_forward), -min(shear_stress_LC_16_2_forward))))
@@ -454,6 +457,7 @@ for i in range(len(y_list)):
         l+=1
     else:
         print("philosophy 2, rear spar: fail")
+        break
 if l == len(y_list):
     print("philosophy 2, rear spar: pass")
 print("Margin of safety = "+ str(critical_shear_stress_rear_spar_list_2[1] / max(max(shear_stress_LC_12_2_rear), -min(shear_stress_LC_12_2_rear), max(shear_stress_LC_16_2_rear), -min(shear_stress_LC_16_2_rear))))
@@ -495,6 +499,7 @@ for i in range(len(y_list)):
         l+=1
     else:
         print("philosophy 3, forward spar: fail")
+        break
 if l == len(y_list):
     print("philosophy 3, forward spar: pass")
 print("Margin of safety = "+ str(critical_shear_stress_forward_spar_list_3[1] / max(max(shear_stress_LC_12_3_forward), -min(shear_stress_LC_12_3_forward), max(shear_stress_LC_16_3_forward), -min(shear_stress_LC_16_3_forward))))
@@ -535,6 +540,7 @@ for i in range(len(y_list)):
         l+=1
     else:
         print("philosophy 3, rear spar: fail")
+        break
 if l == len(y_list):
     print("philosophy 3, rear spar: pass")
 print("Margin of safety = "+ str(critical_shear_stress_rear_spar_list_3[1] / max(max(shear_stress_LC_12_3_rear), -min(shear_stress_LC_12_3_rear), max(shear_stress_LC_16_3_rear), -min(shear_stress_LC_16_3_rear))))
