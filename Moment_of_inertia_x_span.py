@@ -297,7 +297,120 @@ Fit_y_1 = test_function(Span_y_x, Fit_A_1, Fit_B_1, Fit_C_1, Fit_D_1)
 # plt.ylabel("Moment of inertia about x axis")
 # plt.show()
 
+import numpy
 
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+#also check compressive failure for this component
+
+n_stringers_top = 15
+n_stringers_bottom = 15
+stringer_area = 0.001
+corner_stringer_area = 0.001
+
+#only works for 1
+t_fs_root_1 = 0.02
+t_rs_root_1 = 0.015
+
+t_tp_root_1 = 0.013
+t_bp_root_1 = 0.013
+
+
+alpha_top = np.arctan((0.045100-0.033900)/0.55)
+alpha_bottom = np.arctan((0.045200-0.016200)/0.55)
+
+### SETTING SOME CONSTANTS VOR THE FORMULAE
+
+c_root = 11.59
+c_tip = 3.25
+wingspan = 66.78
+
+def get_chord(y):
+    c = c_root - y * (c_root-c_tip) / (wingspan/2)
+    return c
+
+def get_forward_spar_lenth(y):
+    l_fs = (0.045100 + 0.045200) * get_chord(y)
+    return l_fs
+
+def get_rear_spar_lenth(y):
+    l_rs = (0.033900 + 0.016200) * get_chord(y)
+    return l_rs
+
+def get_thickness_forward_spar_1(y):
+    t_fs_1 = t_fs_root_1 * get_chord(y) / get_chord(0)
+    return t_fs_1
+
+def get_thickness_rear_spar_1(y):
+    t_rs_1 = t_rs_root_1 * get_chord(y) / get_chord(0)
+    return t_rs_1
+
+def get_thickness_top_plate_1(y):
+    t_fs_1 = t_tp_root_1 * get_chord(y) / get_chord(0)
+    return t_fs_1
+
+def get_thickness_bottom_plate_1(y):
+    t_rs_1 = t_bp_root_1 * get_chord(y) / get_chord(0)
+    return t_rs_1
+
+def get_y_coordinate_top_front(y):
+    return -0.045100 * get_chord(y)
+
+def get_y_coordinate_top_rear(y):
+    return -0.033900 * get_chord(y)
+
+def get_y_coordinate_top_average(y):
+    return (get_y_coordinate_top_front(y) + get_y_coordinate_top_rear(y))/2
+
+def get_y_coordinate_bottom_front(y):
+    return 0.045200 * get_chord(y)
+
+def get_y_coordinate_bottom_rear(y):
+    return 0.016200 * get_chord(y)
+
+def get_y_coordinate_bottom_average(y):
+    return (get_y_coordinate_top_front(y) + get_y_coordinate_top_rear(y))/2
+
+def get_top_plate_length(y):
+    return math.sqrt(0.55**2 + (0.045100 - 0.033900)**2) * get_chord(y)
+
+def get_bottom_plate_length(y):
+    return math.sqrt(0.55**2 + (0.045200 - 0.016200)**2) * get_chord(y)
+
+def get_stringer_y_locations(y):
+    y_locations = []
+    for i in range(n_stringers_top):
+        y_locations.append(get_chord(y) * (0.045100 - (0.045100 - 0.033900)*(i+1)/(n_stringers_top+1)))
+    for i in range(n_stringers_bottom):
+        y_locations.append(get_chord(y) * (-0.045200 + (0.045200 - 0.016200)*(i+1)/(n_stringers_bottom+1)))
+    return y_locations
+
+def get_I_xx_plates_and_spars_only(y):
+    contribution_spar = (1/12) * get_thickness_forward_spar_1(y) * get_forward_spar_lenth(y)**3 + (1/12) * get_thickness_rear_spar_1(y) * get_rear_spar_lenth(y)**3
+    contribution_plates = (1/12) * get_top_plate_length(y) * get_thickness_top_plate_1(y)**3 * math.sin(alpha_top)**2 + (1/12) * get_bottom_plate_length(y) * get_thickness_bottom_plate_1(y)**3 * math.sin(alpha_bottom)**2
+    contribution_plates_displacement = get_top_plate_length(y) * get_thickness_top_plate_1(y) * get_y_coordinate_top_average(y)**2 + get_bottom_plate_length(y) * get_thickness_bottom_plate_1(y) * get_y_coordinate_bottom_average(y)**2
+    return contribution_spar + contribution_plates + contribution_plates_displacement
+
+def get_I_xx_stringers_and_corner_stringers(y):
+    contribution = corner_stringer_area * (0.045100**2 + 0.033900**2 + 0.045200**2 + 0.016200**2)
+    y_locations = get_stringer_y_locations(y)
+    for y in y_locations:
+        contribution += stringer_area * y**2
+    return contribution
+
+def get_I_xx(y):
+    return get_I_xx_plates_and_spars_only(y) + get_I_xx_stringers_and_corner_stringers(y)
+
+y_list = np.linspace(0, 33.39, 1000)
+I_xx_list = []
+for y in y_list:
+    I_xx_list.append(get_I_xx(y))
+
+def test_function(x, A, B, C, D, E):
+    return A * x**4 + B * x**3 + C*x**2 + D*x + E
+Parameters1 = np.polyfit(y_list, I_xx_list, 4)
 
 
 
