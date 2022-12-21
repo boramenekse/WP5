@@ -37,11 +37,13 @@ sigma = smp.symbols('\u03C3', real=True)
 eta = smp.symbols('\u03B7', real=True)
 xi = smp.symbols('\u03BE', real=True)
 
-# nd = str.stress_16_3.subs([(z, str.br_z3), (x, str.br_x3)]).simplify()
+# nd = str.stress_16_1.subs([(z, str.br_z1), (x, str.br_x1)]).simplify()
+# print(nd)
 span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
 heaviside = smp.Heaviside(y-11.69, 1)
-nd = (5140*(-100*y + (100*y - 1169)*heaviside + 1169)*(5.42626672758448e-7*y**3 - 1.88694820902376e-5*y**2 - 0.071424801946438*y + 3.28756683861378)*(7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184) + (9.75121500397927e-9*y**3 - 3.39092024244981e-7*y**2 + 0.00510357950779944*y - 0.237060165638359)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263)*(0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y + (0.400160720985555*y**5 - 9.3979422386379*y**4 - 1047.3842177269*y**3 + 6708.87061321202*y**2 + 1967575.61730709*y - 39113307.3596346)*heaviside - (0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y - 33488163.0896061)*heaviside - 33488163.0896061))/((7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263))
+# nd = (5140*(-100*y + (100*y - 1169)*heaviside + 1169)*(5.42626672758448e-7*y**3 - 1.88694820902376e-5*y**2 - 0.071424801946438*y + 3.28756683861378)*(7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184) + (9.75121500397927e-9*y**3 - 3.39092024244981e-7*y**2 + 0.00510357950779944*y - 0.237060165638359)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263)*(0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y + (0.400160720985555*y**5 - 9.3979422386379*y**4 - 1047.3842177269*y**3 + 6708.87061321202*y**2 + 1967575.61730709*y - 39113307.3596346)*heaviside - (0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y - 33488163.0896061)*heaviside - 33488163.0896061))/((7.78733677625702e-7*y**3 - 7.77370531688468e-5*y**2 + 0.0027848684159305*y - 0.0358283831164184)*(2.08836637456291e-5*y**3 - 0.00206034315896725*y**2 + 0.0724190974615689*y - 0.908260313093263))
 # nd = (5140*(-100*y + (100*y - 1169)*heaviside + 1169)*(5.42626672758448e-7*y**3 - 1.88694820902376e-5*y**2 - 0.071424801946438*y + 3.28756683861378)*(7.78733870357834e-7*y**3 - 7.50415077493545e-5*y**2 + 0.00253491030860201*y - 0.0300337363084974) + (9.75121500397927e-9*y**3 - 3.39092024244981e-7*y**2 + 0.00510357950779944*y - 0.237060165638359)*(2.08842547213758e-5*y**3 - 0.00201247951941106*y**2 + 0.0679817775327849*y - 0.805451291334324)*(0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y + (0.400160720985555*y**5 - 9.3979422386379*y**4 - 1047.3842177269*y**3 + 6708.87061321202*y**2 + 1967575.61730709*y - 39113307.3596346)*heaviside - (0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y - 33488163.0896061)*heaviside - 33488163.0896061))/((7.78733870357834e-7*y**3 - 7.50415077493545e-5*y**2 + 0.00253491030860201*y - 0.0300337363084974)*(2.08842547213758e-5*y**3 - 0.00201247951941106*y**2 + 0.0679817775327849*y - 0.805451291334324))
+nd = (5140*(-100*y + (100*y - 1169)*heaviside + 1169)*(5.3229971557073e-19*y**3 - 2.35518596836698e-17*y**2 - 0.0718773721330028*y + 3.33260133328251)*(7.96371363901842e-9*y**4 - 1.47811910673145e-6*y**3 + 0.000105288889306002*y**2 - 0.0034060384975003*y + 0.0421093825303379) + (2.71678538500068e-20*y**3 - 2.02637753771834e-18*y**2 - 0.00509664457596961*y + 0.236306420297532)*(2.08841726980762e-5*y**3 - 0.0020254948757701*y**2 + 0.0691888314097523*y - 0.83342866611924)*(0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y + (0.400160720985555*y**5 - 9.3979422386379*y**4 - 1047.3842177269*y**3 + 6708.87061321202*y**2 + 1967575.61730709*y - 39113307.3596346)*heaviside - (0.400160720998562*y**5 - 9.39794223895798*y**4 - 1047.38421772391*y**3 + 6708.87061319162*y**2 + 1582191.86730725*y - 33488163.0896061)*heaviside - 33488163.0896061))/((2.08841726980762e-5*y**3 - 0.0020254948757701*y**2 + 0.0691888314097523*y - 0.83342866611924)*(7.96371363901842e-9*y**4 - 1.47811910673145e-6*y**3 + 0.000105288889306002*y**2 - 0.0034060384975003*y + 0.0421093825303379))
 # plt.figure()
 # des_list = []
 # for i in range(0, 1000):
@@ -132,9 +134,15 @@ while dy1 <= 0.5*var.Span:
     kc1 = abs(smp.solve(eq1, kc)[0])
     if len(smp.solve(kc1-kfun, ab))==0:
       dylist1.append(dy1)
-      index = alist1.index(max(alist1))
-      alist1.append(alist1[index])
-      dy1 += max(alist1)
+      if len(alist1) ==0:
+        alist1.append(1)
+        dy1 += 1
+        continue
+      if len(alist1) !=0:
+        index = alist1.index(max(alist1))
+        alist1.append(alist1[index])
+        dy1 += max(alist1)
+        continue
       continue
     a_b1 = smp.solve(kc1-kfun, ab)[-1]
     a1 = (a_b1*btopfun.subs(y, dy1)).evalf()
@@ -158,9 +166,15 @@ while dy1 <= 0.5*var.Span:
     kc1 = abs(smp.solve(eq1, kc)[0])
     if len(smp.solve(kc1-kfun, ab))==0:
       dylist2.append(dy1)
-      index = alist2.index(max(alist2))
-      alist2.append(alist2[index])
-      dy1 += max(alist2)
+      if len(alist2) == 0:
+        alist2.append(1)
+        dy1 += 1
+        continue
+      if len(alist2) != 0:
+        index = alist2.index(max(alist2))
+        alist2.append(alist2[index])
+        dy1 += max(alist2)
+        continue
       continue
     a_b1 = smp.solve(kc1-kfun, ab)[-1]
     a1 = (a_b1*btopfun.subs(y, dy1)).evalf()
@@ -195,9 +209,15 @@ while dy2 <= 0.5*var.Span:
     kc3 = abs(smp.solve(eq3, kc)[0])
     if len(smp.solve(kc3-kfun, ab))==0:
       dylist3.append(dy2)
-      index = alist3.index(max(alist3))
-      alist3.append(alist3[index])
-      dy2 += max(alist3)
+      if len(alist3) ==0:
+        alist3.append(1)
+        dy2 += 1
+        continue
+      if len(alist3) !=0:
+        index = alist3.index(max(alist3))
+        alist3.append(alist3[index])
+        dy2 += max(alist3)
+        continue
       continue
     a_b3 = smp.solve(kc3-kfun, ab)[-1]
     a3 = (a_b3*bbotfun.subs(y, dy2)).evalf()
@@ -207,9 +227,15 @@ while dy2 <= 0.5*var.Span:
     kc4 = abs(smp.solve(eq4, kc)[0])
     if len(smp.solve(kc3-kfun, ab))==0:
       dylist3.append(dy2)
-      index = alist3.index(max(alist3))
-      alist3.append(alist3[index])
-      dy2 += max(alist3)
+      if len(alist3) == 0:
+        alist3.append(1)
+        dy2 += 1
+        continue
+      if len(alist3) != 0:
+        index = alist3.index(max(alist3))
+        alist3.append(alist3[index])
+        dy2 += max(alist3)
+        continue
       continue
     a_b4 = smp.solve(kc4-kfun, ab)[-1]
     a4 = a_b4*bavg2
@@ -221,9 +247,15 @@ while dy2 <= 0.5*var.Span:
     kc3 = abs(smp.solve(eq3, kc)[0])
     if len(smp.solve(kc3-kfun, ab))==0:
       dylist4.append(dy2)
-      index = alist4.index(max(alist4))
-      alist4.append(alist4[index])
-      dy2 += max(alist4)
+      if len(alist4) ==0:
+        alist4.append(1)
+        dy2 += 1
+        continue
+      if len(alist4) != 0:
+        index = alist4.index(max(alist4))
+        alist4.append(alist4[index])
+        dy2 += max(alist4)
+        continue
       continue
     a_b3 = smp.solve(kc3-kfun, ab)[-1]
     a3 = (a_b3*bbotfun.subs(y, dy2)).evalf()
@@ -233,9 +265,15 @@ while dy2 <= 0.5*var.Span:
     kc4 = abs(smp.solve(eq4, kc)[0])
     if len(smp.solve(kc4-kfun, ab))==0:
       dylist4.append(dy2)
-      index = alist4.index(max(alist4))
-      alist4.append(alist4[index])
-      dy2 += max(alist4)
+      if len(alist4) ==0:
+        alist4.append(1)
+        dy2 += 1
+        continue
+      if len(alist4) !=0:
+        index = alist4.index(max(alist4))
+        alist4.append(alist4[index])
+        dy2 += max(alist4)
+        continue
       continue
     a_b4 = smp.solve(kc4-kfun, ab)[-1]
     a4 = a_b4*bavg2

@@ -27,7 +27,7 @@ ixy = smp.symbols('Ixy', real=True)
 mx = smp.symbols('Mx', real=True)
 my = smp.symbols('My', real=True)
 
-stress_dist_fun = smp.lambdify([y], str.stress_16_3.subs([(z, str.br_z3), (x, str.br_x3)]).simplify())
+stress_dist_fun = smp.lambdify([y], str.stress_16_1.subs([(z, str.br_z1), (x, str.br_x1)]).simplify())
 
 #Moment of inertia calculation X axis for stringer
 #centroid z direction
@@ -66,7 +66,7 @@ for i in range(len(ribs_location_list)-1):
 #print(critical_buck_stress)
 plt.figure()
 #plt.plot(ribs_location_list[:38], critical_buck_stress, marker='o')
-plt.plot(final_position_list, critical_buck_stress)
+# plt.plot(final_position_list, critical_buck_stress)
 plt.plot(span, -stress_dist_fun(span[0:]))
 plt.xlabel("Spanwise location")
 plt.ylabel("Critical buckling stress [MPA]")

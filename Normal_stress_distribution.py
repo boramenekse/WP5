@@ -49,7 +49,7 @@ izz_fun3 = par_list_z[2][0]*y**3+par_list_z[2][1]*y**2+par_list_z[2][2]*y+par_li
 
 # Ixx
 par_list_x = print_fit()
-ixx_fun1 = par_list_x[0][0]*y**3+par_list_x[0][1]*y**2+par_list_x[0][2]*y+par_list_x[0][3]
+ixx_fun1 = par_list_x[0][0]*y**4+par_list_x[0][1]*y**3+par_list_x[0][2]*y**2+par_list_x[0][3]*y+par_list_x[0][4]
 ixx_fun2 = par_list_x[1][0]*y**3+par_list_x[1][1]*y**2+par_list_x[1][2]*y+par_list_x[1][3]
 ixx_fun3 = par_list_x[2][0]*y**3+par_list_x[2][1]*y**2+par_list_x[2][2]*y+par_list_x[2][3]
 
