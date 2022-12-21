@@ -65,15 +65,15 @@ heaviside = smp.Heaviside(y-11.69, 1)
 mx_fun_12 = md_fun1_12-md_fun1_12*heaviside+md_fun2_12*heaviside
 mx_fun_16 = md_fun1_16-md_fun1_16*heaviside+md_fun2_16*heaviside
 Ny_fun = -500000 + 500000*heaviside
-mz_fun = -6008660+514000*y-(-6008660+514000*y)*heaviside
+mz_fun = (-6008660+514000*y-(-6008660+514000*y)*heaviside)
 
 span = np.linspace(0, 0.5*var.Span, 1000, endpoint=True)
-#plt.figure()
-#plt.plot(span, -smp.lambdify([x], mx_fun_12)(span[0:]))
-#plt.plot(span, -smp.lambdify([x], mx_fun_16)(span[0:]))
-#plt.plot(span, smp.lambdify([x], Ny_fun)(span[0:]))
-#plt.plot(span, smp.lambdify([x], mz_fun)(span[0:]))
-#plt.show()
+# plt.figure()
+# plt.plot(span, -smp.lambdify([y], mx_fun_12)(span[0:]))
+# plt.plot(span, -smp.lambdify([y], mx_fun_16)(span[0:]))
+# # plt.plot(span, smp.lambdify([y], Ny_fun)(span[0:]))
+# plt.plot(span, smp.lambdify([y], mz_fun)(span[0:]))
+# plt.show()
 
 
 
@@ -125,8 +125,8 @@ br_x3 = 0.55*c_fun-fit3x
 # print(cgx.Centroid_x, cgz.Centroid_z) # These values should be for the root
 # print(stress_12.subs(y, 0))
 # print(stress_12.subs(y, 0.5*var.Span))
-stress_fun12_1 = smp.lambdify([y], stress_12_1.subs([(z, -fit1z), (x, -fit1x)]).simplify())
-stress_fun12_2 = smp.lambdify([y], stress_12_2.subs([(z, -fit2z), (x, -fit2x)]).simplify())
+stress_fun12_1 = smp.lambdify([y], stress_12_1.subs([(z, -fit1z), (x, -fit1z)]).simplify())
+stress_fun12_2 = smp.lambdify([y], stress_12_2.subs([(z, -fit2z), (x, -fit2z)]).simplify())
 stress_fun12_3 = smp.lambdify([y], stress_12_3.subs([(z, -fit3z), (x, -fit3x)]).simplify())
 stress_fun16_1 = smp.lambdify([y], stress_16_1.subs([(z, br_z1), (x, br_x1)]).simplify())
 stress_fun16_2 = smp.lambdify([y], stress_16_2.subs([(z, br_z2), (x, br_x2)]).simplify())
