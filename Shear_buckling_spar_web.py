@@ -273,6 +273,15 @@ shear_stress_LC_16_2_forward = []
 shear_stress_LC_16_2_rear = []
 shear_stress_LC_16_3_forward = []
 shear_stress_LC_16_3_rear = []
+
+mos_forward_1 = []
+mos_rear_1 = []
+mos_forward_2 = []
+mos_rear_2 = []
+mos_forward_3 = []
+mos_rear_3 = []
+
+
 for i in range(len(y_list)):
     #shear_stress_LC_8_1_forward.append(average_shear_stress_8_1_list[i] - shear_stress_torque_LC_8_1_forward[i])
     #shear_stress_LC_8_1_rear.append(average_shear_stress_8_1_list[i] + shear_stress_torque_LC_8_1_rear[i])
@@ -293,7 +302,50 @@ for i in range(len(y_list)):
     shear_stress_LC_16_3_forward.append(abs(average_shear_stress_16_3_list[i] - shear_stress_torque_LC_16_3_forward[i]))
     shear_stress_LC_16_3_rear.append(abs(average_shear_stress_16_3_list[i] + shear_stress_torque_LC_16_3_rear[i]))
 
+    mos_forward_1.append(critical_shear_stress_forward_spar_list_1[i] / max(shear_stress_LC_12_1_forward[i], shear_stress_LC_16_1_forward[i]))
+    mos_rear_1.append(critical_shear_stress_rear_spar_list_1[i] / max(shear_stress_LC_12_1_rear[i], shear_stress_LC_16_1_rear[i]))
+    mos_forward_2.append(critical_shear_stress_forward_spar_list_2[i] / max(shear_stress_LC_12_2_forward[i], shear_stress_LC_16_2_forward[i]))
+    mos_rear_2.append(critical_shear_stress_rear_spar_list_2[i] / max(shear_stress_LC_12_2_rear[i], shear_stress_LC_16_2_rear[i]))
+    mos_forward_3.append(critical_shear_stress_forward_spar_list_3[i] / max(shear_stress_LC_12_3_forward[i], shear_stress_LC_16_3_forward[i]))
+    mos_rear_3.append(critical_shear_stress_rear_spar_list_3[i] / max(shear_stress_LC_12_3_rear[i], shear_stress_LC_16_3_rear[i]))
+
 #PLOTTING OF THE DIFFERENT PHILOSOPHYS AND FORWARD OR REAR
+
+plt.plot(y_list, mos_forward_1)
+plt.plot(y_list, mos_rear_1)
+plt.legend(['M.o.S. forward spar', 'M.o.S. forward spar'])
+plt.xlabel("span [m]")
+plt.ylabel("Margin of safety [-]")
+plt.title("Margin of safety spars design philosophy 1")
+plt.ylim(0, 3 * max(min(mos_forward_1), min(mos_rear_1)))
+plt.grid()
+plt.show()
+
+plt.plot(y_list, mos_forward_2)
+plt.plot(y_list, mos_rear_2)
+plt.legend(['M.o.S. forward spar', 'M.o.S. forward spar'])
+plt.xlabel("span [m]")
+plt.ylabel("Margin of safety [-]")
+plt.title("Margin of safety spars design philosophy 2")
+plt.ylim(0, 3 * max(min(mos_forward_2), min(mos_rear_2)))
+plt.grid()
+plt.show()
+
+plt.plot(y_list, mos_forward_3)
+plt.plot(y_list, mos_rear_3)
+plt.legend(['M.o.S. forward spar', 'M.o.S. forward spar'])
+plt.xlabel("span [m]")
+plt.ylabel("Margin of safety [-]")
+plt.title("Margin of safety spars design philosophy 3")
+plt.ylim(0, 3 * max(min(mos_forward_3), min(mos_rear_3)))
+plt.grid()
+plt.show()
+
+
+
+
+
+
 
 #Desing philosophy 1
 #Front

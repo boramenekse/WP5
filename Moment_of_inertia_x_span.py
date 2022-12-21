@@ -297,8 +297,6 @@ Fit_y_1 = test_function(Span_y_x, Fit_A_1, Fit_B_1, Fit_C_1, Fit_D_1)
 # plt.ylabel("Moment of inertia about x axis")
 # plt.show()
 
-import numpy
-
 import math
 import numpy as np
 import matplotlib.pyplot as plt
