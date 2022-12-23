@@ -106,6 +106,10 @@ for i in range(len(ribs_location_list_3)-1):
         list_position_3.append(end)
     margin_of_safety_list_3.append(ratio)
 
+plt.figure()
+plt.plot(list_position_3, margin_of_safety_list_3)
+plt.show()
+
 margin_of_safety_list_1 = []
 list_position_1 = []
 for i in range(len(ribs_location_list_1)-1):
