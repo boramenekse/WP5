@@ -15,8 +15,8 @@ g_mod = 26*10**9 #[pa]
 
 #L stringer parameters; with these, the stringer area is equal to 10 cm2
 
-Str_h_len = 0.07
-Str_v_len = 0.04
+Str_h_len = 0.04
+Str_v_len = 0.07
 Str_h_th = 0.01
 Str_v_th = 0.01
 
