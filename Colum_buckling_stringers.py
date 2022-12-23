@@ -109,6 +109,8 @@ for i in range(len(ribs_location_list_3)-1):
 
 plt.figure()
 plt.plot(list_position_3, margin_of_safety_list_3)
+plt.xlabel("Spanwise location")
+plt.ylabel("Margin of safety [-]")
 plt.show()
 
 margin_of_safety_list_1 = []
@@ -136,6 +138,8 @@ for i in range(len(ribs_location_list_1)-1):
 
 plt.figure()
 plt.plot(list_position_1, margin_of_safety_list_1)
+plt.xlabel("Spanwise location")
+plt.ylabel("Margin of safety [-]")
 plt.show()
 
 margin_of_safety_list_2 = []
@@ -163,4 +167,6 @@ for i in range(len(ribs_location_list_2)-1):
 
 plt.figure()
 plt.plot(list_position_2, margin_of_safety_list_2)
+plt.xlabel("Spanwise location")
+plt.ylabel("Margin of safety [-]")
 plt.show()
