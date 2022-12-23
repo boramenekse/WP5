@@ -120,10 +120,10 @@ max_twist = 0
 
 #L stringer parameters
 
-Str_h_len = 0.02
-Str_v_len = 0.048
-Str_h_th = 0.004
-Str_v_th = 0.004
+Str_h_len = 0.04
+Str_v_len = 0.07
+Str_h_th = 0.01
+Str_v_th = 0.01
 
 #Str_A = 0.001 #[m^2]
 Str_A = Str_h_len*Str_h_th + Str_v_len*Str_v_th         #should be 10 cm^2 from last report
